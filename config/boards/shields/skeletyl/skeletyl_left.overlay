@@ -1,7 +1,5 @@
-// skeletyl_left.overlay
- 
 #include "skeletyl.dtsi"
- 
+
 &kscan0 {
     row-gpios
         = <&pro_micro 19 (GPIO_ACTIVE_HIGH)> // row0

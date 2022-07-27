@@ -1,11 +1,9 @@
-// skeletyl_right.overlay
- 
 #include "skeletyl.dtsi"
- 
+
 &default_transform { // The matrix transform for this board is 5
     col-offset = <5>;
 };
- 
+
 &kscan0 {
     row-gpios
         = <&pro_micro 4 (GPIO_ACTIVE_HIGH)> // row0
