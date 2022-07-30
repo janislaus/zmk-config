@@ -6,12 +6,25 @@
 // (https://github.com/manna-harbour/miryoku).
 // Customize on your own on the config folder.
 
-#define BASE    0
-#define NAV     1
-#define SYM     2
-#define NUM     3
-#define FUN     4
-#define MED     5
+
+#define DEFAULT 0
+#define NUMMY   1
+#define SIGNS   2
+
+&mt {
+  flavor = "tap-preferred";
+  tapping-term-ms = <180>;
+};
+/ {
+    combos {
+        compatible = "zmk,combos";
+        combo_ret {
+            timeout-ms = <50>;
+            key-positions = <13 16>;
+            bindings = <&kp RET>;
+        };
+    };
+};
 
 / {
     behaviors {
@@ -34,10 +47,24 @@
             bindings = <
     &kp DE_Q  &kp DE_W  &kp DE_E  &kp DE_R  &kp DE_T     &kp DE_Y  &kp DE_U  &hm LGUI DE_I      &kp DE_O    &kp DE_P
     &kp DE_A  &kp DE_S  &kp DE_D  &hm LALT DE_F  &kp DE_G     &kp DE_H  &kp DE_J  &kp DE_K      &kp DE_L    &kp BSPC
-    &kp DE_Z  &kp DE_X  &kp DE_C  &kp DE_V  &kp DE_B     &kp DE_N  &kp DE_M  &kp COMMA  &kp DOT  &kp FSLH
-                  &kp ESC  &kp SPACE  &kp LSHFT     &kp LCTRL  &kp RET &kp DEL
+    &kp DE_Z  &kp DE_X  &kp DE_C  &kp DE_V  &kp DE_B     &kp DE_N  &kp DE_M  &kp COMMA  &kp DOT  &kp DE_MINS
+                  &kp ESC  &kp SPACE  &kp LSHFT     &kp LCTRL  &kp ESC &kp DEL
             >;
         };
+
+        NUMMY  {
+// ---------------------------------------------------------------------------------------------------------------------------------
+// |  `    |  !   |  "   |  0    |  $    |  '    |                                          |   &   |  /    |   +    |   *   |    #   |    \  |
+// |  ALT  |  1   |  2   |  3    |  4    |  5    |                                          |   6   |  7    |   8    |   9   |   <--  |    /  |
+// | SHIFT |  =   |  ?   | RET   |  ESC  |  ~    | L SHIFT | L SHIFT |  | L SHIFT | L SHIFT |   |   |  %    |   ,    |   .   |    -   |  LSHFT |
+//                       | GUI   | DEL   | RET   |  SPACE  |   ESC   |  |   RET   |  SPACE  | TAB   | BSPC  |  R-ALT |
+		bindings = <
+&none &kp EXCL &kp RA(DQT)  &kp N0 &kp DLLR &mt RA(GRAVE) RA(SQT)                 &kp AMPS &kp FSLH &kp PLUS &kp STAR &kp HASH &kp BSLH
+&none &mt RA(N5) N1 &two_lbrc &three_lbkt &four_lpar &mt LT N5                    &mt GT N6 &seven_rpar &eight_rbkt &nine_rbrc &kp BSPC &kp FSLH
+&none &kp EQUAL &kp QMARK &kp DEL &kp RET &kp RA(TILDE) &kp LSHFT &kp LSHFT   &kp LSHFT &kp LSHFT &kp PIPE &kp PRCNT &semi &colon &kp MINUS &kp LSHFT
+		 &none &kp ESC &kp SPACE &sk LSHFT &none                      &none &none &none &none &none
+		>;
+            };
 
     };
 };
