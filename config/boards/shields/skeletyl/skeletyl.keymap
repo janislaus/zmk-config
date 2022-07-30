@@ -53,7 +53,7 @@
     &kp DE_Q  &kp DE_W  &kp DE_E  &kp DE_R  &kp DE_T       &kp DE_Y  &kp DE_U  &hm LGUI DE_I      &kp DE_O    &kp DE_P
     &kp DE_A  &kp DE_S  &kp DE_D  &hm LALT DE_F  &kp DE_G  &kp DE_H  &kp DE_J  &kp DE_K      &kp DE_L    &kp BSPC
     &kp DE_Z  &kp DE_X  &kp DE_C  &kp DE_V  &kp DE_B       &kp DE_N  &kp DE_M  &kp COMMA  &kp DOT  &kp DE_MINS
-                  &sk LSHFT  &kp SPACE  &sk LSHFT          &sk LCTRL  &kp ESC &kp DEL
+                  &sk LSHFT  &lt SIGNS SPACE  &sk LSHFT    &sk LCTRL  &lt NUMMY ESC &kp DEL
             >;
         };
 
@@ -67,7 +67,7 @@
 &kp DE_EXLM &kp DE_DQUO  &kp N0 &mt DLLR DE_SECT &kp DE_QUOT         &kp DE_AMPR &kp DE_SLSH &kp DE_PLUS &kp DE_ASTR &kp DE_HASH
 &kp N1 &kp N2 &kp N3 &kp N4 &kp N5                                   &kp N6 &kp N7 &kp N8 &kp N9 &kp BSPC
 &kp DE_EQL &kp DE_QUES &kp DE_PERC &kp DE_CIRC &mt DE_ACUT DE_GRV    &kp DE_PIPE &kp DE_BSLS &kp COMMA &kp DOT &kp DE_MINS
-		 &sk LSHFT &kp SPACE &sk LSHFT                       &kp DEL &kp ESC &kp LCTRL
+		 &sk LSHFT &kp SPACE &sk LSHFT                       &sk LCTRL &kp ESC &kp DEL
 		>;
             };
 
