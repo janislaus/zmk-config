@@ -1,18 +1,6 @@
-config SHIELD_SKELETYL
-    bool
-
 config SHIELD_SKELETYL_LEFT
-	def_bool $(shields_list_contains,SKELETYL_left)
-	select SHIELD_SKELETYL
+    def_bool $(shields_list_contains,skeletyl_left)
 
 config SHIELD_SKELETYL_RIGHT
-	def_bool $(shields_list_contains,SKELETYL_right)
-	select SHIELD_SKELETYL
+    def_bool $(shields_list_contains,skeletyl_right)
 
-config SHIELD_SKELETYL_REV2_LEFT
-	def_bool $(shields_list_contains,SKELETYL_rev2_left)
-	select SHIELD_SKELETYL
-
-config SHIELD_SKELETYL_REV2_RIGHT
-	def_bool $(shields_list_contains,SKELETYL_rev2_right)
-	select SHIELD_SKELETYL

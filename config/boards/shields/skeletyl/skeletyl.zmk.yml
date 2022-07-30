@@ -7,9 +7,6 @@ requires: [pro_micro]
 exposes: [i2c_oled]
 features:
   - keys
-  - display
-  - encoder
-  - underglow
 siblings:
   - skeletyl_left
   - skeletyl_right
