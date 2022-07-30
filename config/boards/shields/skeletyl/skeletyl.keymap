@@ -54,15 +54,15 @@
 
         NUMMY  {
 // ---------------------------------------------------------------------------------------------------------------------------------
-// |  `    |  !   |  "   |  0    |  $    |  '    |                                          |   &   |  /    |   +    |   *   |    #   |    \  |
-// |  ALT  |  1   |  2   |  3    |  4    |  5    |                                          |   6   |  7    |   8    |   9   |   <--  |    /  |
-// | SHIFT |  =   |  ?   | RET   |  ESC  |  ~    | L SHIFT | L SHIFT |  | L SHIFT | L SHIFT |   |   |  %    |   ,    |   .   |    -   |  LSHFT |
-//                       | GUI   | DEL   | RET   |  SPACE  |   ESC   |  |   RET   |  SPACE  | TAB   | BSPC  |  R-ALT |
+// |  !   |  "   |  0    |  $    |  '    |              |   &   |  /    |   +    |   *   |    #   |
+// |  1   |  2   |  3    |  4    |  5    |              |   6   |  7    |   8    |   9   |   <--  |
+// |  =   |  ?   |  %    |  | ^  |  ` ´  |              |   |   |  \    |   ,    |   .   |    -   |
+//                       | DEL   | RET   |  SPACE       |   RET   |  SPACE  | TAB   |
 		bindings = <
-&none &kp EXCL &kp RA(DQT)  &kp N0 &kp DLLR &mt RA(GRAVE) RA(SQT)                 &kp AMPS &kp FSLH &kp PLUS &kp STAR &kp HASH &kp BSLH
-&none &mt RA(N5) N1 &two_lbrc &three_lbkt &four_lpar &mt LT N5                    &mt GT N6 &seven_rpar &eight_rbkt &nine_rbrc &kp BSPC &kp FSLH
-&none &kp EQUAL &kp QMARK &kp DEL &kp RET &kp RA(TILDE) &kp LSHFT &kp LSHFT   &kp LSHFT &kp LSHFT &kp PIPE &kp PRCNT &semi &colon &kp MINUS &kp LSHFT
-		 &none &kp ESC &kp SPACE &sk LSHFT &none                      &none &none &none &none &none
+&kp DE_EXLM &kp DE_DQUO  &kp N0 &mt DLLR DE_SECT &kp DE_QUOT         &kp DE_AMPR &kp DE_SLSH &kp DE_PLUS &kp DE_ASTR &kp DE_HASH
+&kp N1 &kp N2 &kp N3 &kp N4 &kp N5                                   &kp N6 &kp N7 &kp N8 &kp N9 &kp BSPC
+&kp DE_EQL &kp DE_QUES &kp DE_PERC &kp DE_CIRC &mt DE_ACUT DE_GRV    &kp DE_PIPE &kp DE_BSLS &kp COMMA &kp DOT &kp DE_MINUS
+		 &kp ESC &kp SPACE &sk LSHFT                         &kp LCTRL &kp ESC &kp DEL
 		>;
             };
 
