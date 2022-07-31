@@ -29,6 +29,13 @@
             key-positions = <12 17>;
             bindings = <&kp TAB>;
         };
+        td0: tap_dance_0 {
+            compatible = "zmk,behavior-tap-dance";
+            label = "TAP_DANCE_0";
+            #binding-cells = <0>;
+            tapping-term-ms = <200>;
+            bindings = <&kp N1>, <&kp N2>, <&kp N3>;
+        };
     };
 };
 
@@ -74,14 +81,14 @@
             label = "TD_COPY";
             #binding-cells = <0>;
             tapping-term-ms = <200>;
-            bindings = <&kp LC(DE_C)>, <&kp LC(LS(DE_C))>;
+            bindings = <&kp LC(DE_C)>, <&kp LS(LC(DE_C))>;
         };
         td_paste: td_paste {
             compatible = "zmk,behavior-tap-dance";
             label = "TD_PASTE";
             #binding-cells = <0>;
             tapping-term-ms = <200>;
-            bindings = <&kp LC(DE_V)>, <&kp LC(LS(DE_V))>;
+            bindings = <&kp LC(DE_V)>, <&kp LS(LC(DE_V))>;
         };
     };
 
@@ -99,28 +106,28 @@
 
         NUMMY  {
 // ---------------------------------------------------------------------------------------------------------------------------------
-// |  !   |  "   |  0    |  $    |  '    |              |   &   |  /    |   +    |   *   |    #   |
+// |  !   |  "   |  0    |  $/§  |  %    |              |   &   |  /    |   +    |   *   |    #   |
 // |  1   |  2   |  3    |  4    |  5    |              |   6   |  7    |   8    |   9   |   <--  |
-// |  =   |  ?   |  %    |  ~    |  ^    |              |   |   |  \    |   ,    |   .   |    -   |
+// |  ~   |  ?   |  '    |  =    |  ^    |              |   |   |  \    |   ,    |   .   |    -   |
 //                       | DEL   | RET   |  SPACE       |   RET   |  SPACE  | TAB   |
                 bindings = <
-&kp DE_EXLM &kp DE_DQUO  &kp N0 &mt DE_SECT DLLR &kp DE_QUOT         &kp DE_AMPR &kp DE_SLSH &kp DE_PLUS &kp DE_ASTR &kp DE_HASH
+&kp DE_EXLM &kp DE_DQUO  &kp N0 &mt DE_SECT DLLR &kp DE_PERC         &kp DE_AMPR &kp DE_SLSH &kp DE_PLUS &kp DE_ASTR &kp DE_HASH
 &kp N1 &kp N2 &kp N3 &kp N4 &kp N5                                   &kp N6 &kp N7 &kp N8 &kp N9 &kp BSPC
-&kp DE_EQL &kp DE_QUES &kp DE_PERC &kp DE_TILD &circ              &kp DE_PIPE &kp DE_BSLS &kp COMMA &kp DOT &kp DE_MINS
+&kp DE_TILD &kp DE_QUOT &kp DE_PERC &kp DE_EQL &circ              &kp DE_PIPE &kp DE_BSLS &kp COMMA &kp DOT &kp DE_MINS
                    &lt EXTRA LCTRL &lt SIGNS SPACE  &kp LGUI            &sk DEL  &lt NUMMY ESC &kp RCTRL
                 >;
             };
 
         SIGNS  {
 // ---------------------------------------------------------------------------------------------------------------------------------
-// |  !   |  "   |  0    |  $/§  |  '    |              |   &   |  /    |   +    |   *   |    #   |
+// |  !   |  "   |  0    |  $/§  |  %    |              |   &   |  /    |   +    |   *   |    #   |
 // |  `   |  2   |  3    |  4    |  5    |              |   6   |  7    |   8    |   9   |   <--  |
-// |  =   |  ?   |  %    |  ~    |  ^    |              |   |   |  \    |   ,    |   .   |    -   |
+// |  ~   |  ?   |  '    |  =    |  ^    |              |   |   |  \    |   ,    |   .   |    -   |
 //                       | DEL   | RET   |  SPACE       |   RET   |  SPACE  | TAB   |
                 bindings = <
-&kp DE_EXLM &kp DE_DQUO  &kp DE_DEG &mt DE_SECT DLLR &kp DE_QUOT         &kp DE_AMPR &kp DE_SLSH &kp DE_PLUS &kp DE_ASTR &kp DE_HASH
+&kp DE_EXLM &kp DE_DQUO  &kp DE_DEG &mt DE_SECT DLLR &kp DE_PERC         &kp DE_AMPR &kp DE_SLSH &kp DE_PLUS &kp DE_ASTR &kp DE_HASH
 &grave &kp DE_LCBR &kp DE_LBRC &kp DE_LPRN &kp DE_LABK               &kp DE_RABK &kp DE_RPRN &kp DE_RBRC &kp DE_RCBR &kp BSPC
-&kp DE_EQL &kp DE_QUES &kp DE_PERC &kp DE_TILD &circ              &kp DE_PIPE &kp DE_BSLS &kp COMMA &kp DOT &kp DE_MINS
+&kp DE_TILD &kp DE_QUES &kp DE_QUOT &kp DE_EQL &circ              &kp DE_PIPE &kp DE_BSLS &kp COMMA &kp DOT &kp DE_MINS
                    &lt EXTRA LCTRL &lt SIGNS SPACE  &kp LGUI            &sk DEL  &lt NUMMY ESC &kp RCTRL
                 >;
             };
@@ -132,7 +139,7 @@
 // |  =   |  ?   |  %    |  | ^  |  ` ´  |              |   |   |  \    |   ,    |   .   |    -   |
 //                       | DEL   | RET   |  SPACE       |   RET   |  SPACE  | TAB   |
                 bindings = <
-&kp DE_EXLM &kp C_VOL_UP  &kp N0 &kp C_VOL_DN &kp PG_UP         &kp F1 &kp F2 &kp F3 &kp F4 &kp F5
+&td0 &kp C_VOL_UP  &kp N0 &kp C_VOL_DN &kp PG_UP         &kp F1 &kp F2 &kp F3 &kp F4 &kp F5
 &kp LS(INS) &kp C_PREV &kp C_PP &kp C_NEXT &kp PG_DN               &kp LEFT &kp DOWN &kp UP &kp RIGHT &kp BSPC
 &kp LC(DE_X) &td_copy &td_paste &kp DE_CIRC &kp LC(LS(PSCRN))    &kp F6 &kp F7 &kp F8 &kp F9 &kp F10
            &lt EXTRA LCTRL &lt SIGNS SPACE  &kp LGUI            &sk F11  &lt NUMMY ESC &kp F12
