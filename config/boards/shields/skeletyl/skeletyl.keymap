@@ -118,7 +118,7 @@
 // |  =   |  ?   |  %    |  ~    |  ^    |              |   |   |  \    |   ,    |   .   |    -   |
 //                       | DEL   | RET   |  SPACE       |   RET   |  SPACE  | TAB   |
                 bindings = <
-&kp DE_EXLM &kp DE_DQUO  &kp N0 &mt DE_SECT DLLR &kp DE_QUOT         &kp DE_AMPR &kp DE_SLSH &kp DE_PLUS &kp DE_ASTR &kp DE_HASH
+&kp DE_EXLM &kp DE_DQUO  &kp DE_DEG &mt DE_SECT DLLR &kp DE_QUOT         &kp DE_AMPR &kp DE_SLSH &kp DE_PLUS &kp DE_ASTR &kp DE_HASH
 &grave &kp DE_LCBR &kp DE_LBRC &kp DE_LPRN &kp DE_LABK               &kp DE_RABK &kp DE_RPRN &kp DE_RBRC &kp DE_RCBR &kp BSPC
 &kp DE_EQL &kp DE_QUES &kp DE_PERC &kp DE_TILD &circ              &kp DE_PIPE &kp DE_BSLS &kp COMMA &kp DOT &kp DE_MINS
                    &lt EXTRA LCTRL &lt SIGNS SPACE  &kp LGUI            &sk DEL  &lt NUMMY ESC &kp RCTRL
