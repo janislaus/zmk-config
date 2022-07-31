@@ -43,7 +43,20 @@
             flavor = "tap-preferred";
             bindings = <&kp>, <&kp>;
         };
-
+        td_copy: td_copy {
+            compatible = "zmk,behavior-tap-dance";
+            label = "TD_COPY";
+            #binding-cells = <0>;
+            tapping-term-ms = <200>;
+            bindings = <&kp LC(DE_C)>, <&kp LC(LS(DE_C))>;
+        };
+        td_paste: td_paste {
+            compatible = "zmk,behavior-tap-dance";
+            label = "TD_PASTE";
+            #binding-cells = <0>;
+            tapping-term-ms = <200>;
+            bindings = <&kp LC(DE_V)>, <&kp LC(LS(DE_V))>;
+        };
     };
 
     keymap {
@@ -81,7 +94,7 @@
                 bindings = <
 &kp DE_EXLM &kp DE_DQUO  &kp N0 &mt DE_SECT DLLR &kp DE_QUOT         &kp DE_AMPR &kp DE_SLSH &kp DE_PLUS &kp DE_ASTR &kp DE_HASH
 &kp N1 &kp DE_LCBR &kp DE_LBRC &kp DE_LPRN &kp DE_LABK               &kp DE_RABK &kp DE_RPRN &kp DE_RBRC &kp DE_RCBR &kp BSPC
-&kp Y &kp X &kp C &kp V &mt DE_ACUT DE_GRV    &kp DE_PIPE &kp DE_BSLS &kp COMMA &kp DOT &kp DE_MINS
+&kp DE_EQL &kp DE_QUES &kp DE_PERC &kp DE_CIRC &mt DE_ACUT DE_GRV    &kp DE_PIPE &kp DE_BSLS &kp COMMA &kp DOT &kp DE_MINS
                    &lt EXTRA LCTRL &lt SIGNS SPACE  &kp LGUI            &sk DEL  &lt NUMMY ESC &kp RCTRL
                 >;
             };
@@ -95,7 +108,7 @@
                 bindings = <
 &kp DE_EXLM &kp C_VOL_UP  &kp N0 &kp C_VOL_DN &kp DE_QUOT         &kp F1 &kp F2 &kp F3 &kp F4 &kp F5
 &kp N1 &kp C_PREV &kp C_PP &kp C_NEXT &kp DE_LABK               &kp LEFT &kp DOWN &kp UP &kp RIGHT &kp BSPC
-&kp DE_EQL &kp DE_QUES &kp DE_PERC &kp DE_CIRC &mt DE_ACUT DE_GRV    &kp F6 &kp F7 &kp F8 &kp F9 &kp F10
+&kp LC(DE_X) &td_copy &td_paste &kp DE_CIRC &mt DE_ACUT DE_GRV    &kp F6 &kp F7 &kp F8 &kp F9 &kp F10
            &lt EXTRA LCTRL &lt SIGNS SPACE  &kp LGUI            &sk F11  &lt NUMMY ESC &kp F12
            >;
         };
