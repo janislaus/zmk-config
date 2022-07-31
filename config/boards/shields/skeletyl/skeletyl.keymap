@@ -98,7 +98,7 @@
         default_layer {
             bindings = <
     &mt DE_AT DE_Q  &kp DE_W  &hm LSHFT DE_E  &kp DE_R  &kp DE_T   &kp DE_Z  &mt DE_UE DE_U  &hm LSHFT DE_I  &mt DE_OE DE_O  &kp DE_P
-    &mt DE_AE DE_A  &mt DE_SS DE_S  &td0  &hm LALT DE_F        &kp DE_G  &kp DE_H  &kp DE_J  &kp DE_K  &kp DE_L  &kp BSPC
+    &mt DE_AE DE_A  &mt DE_SS DE_S  &kp DE_D  &hm LALT DE_F        &kp DE_G  &kp DE_H  &kp DE_J  &kp DE_K  &kp DE_L  &kp BSPC
     &kp DE_Y  &kp DE_X  &kp DE_C  &kp DE_V  &kp DE_B               &kp DE_N  &kp DE_M  &kp COMMA  &kp DOT  &kp DE_MINS
                    &lt EXTRA LCTRL &lt SIGNS SPACE  &kp LGUI            &sk DEL  &lt NUMMY ESC &kp RCTRL
             >;
@@ -139,9 +139,9 @@
 // |  =   |  ?   |  %    |  | ^  |  ` ´  |              |   |   |  \    |   ,    |   .   |    -   |
 //                       | DEL   | RET   |  SPACE       |   RET   |  SPACE  | TAB   |
                 bindings = <
-&td0 &kp C_VOL_UP  &kp N0 &kp C_VOL_DN &kp PG_UP         &kp F1 &kp F2 &kp F3 &kp F4 &kp F5
+&kp DE_EXLM &kp C_VOL_UP  &kp N0 &kp C_VOL_DN &kp PG_UP         &kp F1 &kp F2 &kp F3 &kp F4 &kp F5
 &kp LS(INS) &kp C_PREV &kp C_PP &kp C_NEXT &kp PG_DN               &kp LEFT &kp DOWN &kp UP &kp RIGHT &kp BSPC
-&kp LC(DE_X) &td_copy &td_paste &kp DE_CIRC &kp LC(LS(PSCRN))    &kp F6 &kp F7 &kp F8 &kp F9 &kp F10
+&kp DE_TILD &kp LC(DE_X) &td_copy &td_paste &kp LC(LS(PSCRN))    &kp F6 &kp F7 &kp F8 &kp F9 &kp F10
            &lt EXTRA LCTRL &lt SIGNS SPACE  &kp LGUI            &sk F11  &lt NUMMY ESC &kp F12
            >;
         };
