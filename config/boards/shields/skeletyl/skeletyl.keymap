@@ -124,7 +124,7 @@
 
         NUMMY  {
 // ---------------------------------------------------------------------------------------------------------------------------------
-// |  !   |  "   |  0    |  $/§  |  %    |              |   &   |  /    |   +    |   *   |    #   |
+// |  !   |  "   |  0    |  $/€  |  %    |              |  &/§  |  /    |   +    |   *   |    #   |
 // |  1   |  2   |  3    |  4    |  5    |              |   6   |  7    |   8    |   9   |   <--  |
 // |  ~   |  ?   |  '    |  =    |  ^    |              |   |   |  \    |   ,    |   .   |    -   |
 //               |  XTR  |SGS/SPC|  LGUI |              |  DEL  |NUM/ESC| CTRL   |
@@ -138,12 +138,12 @@
 
         SIGNS  {
 // ---------------------------------------------------------------------------------------------------------------------------------
-// |  !   |  "   |  °    |  $/§  |  %    |              |   &   |  /    |   +    |   *   |    #   |
+// |  !   |  "   |  °    |  $/€  |  %    |              |  &/§  |  /    |   +    |   *   |    #   |
 // |  `   |  {   |  [    |  (    |  <    |              |   >   |  )    |   ]    |   }   |   <--  |
 // |  ~   |  ?   |  '    |  =    |  ^    |              |   |   |  \    |   ,    |   .   |    -   |
 //               |  XTR  |SGS/SPC|  LGUI |              |  DEL  |NUM/ESC| CTRL   |
                 bindings = <
-&kp DE_EXLM &kp DE_DQUO &hm LSHFT DE_DEG &mt DE_SECT DLLR &kp DE_PERC  &kp DE_AMPR &kp DE_SLSH &hm LSHFT DE_PLUS &kp DE_ASTR &kp DE_HASH
+&kp DE_EXLM &kp DE_DQUO &hm LSHFT DE_DEG &mt DE_EURO DLLR &kp DE_PERC  &mt DE_SECT DE_AMPR &kp DE_SLSH &hm LSHFT DE_PLUS &kp DE_ASTR &kp DE_HASH
 &grave &kp DE_LCBR &kp DE_LBRC &kp DE_LPRN &kp DE_LABK                 &kp DE_RABK &kp DE_RPRN &kp DE_RBRC &kp DE_RCBR &kp BSPC
 &kp DE_TILD &kp DE_QUES &kp DE_QUOT &kp DE_EQL &circ                   &kp DE_PIPE &kp DE_BSLS &kp COMMA &kp DOT &kp DE_MINS
                           &mo EXTRA &lt SIGNS SPACE  &kp LGUI          &kp DEL  &lt NUMMY ESC &sk RCTRL
