@@ -24,9 +24,9 @@
             key-positions = <12 17>;
             bindings = <&kp TAB>;
         };
-        combo_tab {
+        combo_gui {
             timeout-ms = <50>;
-            key-positions = <6 11>;
+            key-positions = <8 17>;
             bindings = <&kp LGUI>;
         };
     };
