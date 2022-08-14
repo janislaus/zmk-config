@@ -26,7 +26,7 @@
         };
         combo_tab {
             timeout-ms = <50>;
-            key-positions = <8 17>;
+            key-positions = <6 11>;
             bindings = <&kp LGUI>;
         };
     };
