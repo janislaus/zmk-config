@@ -24,6 +24,11 @@
             key-positions = <12 17>;
             bindings = <&kp TAB>;
         };
+        combo_tab {
+            timeout-ms = <50>;
+            key-positions = <8 17>;
+            bindings = <&kp LGUI>;
+        };
     };
 };
 
@@ -118,8 +123,7 @@
 &mt DE_AT DE_Q  &kp DE_W  &hm LSHFT DE_E  &kp DE_R  &kp DE_T            &kp DE_Z  &mt DE_UE DE_U  &hm RSHFT DE_I  &mt DE_OE DE_O  &kp DE_P
 &mt DE_AE DE_A  &mt DE_SS DE_S  &kp DE_D  &hm LALT DE_F &hm LCTRL DE_G  &hm RCTRL DE_H  &kp DE_J  &kp DE_K  &kp DE_L  &kp BSPC
 &kp DE_Y  &kp DE_X  &kp DE_C  &kp DE_V  &kp DE_B                        &kp DE_N  &kp DE_M  &kp COMMA  &kp DOT  &kp DE_MINS
-               &mo EXTRA (&lt SIGNS &sk LGUI)  &kp LGUI                      &kp DEL  &lt NUMMY ESC &sk RCTRL
-               # &mo EXTRA &lt SIGNS SPACE  &kp LGUI                      &kp DEL  &lt NUMMY ESC &sk RCTRL
+               &sk LCTRL &lt SIGNS SPACE &mo EXTRA                      &kp DEL  &lt NUMMY ESC &sk LSHFT
             >;
         };
 
