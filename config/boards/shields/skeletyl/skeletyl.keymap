@@ -167,7 +167,7 @@
 &kp DE_EXLM &kp C_VOL_DN &hm LSHFT N0 &kp C_VOL_UP &kp PG_UP   &f111 &f212 &hm LSHFT F3 &kp F4 &kp F5
 &kp LS(INS) &kp C_PREV &kp C_PP &kp C_NEXT &kp PG_DN           &kp LEFT &kp DOWN &kp UP &kp RIGHT &fish
 &bt BT_PRV &kp LC(DE_X) &td_copy &td_paste &kp LC(LS(PSCRN))  &kp F6 &kp F7 &kp F8 &kp F9 &kp F10
-               &mo EXTRA &lt SIGNS SPACE &sk LCTRL                 &sk LSHFT  &lt NUMMY ESC &kp DEL
+               &mo EXTRA &lt SIGNS SPACE &sk LCTRL                 &sk LSHFT  &lt NUMMY ESC &bt BT_CLR
            >;
         };
     };
