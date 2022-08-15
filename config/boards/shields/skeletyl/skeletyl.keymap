@@ -8,6 +8,7 @@
 #define NUMMY   1
 #define SIGNS   2
 #define EXTRA   3
+#define NAV   4
 
 &mt {
   flavor = "tap-preferred";
@@ -125,7 +126,7 @@
 &mt DE_AT DE_Q  &kp DE_W  &kp DE_E  &kp DE_R  &kp DE_T             &kp DE_Z  &mt DE_UE DE_U  &kp DE_I &mt DE_OE DE_O  &kp DE_P
 &mt DE_AE DE_A  &mt DE_SS DE_S  &kp DE_D  &hm LALT DE_F &kp DE_G   &kp DE_H  &kp DE_J  &kp DE_K  &kp DE_L  &kp BSPC
 &kp DE_Y  &kp DE_X  &kp DE_C  &kp DE_V  &kp DE_B                   &kp DE_N  &kp DE_M  &kp COMMA  &kp DOT  &kp DE_MINS
-               &mo EXTRA &lt SIGNS SPACE &sk LCTRL                 &sk LSHFT  &lt NUMMY ESC &kp DEL
+               &mo EXTRA &lt SIGNS SPACE &sk LCTRL                 &sk LSHFT  &lt NUMMY ESC &mo NAV
             >;
         };
 
@@ -139,7 +140,7 @@
 &kp DE_EXLM &kp DE_DQUO &kp N0 &mt DE_EURO DLLR &kp DE_PERC        &mt DE_SECT DE_AMPR &kp DE_SLSH &kp DE_PLUS &kp DE_ASTR &kp DE_HASH
 &kp N1 &kp N2 &kp N3 &kp N4 &kp N5                                 &kp N6 &kp N7 &kp N8 &kp N9 &kp BSPC
 &kp DE_TILD &kp DE_QUES &kp DE_QUOT &kp DE_EQL &circ               &kp DE_PIPE &kp DE_BSLS &kp COMMA &kp DOT &kp DE_MINS
-               &mo EXTRA &lt SIGNS SPACE &sk LCTRL                 &sk LSHFT  &lt NUMMY ESC &kp DEL
+               &mo EXTRA &lt SIGNS SPACE &sk LCTRL                 &sk LSHFT  &lt NUMMY ESC &mo NAV
                 >;
             };
 
@@ -153,7 +154,7 @@
 &kp DE_EXLM &kp DE_DQUO &kp DE_DEG &mt DE_EURO DLLR &kp DE_PERC  &mt DE_SECT DE_AMPR &kp DE_SLSH &kp DE_PLUS &kp DE_ASTR &kp DE_HASH
 &grave &kp DE_LCBR &kp DE_LBRC &kp DE_LPRN &kp DE_LABK           &kp DE_RABK &kp DE_RPRN &kp DE_RBRC &kp DE_RCBR &kp BSPC
 &kp DE_TILD &kp DE_QUES &kp DE_QUOT &kp DE_EQL &circ             &kp DE_PIPE &kp DE_BSLS &kp COMMA &kp DOT &kp DE_MINS
-               &mo EXTRA &lt SIGNS SPACE &sk LCTRL                 &sk LSHFT  &lt NUMMY ESC &kp DEL
+               &mo EXTRA &lt SIGNS SPACE &sk LCTRL                 &sk LSHFT  &lt NUMMY ESC &mo NAV
                 >;
             };
 
@@ -166,9 +167,23 @@
                 bindings = <
 &kp DE_EXLM &kp C_VOL_DN &hm LSHFT N0 &kp C_VOL_UP &kp PG_UP   &f111 &f212 &hm LSHFT F3 &kp F4 &kp F5
 &kp LS(INS) &kp C_PREV &kp C_PP &kp C_NEXT &kp PG_DN           &kp LEFT &kp DOWN &kp UP &kp RIGHT &fish
-&bt BT_PRV &kp LC(DE_X) &td_copy &td_paste &kp LC(LS(PSCRN))  &kp F6 &kp F7 &kp F8 &kp F9 &kp F10
-               &mo EXTRA &lt SIGNS SPACE &sk LCTRL                 &sk LSHFT  &lt NUMMY ESC &bt BT_CLR
+&kp A &kp LC(DE_X) &td_copy &td_paste &kp LC(LS(PSCRN))  &kp F6 &kp F7 &kp F8 &kp F9 &kp F10
+               &mo EXTRA &lt SIGNS SPACE &sk LCTRL                 &sk LSHFT  &lt NUMMY ESC &mo NAV
+           >;
+        };
+         NAV {
+// ---------------------------------------------------------------------------------------------------------------------------------
+// |  -   |VOL_DN|  -    |VOL_UP| PG_UP |              |F1/F11 |F2/F12 |   F3   |   F4  |   F5   |
+// |SH+INS| PREV |  PP   | NEXT  | PG_DN|              |   <-  |  down |   up   |  ->   |  fish  |
+// |  -   |STRG X| COPY  | PASTE |  SCRN |             |   F6  |  F7   |   F8   |   F9  |  F10   |
+//               | CTRL  |SGS/SPC|  LGUI |             |  DEL  |NUM/ESC| CTRL   |
+                bindings = <
+&kp DE_EXLM &kp C_VOL_DN &hm LSHFT N0 &kp C_VOL_UP &kp PG_UP   &f111 &f212 &hm LSHFT F3 &kp F4 &kp F5
+&bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &kp C_NEXT &kp PG_DN           &kp LEFT &kp DOWN &kp UP &kp RIGHT &bt BT_CLR
+&kp A &kp LC(DE_X) &td_copy &td_paste &kp LC(LS(PSCRN))  &kp F6 &kp F7 &kp F8 &kp F9 &kp F10
+               &mo EXTRA &lt SIGNS SPACE &sk LCTRL                 &sk LSHFT  &lt NUMMY ESC &mo NAV
            >;
         };
     };
 };
+
