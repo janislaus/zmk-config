@@ -27,11 +27,22 @@
             key-positions = <12 17>;
             bindings = <&kp TAB>;
         };
-        combo_gui {
+        combo_rgui {
             timeout-ms = <50>;
             key-positions = <8 17>;
             bindings = <&kp LGUI>;
         };
+        combo_lgui {
+            timeout-ms = <50>;
+            key-positions = <1 12>;
+            bindings = <&kp LGUI>;
+        };
+        combo_lenter {
+            timeout-ms = <50>;
+            key-positions = <12 13>;
+            bindings = <&kp LGUI>;
+        };
+        
     };
 };
 
