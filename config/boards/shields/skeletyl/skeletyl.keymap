@@ -37,12 +37,16 @@
             key-positions = <2 11>;
             bindings = <&kp LGUI>;
         };
+        combo_del {
+            timeout-ms = <50>;
+            key-positions = <1 2 3>;
+            bindings = <&kp DEL>;
+        };
         combo_lenter {
             timeout-ms = <50>;
             key-positions = <11 12 13>;
             bindings = <&kp RET>;
         };
-        
     };
 };
 
