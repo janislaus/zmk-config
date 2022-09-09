@@ -12,7 +12,7 @@
 
 &mt {
   flavor = "tap-preferred";
-  tapping-term-ms = <180>;
+  tapping-term-ms = <210>;
 };
 / {
     combos {
@@ -29,12 +29,12 @@
         };
         combo_rgui {
             timeout-ms = <50>;
-            key-positions = <8 17>;
+            key-positions = <7 18>;
             bindings = <&sk LGUI>;
         };
         combo_lgui {
             timeout-ms = <50>;
-            key-positions = <1 12>;
+            key-positions = <2 11>;
             bindings = <&kp LGUI>;
         };
         combo_lenter {
@@ -176,7 +176,7 @@
 // |  -   |STRG X| COPY  | PASTE |  SCRN |             |   F6  |  F7   |   F8   |   F9  |  F10   |
 //               | CTRL  |SGS/SPC|  LGUI |             |  DEL  |NUM/ESC| CTRL   |
                 bindings = <
-&kp DE_EXLM &kp C_VOL_DN &hm LSHFT N0 &kp C_VOL_UP &kp PG_UP   &f111 &f212 &hm LSHFT F3 &kp F4 &kp F5
+&kp DE_EXLM &kp C_VOL_DN &hm LSHFT N0 &kp C_VOL_UP &kp PG_UP   &mt F11 F1 &mt F12 F2 &hm LSHFT F3 &kp F4 &kp F5
 &kp LS(INS) &kp C_PREV &kp C_PP &kp C_NEXT &kp PG_DN           &kp LEFT &kp DOWN &kp UP &kp RIGHT &fish
 &kp A &kp LC(DE_X) &kp LC(LS(C)) &kp LC(LS(V)) &kp LC(LS(PSCRN))        &kp F6 &kp F7 &kp F8 &kp F9 &kp F10
                &mo EXTRA &lt SIGNS SPACE &sk LCTRL                 &sk LSHFT  &lt NUMMY ESC &mo NAV
@@ -190,8 +190,8 @@
 //               | CTRL  |SGS/SPC|  LGUI |             |  DEL  |NUM/ESC| CTRL   |
                 bindings = <
 &kp DE_EXLM &kp C_VOL_DN &hm LSHFT N0 &kp C_VOL_UP &kp PG_UP        &f111 &f212 &hm LSHFT F3 &kp F4 &kp F5
-&bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4    &kp LEFT &kp DOWN &kp UP &kp RIGHT &bt BT_CLR
-&kp A &kp LC(DE_X) &kp LC(LS(C)) &kp LC(LS(V)) &kp LC(LS(PSCRN))      &kp F6 &kp F7 &kp F8 &kp F9 &kp F10
+&bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4    &kp LEFT &kp DOWN &kp UP &kp RIGHT &kp DEL 
+&bt BT_CLR &kp LC(DE_X) &kp LC(LS(C)) &kp LC(LS(V)) &kp LC(LS(PSCRN))      &kp F6 &kp F7 &kp F8 &kp F9 &kp F10
                &mo EXTRA &lt SIGNS SPACE &sk LCTRL                  &sk LSHFT  &lt NUMMY SPACE &mo NAV
            >;
         };
