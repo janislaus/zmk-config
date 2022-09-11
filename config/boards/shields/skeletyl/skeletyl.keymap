@@ -159,7 +159,7 @@
 // |  y   |  x   |  c    |  v    |   b   |              |   n   |  m    |   ,    |   .   |    -   |
 //               |  XTR  |SGS/SPC|  LGUI |              |  DEL  |NUM/ESC| CTRL   |
             bindings = <
-&pht DE_AT DE_Q  &kp DE_W  &kp DE_E  &kp DE_R  &kp DE_T             &kp DE_Z  &pht DE_UE DE_U  &kp DE_I &pht DE_OE DE_O  &kp DE_P
+&pht DE_AT DE_Q  &pht LGUI DE_W  &kp DE_E  &kp DE_R  &kp DE_T             &kp DE_Z  &pht DE_UE DE_U  &kp DE_I &pht DE_OE DE_O  &kp DE_P
 &pht DE_AE DE_A  &pht DE_SS DE_S  &kp DE_D  &hm LALT DE_F &kp DE_G   &kp DE_H  &kp DE_J  &kp DE_K  &kp DE_L  &kp BSPC
 &kp DE_Y  &kp DE_X  &kp DE_C  &kp DE_V  &kp DE_B                   &kp DE_N  &kp DE_M  &kp COMMA  &kp DOT  &kp DE_MINS
                &mo EXTRA &lt SIGNS SPACE &sk LCTRL                 &sk LSHFT  &lt NUMMY ESC &mo NAV
@@ -214,7 +214,7 @@
 // |  -   |STRG X| COPY  | PASTE |  SCRN |             |   F6  |  F7   |   F8   |   F9  |  F10   |
 //               | CTRL  |SGS/SPC|  LGUI |             |  DEL  |NUM/ESC| CTRL   |
                 bindings = <
-&kp DE_EXLM &kp C_VOL_DN &hm LSHFT N0 &kp C_VOL_UP &kp PG_UP        &f111 &f212 &hm LSHFT F3 &kp F4 &kp F5
+&kp DE_EXLM &kp C_VOL_DN &hm LSHFT N0 &kp C_VOL_UP &kp PG_UP        &mt F11 F1 &mt F12 F2 &hm LSHFT F3 &kp F4 &kp F5
 &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4    &kp LEFT &kp DOWN &kp UP &kp RIGHT &kp DEL 
 &bt BT_CLR &kp LC(DE_X) &kp LC(LS(C)) &kp LC(LS(V)) &kp LC(LS(PSCRN))      &kp F6 &kp F7 &kp F8 &kp F9 &kp F10
                &mo EXTRA &lt SIGNS SPACE &sk LCTRL                  &sk LSHFT  &lt NUMMY SPACE &mo NAV
