@@ -30,7 +30,7 @@
         combo_rgui {
             timeout-ms = <50>;
             key-positions = <16 17 34>;
-            bindings = <&sk RG(NUMMY)>;
+            bindings = <&sl RG(NUMMY)>;
         };
         combo_lgui {
             timeout-ms = <50>;
