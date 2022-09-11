@@ -30,7 +30,7 @@
         combo_rgui {
             timeout-ms = <50>;
             key-positions = <16 17 34>;
-            bindings = <&sl RG(NUMMY)>;
+            bindings = <&asw>;
         };
         combo_lgui {
             timeout-ms = <50>;
@@ -62,6 +62,17 @@
             bindings
                 = <&macro_tap_time 0>
                 , <&macro_tap &kp DE_GRV &kp DE_GRV>
+                ;
+        };
+
+        asw: asw {
+            label = "app-switch";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+	    wait-ms = <0>;
+            bindings
+                = <&macro_tap_time 0>
+                , <&macro_tap &sl NUMMY &sk RGUI>
                 ;
         };
 
