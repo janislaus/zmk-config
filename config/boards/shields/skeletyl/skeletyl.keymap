@@ -72,7 +72,7 @@
 	    wait-ms = <0>;
             bindings
                 = <&macro_tap_time 0>
-                , <&macro_press &kp NUMMY &macro_press RGUI>
+                , <&macro_press &kp NUMMY &macro_press &kp RGUI>
                 ;
         };
 
