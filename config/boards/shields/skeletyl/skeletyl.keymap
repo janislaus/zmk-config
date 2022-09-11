@@ -117,7 +117,7 @@
             tapping-term-ms = <180>;
             quick-tap-ms = <180>;
             bindings = <&kp>, <&kp>;
-            hold-trigger-key-positions = <9>;
+            hold-trigger-key-positions = <29>;
         };
         td_copy: td_copy {
             compatible = "zmk,behavior-tap-dance";
