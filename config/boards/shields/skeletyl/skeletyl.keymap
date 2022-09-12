@@ -19,12 +19,12 @@
         compatible = "zmk,combos";
         combo_ret {
             timeout-ms = <50>;
-            key-positions = <13 16>;
+            key-positions = <12 13>;
             bindings = <&kp RET>;
         };
         combo_tab {
             timeout-ms = <50>;
-            key-positions = <12 17>;
+            key-positions = <16 17>;
             bindings = <&kp TAB>;
         };
         combo_rgui {
