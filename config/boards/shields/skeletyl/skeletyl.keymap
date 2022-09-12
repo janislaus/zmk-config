@@ -18,13 +18,13 @@
     combos {
         compatible = "zmk,combos";
         combo_ret {
-            timeout-ms = <25>;
-            key-positions = <12 13>;
+            timeout-ms = <30>;
+            key-positions = <13 16>;
             bindings = <&kp RET>;
         };
         combo_tab {
-            timeout-ms = <25>;
-            key-positions = <16 17>;
+            timeout-ms = <30>;
+            key-positions = <12 17>;
             bindings = <&kp TAB>;
         };
         combo_rgui {
