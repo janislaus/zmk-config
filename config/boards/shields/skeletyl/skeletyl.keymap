@@ -24,7 +24,7 @@
         };
         combo_tab {
             timeout-ms = <60>;
-            key-positions = <13 16 17>;
+            key-positions = <12 13 17>;
             bindings = <&kp TAB>;
         };
         combo_rgui {
