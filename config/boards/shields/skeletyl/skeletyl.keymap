@@ -28,22 +28,22 @@
             bindings = <&kp TAB>;
         };
         combo_rgui {
-            timeout-ms = <50>;
+            timeout-ms = <60>;
             key-positions = <16 17 34>;
             bindings = <&asw>;
         };
         combo_lgui {
-            timeout-ms = <50>;
+            timeout-ms = <60>;
             key-positions = <12 13 31>;
             bindings = <&kp LGUI>;
         };
         combo_del {
-            timeout-ms = <50>;
+            timeout-ms = <60>;
             key-positions = <1 2 3>;
             bindings = <&kp DEL>;
         };
         combo_lenter {
-            timeout-ms = <50>;
+            timeout-ms = <60>;
             key-positions = <11 12 13>;
             bindings = <&kp RET>;
         };
