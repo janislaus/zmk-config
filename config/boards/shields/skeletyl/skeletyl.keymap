@@ -97,7 +97,7 @@
             label = "TD_MODS";
             #binding-cells = <0>;
             tapping-term-ms = <200>;
-            bindings = <&kp LSHFT>, <&kp LC(LSHFT)>, <&sk LC(LS(LALT))>;
+            bindings = <&sk LSHFT>, <&sk LC(LSHFT)>, <&sk LC(LS(LALT))>;
         };
         hm: homerow_mods {
             compatible = "zmk,behavior-hold-tap";
