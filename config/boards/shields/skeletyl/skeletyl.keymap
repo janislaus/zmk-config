@@ -38,7 +38,7 @@
         combo_esc {
             timeout-ms = <60>;
             key-positions = <11 12 13 31>;
-            bindings = <&kp BSPC>;
+            bindings = <&kp ESC>;
         };
         combo_del {
             timeout-ms = <60>;
