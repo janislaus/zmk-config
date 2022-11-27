@@ -55,6 +55,11 @@
             key-positions = <12 13 16 17>;
             bindings = <&fish>;
         };
+        tmux {
+            timeout-ms = <60>;
+            key-positions = <13 16 31>;
+            bindings = <&fish>;
+        };
     };
 };
 
@@ -184,7 +189,7 @@
 &kp DE_EXLM &kp DE_DQUO &kp N0 &mt DE_EURO DLLR &kp DE_PERC        &mt DE_SECT DE_AMPR &kp DE_SLSH &kp DE_PLUS &kp DE_ASTR &kp DE_HASH
 &kp N1 &kp N2 &kp N3 &kp N4 &kp N5                                 &kp N6 &kp N7 &kp N8 &kp N9 &kp BSPC
 &kp DE_TILD &kp DE_QUES &kp DE_QUOT &kp DE_EQL &circ               &kp DE_PIPE &kp DE_BSLS &kp COMMA &kp DOT &kp DE_MINS
-               &lt EXTRA RET &lt SIGNS SPACE &sk LA(J)                 &sk LALT  &lt NUMMY SPACE &lt NAV TAB
+               &lt EXTRA RET &lt SIGNS SPACE &sk LALT                 &sk LALT  &lt NUMMY SPACE &lt NAV TAB
                 >;
             };
 
@@ -199,7 +204,7 @@
 &grave &kp DE_LCBR &kp DE_LBRC &kp DE_LPRN &kp DE_LABK           &kp DE_RABK &kp DE_RPRN &kp DE_RBRC &kp DE_RCBR &kp BSPC
 &kp DE_TILD &kp DE_QUES &kp DE_QUOT &kp DE_EQL &circ             &kp DE_PIPE &kp DE_BSLS &kp COMMA &kp DOT &kp DE_MINS
                // &lt EXTRA RET &mo EXTRA &lt SIGNS SPACE &sk LCTRL                 &sk LSHFT  &lt NUMMY SPACE &lt NAV TAB 
-               &lt EXTRA RET &lt SIGNS SPACE &sk LA(J)                 &sk LALT  &lt NUMMY SPACE &lt NAV TAB
+               &lt EXTRA RET &lt SIGNS SPACE &sk LALT                 &sk LALT  &lt NUMMY SPACE &lt NAV TAB
                 >;
             };
 
