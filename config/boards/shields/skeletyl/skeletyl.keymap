@@ -58,7 +58,7 @@
         tmux {
             timeout-ms = <60>;
             key-positions = <13 16 31>;
-            bindings = <&fish>;
+            bindings = <&kp LA(J)>;
         };
     };
 };
