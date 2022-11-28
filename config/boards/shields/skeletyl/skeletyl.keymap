@@ -52,12 +52,12 @@
         };
         fishy {
             timeout-ms = <60>;
-            key-positions = <12 13 16 17>;
+            key-positions = <16 17 18 34 >;
             bindings = <&fish>;
         };
         tmux {
             timeout-ms = <60>;
-            key-positions = <13 16 31>;
+            key-positions = <12 13 16 17>;
             bindings = <&kp LA(J)>;
         };
     };
@@ -173,9 +173,9 @@
 //               |  XTR  |SGS/SPC|  LGUI |              |  DEL  |NUM/ESC| CTRL   |
             bindings = <
 &pht DE_AT DE_Q  &kp DE_W  &kp DE_E  &kp DE_R  &kp DE_T             &kp DE_Z  &pht DE_UE DE_U  &kp DE_I &pht DE_OE DE_O  &kp DE_P
-&pht DE_AE DE_A  &pht DE_SS DE_S  &kp DE_D  &kp DE_F &kp DE_G   &kp DE_H  &kp DE_J  &kp DE_K  &kp DE_L  &kp BSPC
-&kp DE_Y  &kp DE_X  &kp DE_C  &kp DE_V  &kp DE_B                   &kp DE_N  &kp DE_M  &kp COMMA  &kp DOT  &kp DE_MINS
-               &lt EXTRA RET &lt SIGNS SPACE &sk LCTRL                 &sk LSHFT  &lt NUMMY ESC &lt NAV TAB
+&pht DE_AE DE_A  &pht DE_SS DE_S  &kp DE_D  &kp DE_F &kp DE_G       &kp DE_H  &kp DE_J  &kp DE_K  &kp DE_L  &kp BSPC
+&kp DE_Y  &kp DE_X  &kp DE_C  &kp DE_V  &kp DE_B                    &kp DE_N  &kp DE_M  &kp COMMA  &kp DOT  &kp DE_MINS
+             &lt EXTRA RET &lt SIGNS SPACE &sk LCTRL                &sk LSHFT  &lt NUMMY ESC &lt NAV TAB
             >;
         };
 
