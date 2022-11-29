@@ -217,7 +217,7 @@
                 bindings = <
 &kp F5 &kp C_VOL_DN &kp LC(DE_Z) &kp C_VOL_UP &kp PG_UP   &mt F11 F1 &mt F12 F2 &hm LSHFT F3 &kp F4 &kp F5
 &kp LGUI &sk LCTRL &sk LSHFT &sk LALT &kp PG_DN                &kp LEFT &kp DOWN &kp UP &kp RIGHT &kp BSPC
-&kp LS(INS) &kp C_PREV &kp C_PP &kp C_NEXT &kp PG_DN           &kp F6 &kp F7 &kp F8 &kp F9 &kp F10
+&kp LS(INS) &kp C_PREV &kp C_PP &kp C_NEXT &kp PSCRN           &kp F6 &kp F7 &kp F8 &kp F9 &kp F10
              &lt EXTRA RET &lt SIGNS SPACE &sk LCTRL                 &sk LSHFT  &lt NUMMY SPACE &lt BLUE TAB
            >;
         };
