@@ -52,12 +52,12 @@
         };
         fishy {
             timeout-ms = <60>;
-            key-positions = <16 17 18 34 >;
+            key-positions = <17 18 34 >;
             bindings = <&fish>;
         };
         tmux {
             timeout-ms = <60>;
-            key-positions = <12 13 16 17>;
+            key-positions = <11 12 31>;
             bindings = <&kp LA(J)>;
         };
     };
