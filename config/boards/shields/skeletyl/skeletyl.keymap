@@ -96,7 +96,10 @@
 	    wait-ms = <0>;
             bindings
                 = <&macro_tap_time 0>
-                , <&macro_tap &kp DE_OE &kp DE_OE>
+                //, <&macro_tap &kp DE_OE &kp DE_OE>
+                , <&macro_tap &kp DE_OE>
+                , <&macro_wait_time 30>
+                , <&macro_tap &kp DE_OE>
                 ;
         };
 
