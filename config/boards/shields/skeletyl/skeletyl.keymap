@@ -53,7 +53,12 @@
         fishy {
             timeout-ms = <60>;
             key-positions = <17 18 34 >;
-            bindings = <&fish>;
+            bindings = <&kp LC(M)>;
+        };
+        alt {
+            timeout-ms = <60>;
+            key-positions = <31 34>;
+            bindings = <&sk LALT>;
         };
         tmux {
             timeout-ms = <60>;
