@@ -14,10 +14,10 @@
 &mt {
   flavor = "tap-preferred";
   tapping-term-ms = <180>;
-} ; 
+} ;
 &lt {
   tapping-term-ms = <160>;
-} ; 
+} ;
 &sk {
     quick-release;
 };
@@ -61,7 +61,7 @@
             bindings = <&sk LALT>;
         };
         tmux {
-            timeout-ms = <60>;
+            timeout-ms = <40>;
             key-positions = <11 12 31>;
             bindings = <&kp LA(J)>;
         };
