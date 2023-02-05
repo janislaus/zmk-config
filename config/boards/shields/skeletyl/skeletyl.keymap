@@ -56,12 +56,12 @@
             bindings = <&kp LA(M)>;
         };
         alt {
-            timeout-ms = <60>;
+            timeout-ms = <40>;
             key-positions = <31 34>;
             bindings = <&sk LALT>;
         };
         tmux {
-            timeout-ms = <40>;
+            timeout-ms = <60>;
             key-positions = <11 12 31>;
             bindings = <&kp LA(J)>;
         };
