@@ -61,7 +61,7 @@
             bindings = <&sk LALT>;
         };
         gui {
-            timeout-ms = <40>;
+            timeout-ms = <80>;
             key-positions = <30 35>;
             bindings = <&sk LGUI>;
         };
