@@ -60,6 +60,11 @@
             key-positions = <31 34>;
             bindings = <&sk LALT>;
         };
+        gui {
+            timeout-ms = <40>;
+            key-positions = <30 35>;
+            bindings = <&sk LGUI>;
+        };
         tmux {
             timeout-ms = <80>;
             key-positions = <11 12 31>;
