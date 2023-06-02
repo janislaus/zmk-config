@@ -20,6 +20,7 @@
 } ;
 &sk {
     quick-release;
+    release-after-ms = <200>;
 };
 
 / {
@@ -61,7 +62,7 @@
             bindings = <&sk LALT>;
         };
         gui {
-            timeout-ms = <80>;
+            timeout-ms = <60>;
             key-positions = <30 35>;
             bindings = <&sk LGUI>;
         };
