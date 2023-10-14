@@ -82,7 +82,7 @@
             label = "grave";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-	    wait-ms = <0>;
+    wait-ms = <0>;
             bindings
                 = <&macro_tap_time 0>
                 , <&macro_tap &kp DE_GRV &kp DE_GRV>
@@ -93,7 +93,7 @@
             label = "app-switch";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-	    wait-ms = <0>;
+    wait-ms = <0>;
             bindings
             = <&macro_press &mo NUMMY &kp RGUI>
             , <&macro_pause_for_release>
@@ -104,7 +104,7 @@
             label = "fish";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-	    wait-ms = <0>;
+    wait-ms = <0>;
             bindings
                 = <&macro_tap_time 0>
                 //, <&macro_tap &kp DE_OE &kp DE_OE>
@@ -118,7 +118,7 @@
             label = "circ";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-	    wait-ms = <0>;
+    wait-ms = <0>;
             bindings
                 = <&macro_tap_time 0>
                 , <&macro_tap &kp DE_CIRC &kp DE_CIRC>
