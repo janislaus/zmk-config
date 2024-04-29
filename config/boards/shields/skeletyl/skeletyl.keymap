@@ -11,6 +11,11 @@
 #define NAV   4
 #define BLUE   5
 
+&kscan0 {
+    debounce-press-ms = <3>;
+    debounce-release-ms = <3>;
+};
+
 &mt {
   flavor = "tap-preferred";
   tapping-term-ms = <180>;
