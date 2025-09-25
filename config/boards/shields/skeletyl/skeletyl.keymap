@@ -10,6 +10,7 @@
 #define EXTRA   3
 #define NAV   4
 #define BLUE   5
+#define GAME   6
 
 &kscan0 {
     debounce-press-ms = <20>;
@@ -83,6 +84,20 @@
             timeout-ms = <80>;
             key-positions = <11 12 31>;
             bindings = <&kp LA(J)>;
+        };
+        combo_flip_to_1 {
+            timeout-ms = <80>;
+            key-positions = <33 34 35>;
+            layers = <0>;          // only active when layer 0 is active
+            bindings = <&to 6>;    // exclusively switch to layer 1
+        };
+
+        // When you're on layer 1, the same combo jumps back TO layer 0:
+        combo_flip_to_0 {
+            timeout-ms = <80>;
+            key-positions = <33 34 35>;
+            layers = <6>;          // only active when layer 1 is active
+            bindings = <&to 0>;    // exclusively switch to layer 0
         };
     };
 };
@@ -206,7 +221,7 @@
 &kp DE_EXLM &kp DE_DQUO &kp N0 &mt DE_EURO DLLR &kp DE_PERC        &mt DE_SECT DE_AMPR &kp DE_SLSH &kp DE_PLUS &kp DE_ASTR &kp DE_HASH
 &kp N1 &kp N2 &kp N3 &kp N4 &kp N5                                 &kp N6 &kp N7 &kp N8 &kp N9 &kp BSPC
 &kp DE_TILD &kp DE_QUES &kp DE_QUOT &kp DE_EQL &circ               &kp DE_PIPE &kp DE_BSLS &kp COMMA &kp DOT &kp DE_MINS
-               &lt EXTRA RET &lt SIGNS SPACE &sk LALT                 &sk LALT  &lt NUMMY SPACE &lt NAV TAB
+               &lt EXTRA RET &lt SIGNS SPACE &sk LCTRL                 &sk LSHFT  &lt NUMMY SPACE &lt NAV TAB
                 >;
             };
 
@@ -216,7 +231,7 @@
 &grave &kp DE_LCBR &kp DE_LBRC &kp DE_LPRN &kp DE_LABK           &kp DE_RABK &kp DE_RPRN &kp DE_RBRC &kp DE_RCBR &kp BSPC
 &kp DE_TILD &kp DE_QUES &kp DE_QUOT &kp DE_EQL &circ             &kp DE_PIPE &kp DE_BSLS &kp COMMA &kp DOT &kp DE_MINS
                // &lt EXTRA RET &mo EXTRA &lt SIGNS SPACE &sk LCTRL                 &sk LSHFT  &lt NUMMY SPACE &lt NAV TAB 
-               &lt EXTRA RET &lt SIGNS SPACE &sk LALT                 &sk LALT  &lt NUMMY SPACE &lt NAV TAB
+               &lt EXTRA RET &lt SIGNS SPACE &sk LCTRL                 &sk LSHFT  &lt NUMMY SPACE &lt NAV TAB
                 >;
             };
 
@@ -243,6 +258,15 @@
 &bt BT_CLR &kp C_PREV &kp C_PP &kp C_NEXT &kp PSCRN                   &kp F6 &kp F7 &kp F8 &kp F9 &kp F10
                &lt EXTRA RET &lt SIGNS SPACE &sk LCTRL                 &sk LSHFT  &lt NUMMY SPACE &lt NAV TAB
            >;
+        };
+
+        GAME {
+            bindings = <
+&kp DE_Q  &kp DE_W  &kp DE_E  &kp DE_R  &kp DE_T             &kp DE_Z  &kp DE_U  &kp DE_I &kp DE_O  &kp DE_P
+&kp DE_A  &kp DE_S  &kp DE_D  &kp DE_F &kp DE_G       &kp DE_H  &kp DE_J  &kp DE_K  &kp DE_L  &kp BSPC
+&kp DE_Y  &kp DE_X  &kp DE_C  &kp DE_V  &kp DE_B                    &kp DE_N  &kp DE_M  &kp COMMA  &kp DOT  &kp DE_MINS
+             &kp SPACE &kp LSHFT &kp LCTRL                &kp RET  &kp ESC &kp TAB
+            >;
         };
     };
 };
