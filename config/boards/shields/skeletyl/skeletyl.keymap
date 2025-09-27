@@ -95,7 +95,7 @@
         };
         combo_flip_to_1 {
             timeout-ms = <80>;
-            key-positions = <33 34 35>;
+            key-positions = <30 31 32>;
             layers = <0>;
             bindings = <&to 6>;
         };
@@ -103,7 +103,7 @@
         // When you're on layer 1, the same combo jumps back TO layer 0:
         combo_flip_to_0 {
             timeout-ms = <80>;
-            key-positions = <33 34 35>;
+            key-positions = <30 31 32>;
             layers = <6>;
             bindings = <&to 0>;
         };
