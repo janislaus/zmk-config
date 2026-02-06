@@ -11,6 +11,7 @@
 #define NAV   4
 #define BLUE   5
 #define GAME   6
+#define POLISH   7
 
 &kscan0 {
     debounce-press-ms = <20>;
@@ -93,7 +94,7 @@
             layers = <0 1 2 3 4 5>;
             bindings = <&kp LA(J)>;
         };
-        combo_flip_to_1 {
+        combo_flip_to_6 {
             timeout-ms = <80>;
             key-positions = <30 31 32>;
             layers = <0>;
@@ -104,6 +105,21 @@
         combo_flip_to_0 {
             timeout-ms = <80>;
             key-positions = <30 31 32>;
+            layers = <6>;
+            bindings = <&to 0>;
+        };
+
+        combo_flip_to_7 {
+            timeout-ms = <80>;
+            key-positions = <33 34 35>;
+            layers = <0>;
+            bindings = <&to 7>;
+        };
+
+        // When you're on layer 1, the same combo jumps back TO layer 0:
+        combo_flip_to_0 {
+            timeout-ms = <80>;
+            key-positions = <33 34 35>;
             layers = <6>;
             bindings = <&to 0>;
         };
@@ -274,6 +290,15 @@
 &kp DE_A  &kp DE_S  &kp DE_D  &kp DE_F &kp DE_G       &kp DE_H  &kp DE_J  &kp DE_K  &kp DE_L  &kp BSPC
 &kp DE_Y  &kp DE_X  &kp DE_C  &kp DE_V  &kp DE_B                    &kp DE_N  &kp DE_M  &kp COMMA  &kp DOT  &kp DE_MINS
              &kp ENTER &kp SPACE &kp ESC                &kp LSHFT &kp ESC &kp TAB
+            >;
+        };
+
+        POLISH {
+            bindings = <
+&pht DE_AT DE_Q  &kp DE_W  &kp DE_E  &kp DE_R  &kp DE_T             &kp DE_Z  &pht DE_UE DE_U  &kp DE_I &pht DE_OE DE_O  &kp DE_P
+&pht PL_A DE_A  &pht DE_SS DE_S  &kp DE_D  &kp DE_F &kp DE_G       &kp DE_H  &kp DE_J  &kp DE_K  &kp DE_L  &kp BSPC
+&kp DE_Y  &kp DE_X  &kp DE_C  &kp DE_V  &kp DE_B                    &kp DE_N  &kp DE_M  &kp COMMA  &kp DOT  &kp DE_MINS
+             &lt EXTRA RET &lt SIGNS SPACE &sk LCTRL                &sk LSHFT  &lt NUMMY ESC &lt NAV TAB
             >;
         };
     };
