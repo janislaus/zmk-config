@@ -73,12 +73,12 @@
 #define DE_BSLS     RA(DE_SS)         // (backslash)
 
 // some polish special letters
-#define PL_A  &kp U0105
-#define PL_L  &kp U0142
-#define PL_ZD &kp U017C
-#define PL_ZA &kp U017A
-#define PL_S  &kp U015B
-#define PL_C  &kp U0107
-#define PL_N  &kp U0144
-#define PL_E  &kp U0119
-#define PL_O  &kp U00F3
+#define PL_A  U0105
+#define PL_L  U0142
+#define PL_ZD U017C
+#define PL_ZA U017A
+#define PL_S  U015B
+#define PL_C  U0107
+#define PL_N  U0144
+#define PL_E  U0119
+#define PL_O  U00F3
