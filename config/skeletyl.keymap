@@ -114,6 +114,14 @@
             mods = <(MOD_LSFT|MOD_RSFT)>;
         };
 
+        linux_app_switch: linux_app_switch {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            display-name = "App switch (Linux/GNOME)";
+            bindings = <&kp LG(TAB)>, <&kp LG(LS(TAB))>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+
         mac_app_switch: mac_app_switch {
             compatible = "zmk,behavior-mod-morph";
             #binding-cells = <0>;
@@ -153,38 +161,9 @@
             bindings = <&kp LG(DE_Z)>, <&kp LG(LS(DE_Z))>;
             mods = <(MOD_LSFT|MOD_RSFT)>;
         };
-
-        // EXTRA-layer Polish long-press behaviors.
-        // Tap keeps the existing EXTRA action; hold emits the Polish Unicode letter.
-        // The first (dummy) parameter is consumed by the fixed Unicode macro;
-        // the second parameter is forwarded to &kp for the normal tap action.
-        pl_a_ht: polish_a_hold_tap { compatible = "zmk,behavior-hold-tap"; #binding-cells = <2>; display-name = "Hold: ą / Tap: action"; flavor = "tap-preferred"; tapping-term-ms = <180>; bindings = <&pl_a>, <&kp>; };
-        pl_c_ht: polish_c_hold_tap { compatible = "zmk,behavior-hold-tap"; #binding-cells = <2>; display-name = "Hold: ć / Tap: action"; flavor = "tap-preferred"; tapping-term-ms = <180>; bindings = <&pl_c>, <&kp>; };
-        pl_e_ht: polish_e_hold_tap { compatible = "zmk,behavior-hold-tap"; #binding-cells = <2>; display-name = "Hold: ę / Tap: action"; flavor = "tap-preferred"; tapping-term-ms = <180>; bindings = <&pl_e>, <&kp>; };
-        pl_l_ht: polish_l_hold_tap { compatible = "zmk,behavior-hold-tap"; #binding-cells = <2>; display-name = "Hold: ł / Tap: action"; flavor = "tap-preferred"; tapping-term-ms = <180>; bindings = <&pl_l>, <&kp>; };
-        pl_n_ht: polish_n_hold_tap { compatible = "zmk,behavior-hold-tap"; #binding-cells = <2>; display-name = "Hold: ń / Tap: action"; flavor = "tap-preferred"; tapping-term-ms = <180>; bindings = <&pl_n>, <&kp>; };
-        pl_o_ht: polish_o_hold_tap { compatible = "zmk,behavior-hold-tap"; #binding-cells = <2>; display-name = "Hold: ó / Tap: action"; flavor = "tap-preferred"; tapping-term-ms = <180>; bindings = <&pl_o>, <&kp>; };
-        pl_s_ht: polish_s_hold_tap { compatible = "zmk,behavior-hold-tap"; #binding-cells = <2>; display-name = "Hold: ś / Tap: action"; flavor = "tap-preferred"; tapping-term-ms = <180>; bindings = <&pl_s>, <&kp>; };
-        pl_x_ht: polish_x_hold_tap { compatible = "zmk,behavior-hold-tap"; #binding-cells = <2>; display-name = "Hold: ź / Tap: action"; flavor = "tap-preferred"; tapping-term-ms = <180>; bindings = <&pl_x>, <&kp>; };
-        pl_z_ht: polish_z_hold_tap { compatible = "zmk,behavior-hold-tap"; #binding-cells = <2>; display-name = "Hold: ż / Tap: action"; flavor = "tap-preferred"; tapping-term-ms = <180>; bindings = <&pl_z>, <&kp>; };
-        pl_e_app_win_ht: polish_e_app_win_hold_tap { compatible = "zmk,behavior-hold-tap"; #binding-cells = <2>; display-name = "Hold: ę / Tap: App switch"; flavor = "tap-preferred"; tapping-term-ms = <180>; bindings = <&pl_e>, <&sem_app_win>; };
-        pl_e_app_mac_ht: polish_e_app_mac_hold_tap { compatible = "zmk,behavior-hold-tap"; #binding-cells = <2>; display-name = "Hold: ę / Tap: App switch macOS"; flavor = "tap-preferred"; tapping-term-ms = <180>; bindings = <&pl_e>, <&sem_app_mac>; };
     };
 
     macros {
-        // One-parameter wrappers let hold-tap call fixed Unicode pairs while
-        // forwarding its other parameter to the normal tap action.
-        pl_a: polish_a { compatible = "zmk,behavior-macro-one-param"; #binding-cells = <1>; wait-ms = <0>; tap-ms = <0>; bindings = <&uc 0x0105 0x0104>; };
-        pl_c: polish_c { compatible = "zmk,behavior-macro-one-param"; #binding-cells = <1>; wait-ms = <0>; tap-ms = <0>; bindings = <&uc 0x0107 0x0106>; };
-        pl_e: polish_e { compatible = "zmk,behavior-macro-one-param"; #binding-cells = <1>; wait-ms = <0>; tap-ms = <0>; bindings = <&uc 0x0119 0x0118>; };
-        pl_l: polish_l { compatible = "zmk,behavior-macro-one-param"; #binding-cells = <1>; wait-ms = <0>; tap-ms = <0>; bindings = <&uc 0x0142 0x0141>; };
-        pl_n: polish_n { compatible = "zmk,behavior-macro-one-param"; #binding-cells = <1>; wait-ms = <0>; tap-ms = <0>; bindings = <&uc 0x0144 0x0143>; };
-        pl_o: polish_o { compatible = "zmk,behavior-macro-one-param"; #binding-cells = <1>; wait-ms = <0>; tap-ms = <0>; bindings = <&uc 0x00F3 0x00D3>; };
-        pl_s: polish_s { compatible = "zmk,behavior-macro-one-param"; #binding-cells = <1>; wait-ms = <0>; tap-ms = <0>; bindings = <&uc 0x015B 0x015A>; };
-        pl_x: polish_x { compatible = "zmk,behavior-macro-one-param"; #binding-cells = <1>; wait-ms = <0>; tap-ms = <0>; bindings = <&uc 0x017A 0x0179>; };
-        pl_z: polish_z { compatible = "zmk,behavior-macro-one-param"; #binding-cells = <1>; wait-ms = <0>; tap-ms = <0>; bindings = <&uc 0x017C 0x017B>; };
-        sem_app_win: semantic_app_win { compatible = "zmk,behavior-macro-one-param"; #binding-cells = <1>; wait-ms = <0>; tap-ms = <0>; bindings = <&win_app_switch>; };
-        sem_app_mac: semantic_app_mac { compatible = "zmk,behavior-macro-one-param"; #binding-cells = <1>; wait-ms = <0>; tap-ms = <0>; bindings = <&mac_app_switch>; };
 
         grave: grave {
             compatible = "zmk,behavior-macro";
@@ -278,6 +257,15 @@
             bindings = <&tog_on LINUX_MODE>, <&tog_off MAC_MODE>, <&uc UC_SET_LINUX>;
         };
 
+        usb_linux: usb_linux {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            display-name = "USB - Linux";
+            wait-ms = <0>;
+            tap-ms = <0>;
+            bindings = <&out OUT_USB>, <&tog_on LINUX_MODE>, <&tog_off MAC_MODE>, <&uc UC_SET_LINUX>;
+        };
+
         os_mac: os_mac {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
@@ -363,6 +351,15 @@
             bindings = <&kp LA(J)>;
         };
 
+        // Right middle + right outer thumbs (34 + 35) -> Polish for one key.
+        // This avoids the old three-thumb gesture and keeps Polish off EXTRA.
+        combo_polish {
+            timeout-ms = <80>;
+            key-positions = <34 35>;
+            layers = <DEFAULT NUMMY SIGNS EXTRA NAV BLUE LINUX_MODE MAC_MODE LINUX_EXTRA LINUX_NAV MAC_EXTRA MAC_NAV>;
+            bindings = <&sl POLISH>;
+        };
+
         game_on {
             timeout-ms = <80>;
             key-positions = <30 31 32>;
@@ -438,20 +435,19 @@
 
         extra_layer {
             display-name = "Extra / Semantic";
-            // Semantic shortcuts. Same physical action across OS modes.
+            // Clean semantic command layer: no media controls, no Polish hold-taps,
+            // and no duplicate HJKL navigation. Unused positions intentionally swallow input.
             // W = close tab; Shift+W = reopen closed tab
             // E = app switch; Shift+E = reverse app switch
-            // R = tab switch; Shift+R = reverse tab switch
-            // T = new tab; S = save; F = find; P = print
-            // Y/X/V = copy/cut/paste (QWERTZ-friendly standard cluster)
-            // G = undo; Shift+G = redo; L = lock; B = screenshot
-            // Zoom +/- use the same physical positions as + and - on SIGNS.
-            // Long-hold on Polish letter positions emits the Polish character.
+            // R = next tab; Shift+R = previous tab
+            // T = new tab; A = select all; S = save; F = find
+            // G = undo; Shift+G = redo; Y/X/V = copy/cut/paste
+            // B = screenshot; L = lock; P = print; + / - positions = zoom.
             bindings = <
-&kp F1  &win_close_reopen  &pl_e_app_win_ht 0 0  &tab_switch  &kp LC(DE_T)          &pl_z_ht 0 F1  &mt F12 F2  &kp LC(DE_PLUS)  &pl_o_ht 0 F4  &kp LC(DE_P)
-&pl_a_ht 0 LC(DE_A)  &pl_s_ht 0 LC(DE_S)  &trans  &kp LC(DE_F)  &win_undo_redo   &kp LEFT  &kp DOWN  &kp UP  &pl_l_ht 0 LG(DE_L)  &kp BSPC
-&kp LC(DE_C)  &pl_x_ht 0 LC(DE_X)  &pl_c_ht 0 0  &kp LC(DE_V)  &kp PSCRN       &pl_n_ht 0 F6  &kp F7  &kp F8  &kp F9  &kp LC(DE_MINS)
-                 &lt EXTRA RET  &lt SIGNS SPACE  &sks LCTRL           &sks LSHFT  &lt NUMMY SPACE  &lt NAV TAB
+&none  &win_close_reopen  &win_app_switch  &tab_switch  &kp LC(DE_T)        &none  &none  &kp LC(DE_PLUS)  &none  &kp LC(DE_P)
+&kp LC(DE_A)  &kp LC(DE_S)  &none  &kp LC(DE_F)  &win_undo_redo        &none  &none  &none  &kp LG(DE_L)  &kp BSPC
+&kp LC(DE_C)  &kp LC(DE_X)  &none  &kp LC(DE_V)  &kp LG(LS(DE_S))      &none  &none  &none  &none  &kp LC(DE_MINS)
+                 &lt EXTRA RET  &lt SIGNS SPACE  &sks LCTRL              &sks LSHFT  &lt NUMMY SPACE  &lt NAV TAB
             >;
         };
 
@@ -459,18 +455,20 @@
             display-name = "Navigation";
             bindings = <
 &sl BLUE  &kp C_VOL_DN  &kp C_MUTE  &kp C_VOL_UP  &kp PG_UP          &mt F11 F1  &mt F12 F2  &hm LSHFT F3  &kp F4  &kp F5
-&kp LC(DE_A)  &kp LC(DE_X)  &kp LC(INS)  &kp LS(INS)  &kp LC(DE_Z)  &kp LEFT  &kp DOWN  &kp UP  &kp RIGHT  &kp DEL
-&kp LS(INS)  &kp C_PREV  &kp C_PP  &kp C_NEXT  &kp PSCRN             &kp F6  &kp F7  &kp F8  &kp F9  &kp F10
+&kp LC(DE_A)  &kp LC(DE_X)  &kp LC(DE_C)  &kp LC(DE_V)  &kp LC(DE_Z)  &kp LEFT  &kp DOWN  &kp UP  &kp RIGHT  &kp DEL
+&kp LC(DE_V)  &kp C_PREV  &kp C_PP  &kp C_NEXT  &kp PSCRN             &kp F6  &kp F7  &kp F8  &kp F9  &kp F10
                  &lt EXTRA RET  &lt SIGNS SPACE  &sks LCTRL           &sks LSHFT  &lt NUMMY SPACE  &lt NAV TAB
             >;
         };
 
         blue_layer {
             display-name = "Hosts / Settings";
+            // The USB key is intentionally USB+Linux, so returning to the Ubuntu cable
+            // also restores Linux shortcuts and Linux Unicode mode in one action.
             bindings = <
 &kp DE_EXLM  &kp C_VOL_DN  &kp LC(DE_Z)  &kp C_VOL_UP  &kp PG_UP     &mt F11 F1  &mt F12 F2  &hm LSHFT F3  &kp F4  &kp F5
 &bt0_win  &bt1_linux  &bt2_mac  &bt3_win  &bt4_linux                       &kp LEFT  &kp DOWN  &kp UP  &kp RIGHT  &kp DEL
-&bt BT_CLR  &os_win  &os_linux  &os_mac  &out OUT_USB             &out OUT_BLE  &out OUT_TOG  &studio_unlock  &kp F9  &kp F10
+&bt BT_CLR  &os_win  &os_linux  &os_mac  &usb_linux                &out OUT_BLE  &out OUT_TOG  &studio_unlock  &kp F9  &kp F10
                  &lt EXTRA RET  &lt SIGNS SPACE  &sks LCTRL           &sks LSHFT  &lt NUMMY SPACE  &lt NAV TAB
             >;
         };
@@ -518,10 +516,10 @@
         linux_extra_layer {
             display-name = "Linux Extra overlay";
             bindings = <
-&trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans
-&trans &trans &trans &trans &linux_undo_redo   &trans &trans &trans &trans &trans
-&kp K_COPY &pl_x_ht 0 K_CUT &trans &kp K_PASTE &trans   &trans &trans &trans &trans &trans
-             &trans &trans &trans   &trans &trans &trans
+&trans &trans &linux_app_switch &trans &trans   &trans &trans &trans &trans &trans
+&trans &trans &trans &trans &linux_undo_redo  &trans &trans &trans &trans &trans
+&trans &trans &trans &trans &kp PSCRN          &trans &trans &trans &trans &trans
+             &trans &trans &trans              &trans &trans &trans
             >;
         };
 
@@ -529,7 +527,7 @@
             display-name = "Linux Nav overlay";
             bindings = <
 &trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans
-&kp LC(DE_A) &kp K_CUT &kp K_COPY &kp K_PASTE &kp K_UNDO   &trans &trans &trans &trans &trans
+&trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans
 &trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans
              &trans &trans &trans   &trans &trans &trans
             >;
@@ -538,9 +536,9 @@
         mac_extra_layer {
             display-name = "macOS Extra semantic overlay";
             bindings = <
-&trans  &mac_close_reopen  &pl_e_app_mac_ht 0 0  &trans  &kp LG(DE_T)   &trans &trans &kp LG(DE_PLUS) &trans &kp LG(DE_P)
-&pl_a_ht 0 LG(DE_A)  &pl_s_ht 0 LG(DE_S)  &trans  &kp LG(DE_F)  &mac_undo_redo   &trans &trans &trans &pl_l_ht 0 LC(LG(DE_Q)) &trans
-&kp LG(DE_C)  &pl_x_ht 0 LG(DE_X)  &trans  &kp LG(DE_V)  &kp LG(LS(N3))   &trans &trans &trans &trans &kp LG(DE_MINS)
+&trans  &mac_close_reopen  &mac_app_switch  &trans  &kp LG(DE_T)   &trans &trans &kp LG(DE_PLUS) &trans &kp LG(DE_P)
+&kp LG(DE_A)  &kp LG(DE_S)  &trans  &kp LG(DE_F)  &mac_undo_redo  &trans &trans &trans &kp LC(LG(DE_Q)) &trans
+&kp LG(DE_C)  &kp LG(DE_X)  &trans  &kp LG(DE_V)  &kp LG(LS(N3))   &trans &trans &trans &trans &kp LG(DE_MINS)
              &trans &trans &trans   &trans &trans &trans
             >;
         };

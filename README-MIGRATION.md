@@ -1,118 +1,48 @@
-# Skeletyl ZMK migration (2026)
+# Skeletyl ZMK config — cross-platform QC release (2026-08-30)
 
-This repository layout is prepared for current ZMK `main`, current Zephyr board
-IDs, and ZMK Studio on the left/central half.
+This repository targets current ZMK `main`, Zephyr 4.1 board IDs, and ZMK Studio
+on the left/central half.
 
-The repository is also declared as a Zephyr module in `zephyr/module.yml`, so
-current ZMK discovers the custom shield under `boards/shields/skeletyl`.
+## Controller revision
 
-## Important controller check
-
-The old `build.yaml` used `board: nice_nano`.  In the current ZMK/Zephyr board
-revision system that means **nice!nano V1**, so this generated config uses:
+The original config used `board: nice_nano`, which maps to **nice!nano V1**.
+Therefore `build.yaml` uses:
 
     nice_nano@1//zmk
 
-If the physical controllers are actually **nice!nano V2**, change all three
-occurrences in `build.yaml` to:
+If the physical controllers are nice!nano V2, replace every occurrence with:
 
     nice_nano//zmk
 
-Do this before the first build.
+## Thumb positions and modifiers
 
-## Thumb modifiers
-
-Physical thumb positions are:
+Physical thumb positions:
 
     left:   30 outer | 31 middle | 32 inner
     right:  33 inner | 34 middle | 35 outer
 
-Current modifier setup:
+Current behavior:
 
-- Ctrl: left-inner thumb (32), sticky
-- Shift: right-inner thumb (33), sticky (original dedicated thumb access)
-- Alt / macOS Option: left outer + left middle thumbs (30+31), sticky
-- Shift alternate combo: right middle + right outer thumbs (34+35), sticky
-- GUI / Windows / macOS Command: D + F + left-middle thumb/Space (12+13+31), sticky
+- left outer hold (30): EXTRA; tap: Enter
+- left middle hold (31): SIGNS; tap: Space
+- left inner (32): sticky Ctrl
+- right inner (33): sticky Shift
+- right middle hold (34): NUMMY; tap: Esc
+- right outer hold (35): NAV; tap: Tab
+- 30+31: sticky Alt / macOS Option
+- 31+32: sticky Shift
+- D+F+left-middle-thumb (12+13+31): sticky GUI / Win / Command
+- 34+35: one-shot POLISH layer
+- 30+31+32: toggle GAME
 
-The earlier cross-hand thumb combos (30+35 for Alt and 31+34 for GUI) were removed.
-The original D+F+Space GUI combo was restored, but now uses the same sticky
-modifier behavior as the other modifier combos.
+Sticky modifiers use a 500 ms release timeout and combo timeout is 80 ms.
 
-All sticky modifiers use the same 500 ms timeout. Modifier presses are ignored
-as sticky-release triggers, so they can be rolled/chained. `quick-release` makes
-the chain release as soon as the first non-modifier key is pressed.
+## OS modes
 
-The 30+31 Alt combo intentionally overlaps the 30+31+32 Game combo, and the
-34+35 Shift combo intentionally overlaps the 33+34+35 Polish one-shot combo.
-ZMK supports fully overlapping combos; these overlapping combos all use an 80 ms
-timeout.
+Windows is the baseline shortcut mapping. Linux and macOS activate transparent
+state layers which only override shortcuts that differ.
 
-If 500 ms feels too short/long, change `STICKY_TIMEOUT_MS` near the top of
-`config/skeletyl.keymap`.
-
-## OS modes and semantic shortcut keys
-
-The firmware now has three explicit OS modes: **Windows**, **Linux**, and
-**macOS**. Windows is the baseline state; Linux and macOS use transparent state
-layers plus conditional overlays. Real modifiers remain real HID modifiers:
-
-- GUI = Windows/Super on Windows/Linux, Command on macOS
-- Alt = Alt on Windows/Linux, Option on macOS
-- Ctrl remains Ctrl on every OS
-
-On EXTRA, the five left home-row positions are the semantic shortcut row:
-
-    A          S     D      F      G
-    Select All Cut   Copy   Paste  Undo
-
-Hold the **left outer thumb** key (Enter when tapped, EXTRA when held), then use
-these five positions. The complete shortcut set therefore works with the left
-hand only. NAV mirrors the same row as an optional second access path.
-
-The emitted keys depend on OS mode:
-
-| Action | Windows | Linux | macOS |
-| --- | --- | --- | --- |
-| Select All | Ctrl+A | Ctrl+A | Command+A |
-| Cut | Ctrl+X | `K_CUT` | Command+X |
-| Copy | Ctrl+Insert | `K_COPY` | Command+C |
-| Paste | Shift+Insert | `K_PASTE` | Command+V |
-| Undo | Ctrl+Z | `K_UNDO` | Command+Z |
-
-Why Windows Copy/Paste use Insert: `Ctrl+Insert` and `Shift+Insert` are standard
-Windows clipboard shortcuts and are also handled as Copy/Paste by Windows
-Terminal, without reusing Ctrl+C as the copy gesture.
-
-Why Linux uses `K_*`: these are dedicated HID editing keycodes rather than
-Ctrl-based terminal control sequences. ZMK currently marks `K_CUT`, `K_COPY`,
-`K_PASTE`, and `K_UNDO` as supported on Linux. Application and terminal support
-can still vary: a host program has to bind/handle the HID editing key. This is
-therefore the safest generic firmware-level Linux choice, not a mathematical
-guarantee for every terminal emulator. `Select All` has no corresponding
-keyboard editing key in ZMK, so Linux keeps Ctrl+A; in a shell this commonly
-means "beginning of line" rather than "select all".
-
-### Opening Hosts / Settings and selecting a mode
-
-The old BLUE-layer thumb chord used the two outer thumb keys. Those now belong
-to the Alt/Option combo, so BLUE uses a conflict-free entry path:
-
-    hold NAV (right outer thumb) -> tap the top-left key -> release NAV
-
-The top-left key on NAV is `&sl BLUE`, so BLUE is armed for exactly the next key
-press. The bottom row of `Hosts / Settings` now contains:
-
-    BT_CLR | WINDOWS | LINUX | MAC | USB | BLE | TOGGLE OUTPUT | STUDIO UNLOCK | ...
-
-The three OS buttons are deterministic: selecting one first disables the other
-state layer(s), so Windows/Linux/macOS cannot intentionally remain active at the
-same time. USB/BLE selection is independent of OS mode.
-
-### Bluetooth profile mapping
-
-The five Bluetooth profile keys also select BLE output and set an OS mode. The
-default generated mapping is:
+Bluetooth host macros set the profile, BLE output, OS mode and Unicode mode:
 
 - BT0 -> Windows
 - BT1 -> Linux
@@ -120,129 +50,132 @@ default generated mapping is:
 - BT3 -> Windows
 - BT4 -> Linux
 
-Pair devices in that order, or edit the five `bt*_...` macros near the top of
-`config/skeletyl.keymap`. This is profile-selection automation, not host OS
-autodetection.
+BLUE also contains a dedicated **USB Linux** key. It selects USB output and
+Linux mode together so switching back from the Mac to the Ubuntu machine cannot
+leave the keyboard in macOS shortcut mode.
 
-The manual WINDOWS/LINUX/MAC buttons remain available for USB use or for
-overriding the mode after a Bluetooth selection. The output preference
-(USB/BLE) is persisted by ZMK; ordinary layer state is not relied on as a
-persistent OS database.
+Raw BLE and output-toggle keys remain available as advanced controls; they only
+change the endpoint, not the OS mode. Prefer the host macros for normal switching.
 
-## GitHub Actions build
+## Entering layers
 
-Commit and push the repository.  `.github/workflows/build.yml` calls ZMK's
-current reusable user-config workflow.  Every push builds the entries in
-`build.yaml` and publishes a `firmware` artifact containing:
+- EXTRA: hold left outer thumb
+- SIGNS: hold left middle thumb
+- NUMMY: hold right middle thumb
+- NAV: hold right outer thumb
+- BLUE: hold NAV, tap the top-left key; BLUE applies to the next key
+- POLISH: press right middle + right outer thumbs together; POLISH applies to the next key
+- GAME: press all three left thumbs together to toggle
 
-- `skeletyl-left.uf2`
-- `skeletyl-right.uf2`
-- `settings-reset.uf2`
+## EXTRA — semantic commands
 
-The left build enables Studio using `studio-rpc-usb-uart` and
-`CONFIG_ZMK_STUDIO=y`; the right half intentionally does not.
+Unused positions are `&none` intentionally. EXTRA contains no media controls,
+Polish hold-taps or duplicate HJKL navigation.
 
-## First flash after this migration
+Physical base-key positions:
 
-Because this is a major ZMK/split migration, do one clean settings reset on both
-halves:
+    Q       W             E             R             T       | Z      U      I       O      P
+    none    Close Tab     App Switch    Tab Switch    New Tab | none   none   Zoom+   none   Print
+            Shift:        Shift:        Shift:
+            Reopen        reverse       reverse
 
-1. Download the `firmware` artifact from the successful GitHub Actions run.
-2. Put the **left** controller into bootloader mode (usually double-tap reset).
-3. Copy `settings-reset.uf2` to the mounted controller drive.
-4. Repeat steps 2-3 for the **right** controller.
-5. Put left into bootloader again and copy `skeletyl-left.uf2`.
-6. Put right into bootloader again and copy `skeletyl-right.uf2`.
-7. Remove/forget the old Skeletyl Bluetooth pairing on hosts and pair again.
+    A       S             D             F             G       | H      J      K       L      BSPC
+    All     Save          none          Find          Undo    | none   none   none    Lock   Backspace
+                                                  Shift: Redo
 
-After normal future keymap changes, you generally only need to flash the left
-(central) half unless the change affects peripheral/hardware configuration.
+    Y       X             C             V             B       | N      M      ,       .      -
+    Copy    Cut           none          Paste         Shot    | none   none   none    none   Zoom-
 
-## ZMK Studio
+OS-specific output:
 
-Connect the central/left half over USB, select USB output, open ZMK Studio, and
-press `STUDIO UNLOCK` on the BLUE layer when requested.
+| Action | Windows | Ubuntu / GNOME | macOS |
+| --- | --- | --- | --- |
+| Close tab | Ctrl+W | Ctrl+W | Cmd+W |
+| Reopen tab | Ctrl+Shift+T | Ctrl+Shift+T | Cmd+Shift+T |
+| App switch | Alt+Tab | Super+Tab | Cmd+Tab |
+| Reverse app switch | Alt+Shift+Tab | Super+Shift+Tab | Cmd+Shift+Tab |
+| Next tab | Ctrl+Tab | Ctrl+Tab | Ctrl+Tab |
+| Previous tab | Ctrl+Shift+Tab | Ctrl+Shift+Tab | Ctrl+Shift+Tab |
+| New tab | Ctrl+T | Ctrl+T | Cmd+T |
+| Select all | Ctrl+A | Ctrl+A | Cmd+A |
+| Save | Ctrl+S | Ctrl+S | Cmd+S |
+| Find | Ctrl+F | Ctrl+F | Cmd+F |
+| Print | Ctrl+P | Ctrl+P | Cmd+P |
+| Copy | Ctrl+C | Ctrl+C | Cmd+C |
+| Cut | Ctrl+X | Ctrl+X | Cmd+X |
+| Paste | Ctrl+V | Ctrl+V | Cmd+V |
+| Undo | Ctrl+Z | Ctrl+Z | Cmd+Z |
+| Redo | Ctrl+Y | Ctrl+Shift+Z | Cmd+Shift+Z |
+| Lock | Win+L | Super+L | Ctrl+Cmd+Q |
+| Screenshot | Win+Shift+S | Print Screen | Cmd+Shift+3 |
+| Zoom in | Ctrl++ | Ctrl++ | Cmd++ |
+| Zoom out | Ctrl+- | Ctrl+- | Cmd+- |
 
-Once Studio has saved runtime keymap changes, later edits to the stock
-`config/skeletyl.keymap` will not appear until you use **Restore Stock Settings**
-in ZMK Studio.
+Note: Redo is application-dependent, especially on Windows/Linux. The mappings
+above are the broadest conventional choices. Terminal applications can also
+assign special meanings to Ctrl-based shortcuts; the semantic layer targets
+normal desktop/application editing behavior.
 
-The physical layout coordinates in `skeletyl-layouts.dtsi` are schematic, not a
-millimeter-accurate Skeletyl drawing.  The key ordering is exact; the schematic
-coordinates affect only how Studio draws the keyboard.
+## NAV
 
+NAV remains the media/navigation layer and is intentionally not stripped of
+media controls.
 
-## Polish layer compatibility note
+    BLUE   Vol-   Mute   Vol+   PgUp    | F1   F2   F3   F4   F5
+    All    Cut    Copy   Paste  Undo    | Left Down Up   Right Delete
+    Paste  Prev   Play   Next   Shot    | F6   F7   F8   F9   F10
 
-The legacy config defined Polish characters as bare `Uxxxx` values (for example `U0105` and `U0119`). Current ZMK does not expose arbitrary Unicode code points as keycodes, so those tokens fail during devicetree parsing. They have been migrated to Polish Programmer-style Right-Alt/AltGr combinations (`RA(A)`, `RA(E)`, etc.). This keeps the firmware core-only and compile-safe, but requires a host keyboard layout that interprets those AltGr combinations as Polish characters. If host-layout-independent Unicode output is required later, use a dedicated module such as `urob/zmk-unicode` and make its host method OS-aware.
+On macOS, the NAV editing row is overridden to Cmd+A/X/C/V/Z. Linux inherits
+normal Ctrl+A/X/C/V/Z. Media controls remain HID media controls on every OS.
 
+## POLISH
 
-## Polish Unicode input
+POLISH is a true one-shot layer again; there are no Polish long-presses on EXTRA.
+Press right-middle + right-outer thumbs (34+35), release, then press the letter.
 
-Polish special characters now use the `urob/zmk-unicode` module and therefore do not depend on the host keyboard layout. The EXTRA long-press keys activate the Polish layer for exactly one key. On that one-shot layer, A/C/E/L/N/O/S/X/Z emit ą/ć/ę/ł/ń/ó/ś/ź/ż; holding Shift emits the uppercase variants.
+    E -> ę    Z -> ż    O -> ó
+    A -> ą    S -> ś    L -> ł
+    X -> ź    C -> ć    N -> ń
 
-The OS selector also selects the matching Unicode input method:
-- Windows: WinCompose mode (`UC_SET_WIN_COMPOSE`). Install WinCompose on Windows.
-- Linux: Linux/IBus Unicode mode (`UC_SET_LINUX`). On Ubuntu/GNOME this normally works with the standard Ctrl+Shift+U Unicode input path.
-- macOS: Unicode Hex Input mode (`UC_SET_MACOS`). Add/enable the `Unicode Hex Input` input source in macOS.
+Shift selects uppercase through the Unicode behavior.
 
-The regular outer-thumb Alt combo remains `LALT` (Alt / Option). No physical `RALT` key is required for Polish Unicode input; the Unicode module can generate any required Right-Alt sequence internally.
+Polish uses `urob/zmk-unicode` and the OS host macros select the matching mode:
 
-## Build compatibility note (2026-08-30)
+- Windows: `UC_SET_WIN_COMPOSE` — requires WinCompose on the host
+- Linux: `UC_SET_LINUX`
+- macOS: `UC_SET_MACOS` — requires Unicode Hex Input to be enabled
 
-For the current ZMK `main` checkout used by GitHub Actions, custom deterministic
-layer-toggle behaviors use `compatible = "zmk,behavior-toggle-layer"`.
-The generated config uses that spelling for `tog_on` and `tog_off`.
+## BLUE / Hosts
 
-## Latest ergonomic changes
+Enter BLUE with NAV + top-left. The relevant rows are:
 
-- Sticky Alt: left outer + left middle thumb (`30 + 31`).
-- Sticky Shift: left middle + left inner/right thumb (`31 + 32`).
-- Sticky GUI/Win/Command: `D + F + Space` (`12 + 13 + 31`).
-- The old three-right-thumb Polish combo has been removed.
-- Polish letters are now long-press actions on the EXTRA layer (180 ms):
-  `A/C/E/L/N/O/S/X/Z` -> `ą/ć/ę/ł/ń/ó/ś/ź/ż`; Shift selects uppercase.
-  A short tap still performs that key's normal EXTRA-layer action.
+    BT0 Win | BT1 Linux | BT2 Mac | BT3 Win | BT4 Linux | ...
 
+    BT Clear | Windows mode | Linux mode | macOS mode | USB Linux |
+    BLE raw  | Toggle raw   | Studio unlock | ...
 
-## Semantic EXTRA layer (left hand)
+Recommended normal workflow:
 
-Hold the left outer thumb (`EXTRA`) and use the left-hand keys:
+- Mac: use **BT2 Mac** — selects profile 2 + BLE + macOS mode
+- Ubuntu by cable: use **USB Linux** — selects USB + Linux mode
+- Windows Bluetooth: use **BT0 Win** or **BT3 Win**
 
-| Key | Meaning | Windows / Linux | macOS |
-|---|---|---|---|
-| Q | Previous app | Alt+Shift+Tab | Cmd+Shift+Tab |
-| W | Next app | Alt+Tab | Cmd+Tab |
-| E | Previous tab | Ctrl+Shift+Tab | Ctrl+Shift+Tab |
-| R | Next tab | Ctrl+Tab | Ctrl+Tab |
-| T | New tab | Ctrl+T | Cmd+T |
-| A | Select all | Ctrl+A | Cmd+A |
-| S | Cut | Ctrl+X (Linux uses K_CUT) | Cmd+X |
-| D | Copy | Ctrl+Insert (Linux uses K_COPY) | Cmd+C |
-| F | Paste | Shift+Insert (Linux uses K_PASTE) | Cmd+V |
-| G | Undo | Ctrl+Z (Linux uses K_UNDO) | Cmd+Z |
-| Y | Reopen closed tab | Ctrl+Shift+T | Cmd+Shift+T |
-| X | Close tab/window | Ctrl+W | Cmd+W |
+## Build / Studio
 
-Polish long-hold behavior remains active on the corresponding EXTRA positions (including E, A, S and X; Ż remains on the physical Z position on the right half).
+`.github/workflows/build.yml` invokes ZMK's reusable user-config build workflow.
+The left build enables Studio via `studio-rpc-usb-uart` and
+`CONFIG_ZMK_STUDIO=y`.
 
-## EXTRA semantic shortcuts (current)
+After Studio stores runtime keymap changes, later stock `.keymap` edits may not
+appear until **Restore Stock Settings** is used in ZMK Studio.
 
-The EXTRA layer is intentionally OS-semantic: use the same physical key and the active Windows/Linux/macOS mode emits the appropriate shortcut.
+## First flash after a settings reset
 
-- W: close tab; Shift+W: reopen tab
-- E: app switch; Shift+E: reverse app switch
-- R: tab switch; Shift+R: reverse tab switch
-- T: new tab
-- S: save
-- F: find
-- P: print
-- Y: copy
-- X: cut
-- V: paste
-- G: undo; Shift+G: redo
-- L: lock workstation
-- B: screenshot (Print Screen on Windows/Linux, Cmd+Shift+3 on macOS)
-- Zoom in/out occupy the same physical positions that produce + and - on the SIGNS layer.
+1. Build the repository in GitHub Actions.
+2. Flash `settings-reset.uf2` to both halves once.
+3. Flash `skeletyl-left.uf2` to the left/central half.
+4. Flash `skeletyl-right.uf2` to the right half.
+5. Forget/re-pair Bluetooth hosts if the settings reset invalidated pairings.
 
-Polish long-presses on EXTRA remain active for A/C/E/L/N/O/S/X/Z.
+For ordinary future keymap-only changes, flashing the central/left half is
+normally sufficient.
