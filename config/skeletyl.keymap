@@ -4,6 +4,7 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/outputs.h>
+#include <dt-bindings/zmk/modifiers.h>
 
 #define DEFAULT      0
 #define NUMMY        1
@@ -86,6 +87,49 @@
             hold-trigger-key-positions = <29>;
         };
 
+        // Semantic shortcuts with Shift-aware reverse/alternate actions.
+        // Shift is consumed by mod-morph, so the morphed binding receives only
+        // the modifiers explicitly encoded in that binding.
+        win_close_reopen: win_close_reopen {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            display-name = "Close / Reopen tab";
+            bindings = <&kp LC(DE_W)>, <&kp LC(LS(DE_T))>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+
+        mac_close_reopen: mac_close_reopen {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            display-name = "Close / Reopen tab (macOS)";
+            bindings = <&kp LG(DE_W)>, <&kp LG(LS(DE_T))>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+
+        win_app_switch: win_app_switch {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            display-name = "App switch";
+            bindings = <&kp LA(TAB)>, <&kp LA(LS(TAB))>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+
+        mac_app_switch: mac_app_switch {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            display-name = "App switch (macOS)";
+            bindings = <&kp LG(TAB)>, <&kp LG(LS(TAB))>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+
+        tab_switch: tab_switch {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            display-name = "Tab switch";
+            bindings = <&kp LC(TAB)>, <&kp LC(LS(TAB))>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+
         // EXTRA-layer Polish long-press behaviors.
         // Tap keeps the existing EXTRA action; hold emits the Polish Unicode letter.
         // The first (dummy) parameter is consumed by the fixed Unicode macro;
@@ -99,6 +143,8 @@
         pl_s_ht: polish_s_hold_tap { compatible = "zmk,behavior-hold-tap"; #binding-cells = <2>; display-name = "Hold: ś / Tap: action"; flavor = "tap-preferred"; tapping-term-ms = <180>; bindings = <&pl_s>, <&kp>; };
         pl_x_ht: polish_x_hold_tap { compatible = "zmk,behavior-hold-tap"; #binding-cells = <2>; display-name = "Hold: ź / Tap: action"; flavor = "tap-preferred"; tapping-term-ms = <180>; bindings = <&pl_x>, <&kp>; };
         pl_z_ht: polish_z_hold_tap { compatible = "zmk,behavior-hold-tap"; #binding-cells = <2>; display-name = "Hold: ż / Tap: action"; flavor = "tap-preferred"; tapping-term-ms = <180>; bindings = <&pl_z>, <&kp>; };
+        pl_e_app_win_ht: polish_e_app_win_hold_tap { compatible = "zmk,behavior-hold-tap"; #binding-cells = <2>; display-name = "Hold: ę / Tap: App switch"; flavor = "tap-preferred"; tapping-term-ms = <180>; bindings = <&pl_e>, <&sem_app_win>; };
+        pl_e_app_mac_ht: polish_e_app_mac_hold_tap { compatible = "zmk,behavior-hold-tap"; #binding-cells = <2>; display-name = "Hold: ę / Tap: App switch macOS"; flavor = "tap-preferred"; tapping-term-ms = <180>; bindings = <&pl_e>, <&sem_app_mac>; };
     };
 
     macros {
@@ -113,6 +159,8 @@
         pl_s: polish_s { compatible = "zmk,behavior-macro-one-param"; #binding-cells = <1>; wait-ms = <0>; tap-ms = <0>; bindings = <&uc 0x015B 0x015A>; };
         pl_x: polish_x { compatible = "zmk,behavior-macro-one-param"; #binding-cells = <1>; wait-ms = <0>; tap-ms = <0>; bindings = <&uc 0x017A 0x0179>; };
         pl_z: polish_z { compatible = "zmk,behavior-macro-one-param"; #binding-cells = <1>; wait-ms = <0>; tap-ms = <0>; bindings = <&uc 0x017C 0x017B>; };
+        sem_app_win: semantic_app_win { compatible = "zmk,behavior-macro-one-param"; #binding-cells = <1>; wait-ms = <0>; tap-ms = <0>; bindings = <&win_app_switch>; };
+        sem_app_mac: semantic_app_mac { compatible = "zmk,behavior-macro-one-param"; #binding-cells = <1>; wait-ms = <0>; tap-ms = <0>; bindings = <&mac_app_switch>; };
 
         grave: grave {
             compatible = "zmk,behavior-macro";
@@ -365,11 +413,18 @@
         };
 
         extra_layer {
-            display-name = "Extra";
+            display-name = "Extra / Semantic";
+            // Left-hand semantic controls:
+            // W = close tab; Shift+W = reopen closed tab
+            // E = app switch; Shift+E = reverse app switch
+            // R = tab switch; Shift+R = reverse tab switch
+            // T = new tab
+            // A/S/D/F/G = select all/cut/copy/paste/undo
+            // Long-hold on Polish letter positions still emits the Polish character.
             bindings = <
-&kp F5  &kp C_VOL_DN  &pl_e_ht 0 C_MUTE  &kp C_VOL_UP  &kp PG_UP          &pl_z_ht 0 F1  &mt F12 F2  &hm LSHFT F3  &pl_o_ht 0 F4  &kp F5
-&pl_a_ht 0 LC(DE_A)  &pl_s_ht 0 LC(DE_X)  &kp LC(INS)  &kp LS(INS)  &kp LC(DE_Z)  &kp LEFT  &kp DOWN  &kp UP  &pl_l_ht 0 RIGHT  &kp BSPC
-&kp LS(INS)  &pl_x_ht 0 C_PREV  &pl_c_ht 0 C_PP  &kp C_NEXT  &kp PSCRN             &pl_n_ht 0 F6  &kp F7  &kp F8  &kp F9  &kp F10
+&kp F1  &win_close_reopen  &pl_e_app_win_ht 0 0  &tab_switch  &kp LC(DE_T)          &pl_z_ht 0 F1  &mt F12 F2  &hm LSHFT F3  &pl_o_ht 0 F4  &kp F5
+&pl_a_ht 0 LC(DE_A)  &pl_s_ht 0 LC(DE_X)  &kp LC(INS)  &kp LS(INS)  &kp LC(DE_Z)           &kp LEFT  &kp DOWN  &kp UP  &pl_l_ht 0 RIGHT  &kp BSPC
+&kp F6  &pl_x_ht 0 C_PREV  &pl_c_ht 0 C_PP  &kp C_NEXT  &kp PSCRN                  &pl_n_ht 0 F6  &kp F7  &kp F8  &kp F9  &kp F10
                  &lt EXTRA RET  &lt SIGNS SPACE  &sks LCTRL           &sks LSHFT  &lt NUMMY SPACE  &lt NAV TAB
             >;
         };
@@ -455,11 +510,11 @@
         };
 
         mac_extra_layer {
-            display-name = "macOS Extra overlay";
+            display-name = "macOS Extra semantic overlay";
             bindings = <
-&trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans
-&pl_a_ht 0 LG(DE_A) &pl_s_ht 0 LG(DE_X) &kp LG(DE_C) &kp LG(DE_V) &kp LG(DE_Z)   &trans &trans &trans &trans &trans
-&trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans
+&trans  &mac_close_reopen  &pl_e_app_mac_ht 0 0  &trans  &kp LG(DE_T)   &trans &trans &trans &trans &trans
+&pl_a_ht 0 LG(DE_A)  &pl_s_ht 0 LG(DE_X)  &kp LG(DE_C)  &kp LG(DE_V)  &kp LG(DE_Z)   &trans &trans &trans &trans &trans
+&trans  &trans  &trans &trans &trans   &trans &trans &trans &trans &trans
              &trans &trans &trans   &trans &trans &trans
             >;
         };

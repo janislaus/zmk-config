@@ -204,3 +204,24 @@ The generated config uses that spelling for `tog_on` and `tog_off`.
   `A/C/E/L/N/O/S/X/Z` -> `ą/ć/ę/ł/ń/ó/ś/ź/ż`; Shift selects uppercase.
   A short tap still performs that key's normal EXTRA-layer action.
 
+
+## Semantic EXTRA layer (left hand)
+
+Hold the left outer thumb (`EXTRA`) and use the left-hand keys:
+
+| Key | Meaning | Windows / Linux | macOS |
+|---|---|---|---|
+| Q | Previous app | Alt+Shift+Tab | Cmd+Shift+Tab |
+| W | Next app | Alt+Tab | Cmd+Tab |
+| E | Previous tab | Ctrl+Shift+Tab | Ctrl+Shift+Tab |
+| R | Next tab | Ctrl+Tab | Ctrl+Tab |
+| T | New tab | Ctrl+T | Cmd+T |
+| A | Select all | Ctrl+A | Cmd+A |
+| S | Cut | Ctrl+X (Linux uses K_CUT) | Cmd+X |
+| D | Copy | Ctrl+Insert (Linux uses K_COPY) | Cmd+C |
+| F | Paste | Shift+Insert (Linux uses K_PASTE) | Cmd+V |
+| G | Undo | Ctrl+Z (Linux uses K_UNDO) | Cmd+Z |
+| Y | Reopen closed tab | Ctrl+Shift+T | Cmd+Shift+T |
+| X | Close tab/window | Ctrl+W | Cmd+W |
+
+Polish long-hold behavior remains active on the corresponding EXTRA positions (including E, A, S and X; Ż remains on the physical Z position on the right half).
