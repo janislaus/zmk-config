@@ -193,3 +193,18 @@ normally sufficient.
 - No key-toggle state remains in the app/tab switchers, and EXTRA no longer has to clean up modifiers on release.
 - The D+F+Space GUI combo is now a normal `LGUI` key instead of sticky GUI. Tap the chord to open Start/Activities immediately; keep the chord held if you need a physically held Win/Super/Command modifier. This removes the 500 ms sticky timeout from standalone GUI presses.
 - Polish remains on the modifier-aware right-middle + right-outer one-shot combo. The right-inner Shift thumb remains tap=sticky Shift / hold=physical Shift, including the Polish uppercase handling.
+
+## Robust app/tab switchers
+
+The semantic EXTRA layer intentionally avoids toggle-based or macro-latched modifiers.
+This makes the switchers behave like ordinary physical modifier keys:
+
+- Tap `EXTRA + E`: one application switch and immediate selection.
+- Hold `EXTRA + E`: E becomes the OS application-switch modifier (`Alt` on Windows/Linux, `Command` on macOS). While E is held, tap the right outer thumb (`Tab`) to open/cycle the native app switcher. Hold Shift while tapping Tab to go backwards. Release E to select.
+- Tap `EXTRA + R`: one `Ctrl+Tab` and immediate selection.
+- Hold `EXTRA + R`: R becomes `Ctrl`. While R is held, tap the right outer thumb (`Tab`) to cycle tabs; Shift+Tab goes backwards. Release R to finish.
+
+This deliberately means that **holding E/R alone does not open the floating switcher**; the first Tab-thumb tap does. That trade-off avoids any cross-key latched modifier state and ensures the modifier release is owned by the same physical key that pressed it.
+
+The D+F+Space GUI/Win/Command combo is sticky again. The general sticky modifier does not use `quick-release`, so it remains active through the full next key press/release.
+
