@@ -72,13 +72,16 @@
 #define DE_UNDS     LS(DE_MINS)       // _
 #define DE_BSLS     RA(DE_SS)         // (backslash)
 
-// some polish special letters
-#define PL_A  U0105
-#define PL_L  U0142
-#define PL_ZD U017C
-#define PL_ZA U017A
-#define PL_S  U015B
-#define PL_C  U0107
-#define PL_N  U0144
-#define PL_E  U0119
-#define PL_O  U00F3
+// Polish Programmer-layout special letters (AltGr / Right Alt + base letter).
+// Current ZMK does not provide arbitrary Uxxxx Unicode keycodes.
+#define PL_A  RA(DE_A)  // ą
+#define PL_L  RA(DE_L)  // ł
+#define PL_ZD RA(DE_Z)  // ż
+#define PL_ZA RA(DE_X)  // ź
+#define PL_S  RA(DE_S)  // ś
+#define PL_C  RA(DE_C)  // ć
+#define PL_N  RA(DE_N)  // ń
+#define PL_E  RA(DE_E)  // ę
+#define PL_O  RA(DE_O)  // ó
+
+
