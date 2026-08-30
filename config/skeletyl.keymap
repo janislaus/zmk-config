@@ -85,9 +85,35 @@
             bindings = <&kp>, <&kp>;
             hold-trigger-key-positions = <29>;
         };
+
+        // EXTRA-layer Polish long-press behaviors.
+        // Tap keeps the existing EXTRA action; hold emits the Polish Unicode letter.
+        // The first (dummy) parameter is consumed by the fixed Unicode macro;
+        // the second parameter is forwarded to &kp for the normal tap action.
+        pl_a_ht: polish_a_hold_tap { compatible = "zmk,behavior-hold-tap"; #binding-cells = <2>; display-name = "Hold: ą / Tap: action"; flavor = "tap-preferred"; tapping-term-ms = <180>; bindings = <&pl_a>, <&kp>; };
+        pl_c_ht: polish_c_hold_tap { compatible = "zmk,behavior-hold-tap"; #binding-cells = <2>; display-name = "Hold: ć / Tap: action"; flavor = "tap-preferred"; tapping-term-ms = <180>; bindings = <&pl_c>, <&kp>; };
+        pl_e_ht: polish_e_hold_tap { compatible = "zmk,behavior-hold-tap"; #binding-cells = <2>; display-name = "Hold: ę / Tap: action"; flavor = "tap-preferred"; tapping-term-ms = <180>; bindings = <&pl_e>, <&kp>; };
+        pl_l_ht: polish_l_hold_tap { compatible = "zmk,behavior-hold-tap"; #binding-cells = <2>; display-name = "Hold: ł / Tap: action"; flavor = "tap-preferred"; tapping-term-ms = <180>; bindings = <&pl_l>, <&kp>; };
+        pl_n_ht: polish_n_hold_tap { compatible = "zmk,behavior-hold-tap"; #binding-cells = <2>; display-name = "Hold: ń / Tap: action"; flavor = "tap-preferred"; tapping-term-ms = <180>; bindings = <&pl_n>, <&kp>; };
+        pl_o_ht: polish_o_hold_tap { compatible = "zmk,behavior-hold-tap"; #binding-cells = <2>; display-name = "Hold: ó / Tap: action"; flavor = "tap-preferred"; tapping-term-ms = <180>; bindings = <&pl_o>, <&kp>; };
+        pl_s_ht: polish_s_hold_tap { compatible = "zmk,behavior-hold-tap"; #binding-cells = <2>; display-name = "Hold: ś / Tap: action"; flavor = "tap-preferred"; tapping-term-ms = <180>; bindings = <&pl_s>, <&kp>; };
+        pl_x_ht: polish_x_hold_tap { compatible = "zmk,behavior-hold-tap"; #binding-cells = <2>; display-name = "Hold: ź / Tap: action"; flavor = "tap-preferred"; tapping-term-ms = <180>; bindings = <&pl_x>, <&kp>; };
+        pl_z_ht: polish_z_hold_tap { compatible = "zmk,behavior-hold-tap"; #binding-cells = <2>; display-name = "Hold: ż / Tap: action"; flavor = "tap-preferred"; tapping-term-ms = <180>; bindings = <&pl_z>, <&kp>; };
     };
 
     macros {
+        // One-parameter wrappers let hold-tap call fixed Unicode pairs while
+        // forwarding its other parameter to the normal tap action.
+        pl_a: polish_a { compatible = "zmk,behavior-macro-one-param"; #binding-cells = <1>; wait-ms = <0>; tap-ms = <0>; bindings = <&uc 0x0105 0x0104>; };
+        pl_c: polish_c { compatible = "zmk,behavior-macro-one-param"; #binding-cells = <1>; wait-ms = <0>; tap-ms = <0>; bindings = <&uc 0x0107 0x0106>; };
+        pl_e: polish_e { compatible = "zmk,behavior-macro-one-param"; #binding-cells = <1>; wait-ms = <0>; tap-ms = <0>; bindings = <&uc 0x0119 0x0118>; };
+        pl_l: polish_l { compatible = "zmk,behavior-macro-one-param"; #binding-cells = <1>; wait-ms = <0>; tap-ms = <0>; bindings = <&uc 0x0142 0x0141>; };
+        pl_n: polish_n { compatible = "zmk,behavior-macro-one-param"; #binding-cells = <1>; wait-ms = <0>; tap-ms = <0>; bindings = <&uc 0x0144 0x0143>; };
+        pl_o: polish_o { compatible = "zmk,behavior-macro-one-param"; #binding-cells = <1>; wait-ms = <0>; tap-ms = <0>; bindings = <&uc 0x00F3 0x00D3>; };
+        pl_s: polish_s { compatible = "zmk,behavior-macro-one-param"; #binding-cells = <1>; wait-ms = <0>; tap-ms = <0>; bindings = <&uc 0x015B 0x015A>; };
+        pl_x: polish_x { compatible = "zmk,behavior-macro-one-param"; #binding-cells = <1>; wait-ms = <0>; tap-ms = <0>; bindings = <&uc 0x017A 0x0179>; };
+        pl_z: polish_z { compatible = "zmk,behavior-macro-one-param"; #binding-cells = <1>; wait-ms = <0>; tap-ms = <0>; bindings = <&uc 0x017C 0x017B>; };
+
         grave: grave {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
@@ -249,11 +275,11 @@
             bindings = <&sks LGUI>;
         };
 
-        // Right middle + right outer thumbs (34 + 35) -> sticky Shift.
-        // This fully overlaps the 33+34+35 one-shot Polish combo.
+        // Left middle + left inner thumbs (31 + 32) -> sticky Shift.
+        // This keeps Shift fully on the left thumb cluster, next to Ctrl/Alt.
         combo_shift {
             timeout-ms = <80>;
-            key-positions = <34 35>;
+            key-positions = <31 32>;
             layers = <DEFAULT NUMMY SIGNS EXTRA NAV BLUE POLISH LINUX_MODE MAC_MODE LINUX_EXTRA LINUX_NAV MAC_EXTRA MAC_NAV>;
             bindings = <&sks LSHFT>;
         };
@@ -279,13 +305,6 @@
             bindings = <&tog_off GAME>;
         };
 
-        // Three right thumb keys -> one-shot Polish character layer.
-        polish_one_shot {
-            timeout-ms = <80>;
-            key-positions = <33 34 35>;
-            layers = <DEFAULT LINUX_MODE MAC_MODE>;
-            bindings = <&sl POLISH>;
-        };
     };
 
     conditional_layers {
@@ -348,9 +367,9 @@
         extra_layer {
             display-name = "Extra";
             bindings = <
-&kp F5  &kp C_VOL_DN  &kp C_MUTE  &kp C_VOL_UP  &kp PG_UP          &mt F11 F1  &mt F12 F2  &hm LSHFT F3  &kp F4  &kp F5
-&kp LC(DE_A)  &kp LC(DE_X)  &kp LC(INS)  &kp LS(INS)  &kp LC(DE_Z)  &kp LEFT  &kp DOWN  &kp UP  &kp RIGHT  &kp BSPC
-&kp LS(INS)  &kp C_PREV  &kp C_PP  &kp C_NEXT  &kp PSCRN             &kp F6  &kp F7  &kp F8  &kp F9  &kp F10
+&kp F5  &kp C_VOL_DN  &pl_e_ht 0 C_MUTE  &kp C_VOL_UP  &kp PG_UP          &pl_z_ht 0 F1  &mt F12 F2  &hm LSHFT F3  &pl_o_ht 0 F4  &kp F5
+&pl_a_ht 0 LC(DE_A)  &pl_s_ht 0 LC(DE_X)  &kp LC(INS)  &kp LS(INS)  &kp LC(DE_Z)  &kp LEFT  &kp DOWN  &kp UP  &pl_l_ht 0 RIGHT  &kp BSPC
+&kp LS(INS)  &pl_x_ht 0 C_PREV  &pl_c_ht 0 C_PP  &kp C_NEXT  &kp PSCRN             &pl_n_ht 0 F6  &kp F7  &kp F8  &kp F9  &kp F10
                  &lt EXTRA RET  &lt SIGNS SPACE  &sks LCTRL           &sks LSHFT  &lt NUMMY SPACE  &lt NAV TAB
             >;
         };
@@ -419,7 +438,7 @@
             display-name = "Linux Extra overlay";
             bindings = <
 &trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans
-&kp LC(DE_A) &kp K_CUT &kp K_COPY &kp K_PASTE &kp K_UNDO   &trans &trans &trans &trans &trans
+&pl_a_ht 0 LC(DE_A) &pl_s_ht 0 K_CUT &kp K_COPY &kp K_PASTE &kp K_UNDO   &trans &trans &trans &trans &trans
 &trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans
              &trans &trans &trans   &trans &trans &trans
             >;
@@ -439,7 +458,7 @@
             display-name = "macOS Extra overlay";
             bindings = <
 &trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans
-&kp LG(DE_A) &kp LG(DE_X) &kp LG(DE_C) &kp LG(DE_V) &kp LG(DE_Z)   &trans &trans &trans &trans &trans
+&pl_a_ht 0 LG(DE_A) &pl_s_ht 0 LG(DE_X) &kp LG(DE_C) &kp LG(DE_V) &kp LG(DE_Z)   &trans &trans &trans &trans &trans
 &trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans
              &trans &trans &trans   &trans &trans &trans
             >;

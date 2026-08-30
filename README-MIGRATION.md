@@ -179,7 +179,7 @@ The legacy config defined Polish characters as bare `Uxxxx` values (for example 
 
 ## Polish Unicode input
 
-Polish special characters now use the `urob/zmk-unicode` module and therefore do not depend on the host keyboard layout. The three right thumb keys activate the Polish layer for exactly one key. On that one-shot layer, A/C/E/L/N/O/S/X/Z emit ą/ć/ę/ł/ń/ó/ś/ź/ż; holding Shift emits the uppercase variants.
+Polish special characters now use the `urob/zmk-unicode` module and therefore do not depend on the host keyboard layout. The EXTRA long-press keys activate the Polish layer for exactly one key. On that one-shot layer, A/C/E/L/N/O/S/X/Z emit ą/ć/ę/ł/ń/ó/ś/ź/ż; holding Shift emits the uppercase variants.
 
 The OS selector also selects the matching Unicode input method:
 - Windows: WinCompose mode (`UC_SET_WIN_COMPOSE`). Install WinCompose on Windows.
@@ -193,3 +193,14 @@ The regular outer-thumb Alt combo remains `LALT` (Alt / Option). No physical `RA
 For the current ZMK `main` checkout used by GitHub Actions, custom deterministic
 layer-toggle behaviors use `compatible = "zmk,behavior-toggle-layer"`.
 The generated config uses that spelling for `tog_on` and `tog_off`.
+
+## Latest ergonomic changes
+
+- Sticky Alt: left outer + left middle thumb (`30 + 31`).
+- Sticky Shift: left middle + left inner/right thumb (`31 + 32`).
+- Sticky GUI/Win/Command: `D + F + Space` (`12 + 13 + 31`).
+- The old three-right-thumb Polish combo has been removed.
+- Polish letters are now long-press actions on the EXTRA layer (180 ms):
+  `A/C/E/L/N/O/S/X/Z` -> `ą/ć/ę/ł/ń/ó/ś/ź/ż`; Shift selects uppercase.
+  A short tap still performs that key's normal EXTRA-layer action.
+
