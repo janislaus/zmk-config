@@ -1,0 +1,11 @@
+/*
+ * Skeletyl shared scan definition.
+ * Migrated from the user's existing ZMK shield.
+ */
+
+/ {
+    kscan0: kscan {
+        compatible = "zmk,kscan-gpio-matrix";
+        diode-direction = "col2row";
+    };
+};

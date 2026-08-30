@@ -1,0 +1,59 @@
+#include <physical_layouts.dtsi>
+
+/*
+ * Schematic 3x5+3 geometry for ZMK Studio.
+ *
+ * The key order is exact and matches the matrix transform/keymap positions.
+ * The x/y coordinates are intentionally schematic; they affect only Studio's
+ * visualization, not electrical scanning or key behavior.
+ */
+/ {
+    physical_layout0: skeletyl_physical_layout {
+        compatible = "zmk,physical-layout";
+        display-name = "Skeletyl 3x5+3";
+
+        keys =
+            //                   w   h     x    y   rot  rx  ry
+              <&key_physical_attrs 100 100     0    0    0   0   0>
+            , <&key_physical_attrs 100 100   100    0    0   0   0>
+            , <&key_physical_attrs 100 100   200    0    0   0   0>
+            , <&key_physical_attrs 100 100   300    0    0   0   0>
+            , <&key_physical_attrs 100 100   400    0    0   0   0>
+            , <&key_physical_attrs 100 100   700    0    0   0   0>
+            , <&key_physical_attrs 100 100   800    0    0   0   0>
+            , <&key_physical_attrs 100 100   900    0    0   0   0>
+            , <&key_physical_attrs 100 100  1000    0    0   0   0>
+            , <&key_physical_attrs 100 100  1100    0    0   0   0>
+
+            , <&key_physical_attrs 100 100     0  100    0   0   0>
+            , <&key_physical_attrs 100 100   100  100    0   0   0>
+            , <&key_physical_attrs 100 100   200  100    0   0   0>
+            , <&key_physical_attrs 100 100   300  100    0   0   0>
+            , <&key_physical_attrs 100 100   400  100    0   0   0>
+            , <&key_physical_attrs 100 100   700  100    0   0   0>
+            , <&key_physical_attrs 100 100   800  100    0   0   0>
+            , <&key_physical_attrs 100 100   900  100    0   0   0>
+            , <&key_physical_attrs 100 100  1000  100    0   0   0>
+            , <&key_physical_attrs 100 100  1100  100    0   0   0>
+
+            , <&key_physical_attrs 100 100     0  200    0   0   0>
+            , <&key_physical_attrs 100 100   100  200    0   0   0>
+            , <&key_physical_attrs 100 100   200  200    0   0   0>
+            , <&key_physical_attrs 100 100   300  200    0   0   0>
+            , <&key_physical_attrs 100 100   400  200    0   0   0>
+            , <&key_physical_attrs 100 100   700  200    0   0   0>
+            , <&key_physical_attrs 100 100   800  200    0   0   0>
+            , <&key_physical_attrs 100 100   900  200    0   0   0>
+            , <&key_physical_attrs 100 100  1000  200    0   0   0>
+            , <&key_physical_attrs 100 100  1100  200    0   0   0>
+
+            // thumbs: left outer/middle/inner | right inner/middle/outer
+            , <&key_physical_attrs 100 100   200  330    0   0   0>
+            , <&key_physical_attrs 100 100   300  330    0   0   0>
+            , <&key_physical_attrs 100 100   400  330    0   0   0>
+            , <&key_physical_attrs 100 100   700  330    0   0   0>
+            , <&key_physical_attrs 100 100   800  330    0   0   0>
+            , <&key_physical_attrs 100 100   900  330    0   0   0>
+            ;
+    };
+};
