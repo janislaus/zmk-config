@@ -450,7 +450,7 @@
             bindings = <
 &kp F1  &win_close_reopen  &pl_e_app_win_ht 0 0  &tab_switch  &kp LC(DE_T)          &pl_z_ht 0 F1  &mt F12 F2  &kp LC(DE_PLUS)  &pl_o_ht 0 F4  &kp LC(DE_P)
 &pl_a_ht 0 LC(DE_A)  &pl_s_ht 0 LC(DE_S)  &trans  &kp LC(DE_F)  &win_undo_redo   &kp LEFT  &kp DOWN  &kp UP  &pl_l_ht 0 LG(DE_L)  &kp BSPC
-&kp LC(DE_C)  &pl_x_ht 0 LC(DE_X)  &pl_c_ht 0 K_NONE  &kp LC(DE_V)  &kp PSCRN       &pl_n_ht 0 F6  &kp F7  &kp F8  &kp F9  &kp LC(DE_MINS)
+&kp LC(DE_C)  &pl_x_ht 0 LC(DE_X)  &pl_c_ht 0 0  &kp LC(DE_V)  &kp PSCRN       &pl_n_ht 0 F6  &kp F7  &kp F8  &kp F9  &kp LC(DE_MINS)
                  &lt EXTRA RET  &lt SIGNS SPACE  &sks LCTRL           &sks LSHFT  &lt NUMMY SPACE  &lt NAV TAB
             >;
         };
