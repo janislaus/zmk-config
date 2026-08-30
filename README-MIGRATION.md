@@ -179,3 +179,11 @@ appear until **Restore Stock Settings** is used in ZMK Studio.
 
 For ordinary future keymap-only changes, flashing the central/left half is
 normally sufficient.
+
+## 2026-08-30 QC update: semantic switchers and Polish uppercase
+
+- `EXTRA + C` is Copy (`Ctrl+C` on Windows/Linux, `Cmd+C` on macOS). `EXTRA + Y` is intentionally unused.
+- `EXTRA + E` now starts a *held-modifier* application switcher. Keep holding the EXTRA thumb and tap `E` repeatedly to advance. Use Shift+E to move backwards. The relevant host modifier (Alt on Windows, Super on Ubuntu/GNOME, Command on macOS) is released when the EXTRA thumb is released.
+- `EXTRA + R` behaves the same way for tab switching, keeping Ctrl held until the EXTRA thumb is released.
+- Polish remains on the right-middle + right-outer thumb combo, but now uses a modifier-aware sticky layer. Shift no longer consumes the Polish one-shot before the Unicode key. `&uc lower upper` therefore sees Shift and emits the uppercase Polish code point.
+- The right-inner Shift thumb is now dual-purpose: **tap = sticky Shift, hold = normal held Shift**. Holding it while EXTRA is held allows repeated reverse `E`/`R` switching. On the Polish layer the tap variant uses a non-quick-release sticky Shift so uppercase Unicode is reliable.
