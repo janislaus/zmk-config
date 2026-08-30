@@ -1,4 +1,4 @@
-# Skeletyl ZMK config — cross-platform QC release (2026-08-30)
+# Skeletyl ZMK config — native switcher QC release (2026-08-30)
 
 This repository targets current ZMK `main`, Zephyr 4.1 board IDs, and ZMK Studio
 on the left/central half.
@@ -31,11 +31,11 @@ Current behavior:
 - right outer hold (35): NAV; tap: Tab
 - 30+31: sticky Alt / macOS Option
 - 31+32: sticky Shift
-- D+F+left-middle-thumb (12+13+31): sticky GUI / Win / Command
+- D+F+left-middle-thumb (12+13+31): normal held GUI / Win / Command (not sticky)
 - 34+35: one-shot POLISH layer
 - 30+31+32: toggle GAME
 
-Sticky modifiers use a 500 ms release timeout and combo timeout is 80 ms.
+Sticky Ctrl/Alt/Shift use a 500 ms release timeout. The GUI combo is intentionally non-sticky; combo timeout is 80 ms.
 
 ## OS modes
 
@@ -84,7 +84,7 @@ Physical base-key positions:
                                                   Shift: Redo
 
     Y       X             C             V             B       | N      M      ,       .      -
-    Copy    Cut           none          Paste         Shot    | none   none   none    none   Zoom-
+    none    Cut           Copy          Paste         Shot    | none   none   none    none   Zoom-
 
 OS-specific output:
 
@@ -180,10 +180,16 @@ appear until **Restore Stock Settings** is used in ZMK Studio.
 For ordinary future keymap-only changes, flashing the central/left half is
 normally sufficient.
 
-## 2026-08-30 QC update: semantic switchers and Polish uppercase
+## 2026-08-30 QC update: native app/tab switchers
 
 - `EXTRA + C` is Copy (`Ctrl+C` on Windows/Linux, `Cmd+C` on macOS). `EXTRA + Y` is intentionally unused.
-- `EXTRA + E` now starts a *held-modifier* application switcher. Keep holding the EXTRA thumb and tap `E` repeatedly to advance. Use Shift+E to move backwards. The relevant host modifier (Alt on Windows, Super on Ubuntu/GNOME, Command on macOS) is released when the EXTRA thumb is released.
-- `EXTRA + R` behaves the same way for tab switching, keeping Ctrl held until the EXTRA thumb is released.
-- Polish remains on the right-middle + right-outer thumb combo, but now uses a modifier-aware sticky layer. Shift no longer consumes the Polish one-shot before the Unicode key. `&uc lower upper` therefore sees Shift and emits the uppercase Polish code point.
-- The right-inner Shift thumb is now dual-purpose: **tap = sticky Shift, hold = normal held Shift**. Holding it while EXTRA is held allows repeated reverse `E`/`R` switching. On the Polish layer the tap variant uses a non-quick-release sticky Shift so uppercase Unicode is reliable.
+- `EXTRA + E` is implemented as a press/release macro, not a toggle. On key press it presses the OS app-switch modifier and taps Tab; on E release it releases the modifier. Therefore:
+  - quick tap E -> switch one app and commit immediately;
+  - hold E -> keep the native app switcher open;
+  - while holding E, tap the physical right-outer Tab thumb to continue cycling;
+  - hold physical Shift while cycling to go backwards;
+  - release E -> commit/select because Alt/Super/Command is released.
+- `EXTRA + R` uses the identical model with Ctrl for tab switching. Quick tap R switches once; hold R and tap the physical Tab thumb to cycle; release R to commit.
+- No key-toggle state remains in the app/tab switchers, and EXTRA no longer has to clean up modifiers on release.
+- The D+F+Space GUI combo is now a normal `LGUI` key instead of sticky GUI. Tap the chord to open Start/Activities immediately; keep the chord held if you need a physically held Win/Super/Command modifier. This removes the 500 ms sticky timeout from standalone GUI presses.
+- Polish remains on the modifier-aware right-middle + right-outer one-shot combo. The right-inner Shift thumb remains tap=sticky Shift / hold=physical Shift, including the Polish uppercase handling.

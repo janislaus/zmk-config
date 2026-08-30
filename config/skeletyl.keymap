@@ -50,22 +50,6 @@
             ignore-modifiers;
         };
 
-        // Explicit key-toggle variants used by the visual app/tab switchers.
-        // "on" is idempotent: repeated E/R taps keep the modifier held instead
-        // of toggling it off. The EXTRA thumb releases all switcher modifiers.
-        kt_on: key_toggle_on_only {
-            compatible = "zmk,behavior-key-toggle";
-            #binding-cells = <1>;
-            display-name = "Key toggle ON";
-            toggle-mode = "on";
-        };
-
-        kt_off: key_toggle_off_only {
-            compatible = "zmk,behavior-key-toggle";
-            #binding-cells = <1>;
-            display-name = "Key toggle OFF";
-            toggle-mode = "off";
-        };
 
         // Polish one-shot layer that survives modifier presses. Unlike ZMK's
         // standard &sl (quick-release), this stays active through Shift and
@@ -152,18 +136,10 @@
             hold-trigger-key-positions = <29>;
         };
 
-        extra_lt: extra_layer_tap_with_cleanup {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            display-name = "EXTRA / Enter + switcher cleanup";
-            flavor = "tap-preferred";
-            tapping-term-ms = <160>;
-            bindings = <&extra_hold>, <&kp>;
-        };
 
-        // Semantic shortcuts with Shift-aware reverse/alternate actions.
-        // Shift is consumed by mod-morph, so the morphed binding receives only
-        // the modifiers explicitly encoded in that binding.
+        // Semantic shortcuts with Shift-aware alternate actions. App/tab switching
+        // is handled by press/hold macros below, so a physically held Shift stays
+        // genuinely held and naturally turns Tab into Shift+Tab.
         win_close_reopen: win_close_reopen {
             compatible = "zmk,behavior-mod-morph";
             #binding-cells = <0>;
@@ -180,37 +156,6 @@
             mods = <(MOD_LSFT|MOD_RSFT)>;
         };
 
-        win_app_switch: win_app_switch {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            display-name = "App switch (held Alt)";
-            bindings = <&win_app_next>, <&win_app_prev>;
-            mods = <(MOD_LSFT|MOD_RSFT)>;
-        };
-
-        linux_app_switch: linux_app_switch {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            display-name = "App switch (held Super, Linux/GNOME)";
-            bindings = <&linux_app_next>, <&linux_app_prev>;
-            mods = <(MOD_LSFT|MOD_RSFT)>;
-        };
-
-        mac_app_switch: mac_app_switch {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            display-name = "App switch (held Command, macOS)";
-            bindings = <&mac_app_next>, <&mac_app_prev>;
-            mods = <(MOD_LSFT|MOD_RSFT)>;
-        };
-
-        tab_switch: tab_switch {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            display-name = "Tab switch (held Ctrl)";
-            bindings = <&tab_next>, <&tab_prev>;
-            mods = <(MOD_LSFT|MOD_RSFT)>;
-        };
 
         win_undo_redo: win_undo_redo {
             compatible = "zmk,behavior-mod-morph";
@@ -239,94 +184,66 @@
 
     macros {
 
-        // EXTRA hold wrapper: enables EXTRA while held and guarantees that
-        // any visual switcher modifier is released when the thumb comes up.
-        extra_hold: extra_hold {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            display-name = "EXTRA hold + switcher cleanup";
-            wait-ms = <0>;
-            tap-ms = <0>;
-            bindings =
-                <&macro_press &mo EXTRA>,
-                <&macro_pause_for_release>,
-                <&macro_tap &kt_off LALT &kt_off LGUI &kt_off LCTRL>,
-                <&macro_release &mo EXTRA>;
-        };
-
-        // Window/application switchers. The modifier is deliberately left
-        // held; releasing the EXTRA thumb performs the cleanup above.
+        // Native-feeling switchers. Pressing the semantic key presses the OS
+        // modifier and taps Tab immediately. Releasing that same semantic key
+        // releases the modifier. Therefore a quick tap switches immediately;
+        // holding the key keeps the OS switcher open. While held, tap the
+        // physical Tab thumb to continue cycling; hold Shift for reverse.
         win_app_next: win_app_next {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            display-name = "Windows app next";
-            wait-ms = <5>;
+            display-name = "Windows app switch next (hold Alt)";
+            wait-ms = <0>;
             tap-ms = <5>;
-            bindings = <&kt_off LCTRL>, <&kt_off LGUI>, <&kt_on LALT>, <&kp TAB>;
+            bindings =
+                <&macro_press &kp LALT>,
+                <&macro_tap &kp TAB>,
+                <&macro_pause_for_release>,
+                <&macro_release &kp LALT>;
         };
 
-        win_app_prev: win_app_prev {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            display-name = "Windows app previous";
-            wait-ms = <5>;
-            tap-ms = <5>;
-            bindings = <&kt_off LCTRL>, <&kt_off LGUI>, <&kt_on LALT>, <&kp LS(TAB)>;
-        };
 
         linux_app_next: linux_app_next {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            display-name = "Linux app next";
-            wait-ms = <5>;
+            display-name = "Linux app switch next (hold Super)";
+            wait-ms = <0>;
             tap-ms = <5>;
-            bindings = <&kt_off LCTRL>, <&kt_off LALT>, <&kt_on LGUI>, <&kp TAB>;
+            bindings =
+                <&macro_press &kp LGUI>,
+                <&macro_tap &kp TAB>,
+                <&macro_pause_for_release>,
+                <&macro_release &kp LGUI>;
         };
 
-        linux_app_prev: linux_app_prev {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            display-name = "Linux app previous";
-            wait-ms = <5>;
-            tap-ms = <5>;
-            bindings = <&kt_off LCTRL>, <&kt_off LALT>, <&kt_on LGUI>, <&kp LS(TAB)>;
-        };
 
         mac_app_next: mac_app_next {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            display-name = "macOS app next";
-            wait-ms = <5>;
+            display-name = "macOS app switch next (hold Command)";
+            wait-ms = <0>;
             tap-ms = <5>;
-            bindings = <&kt_off LCTRL>, <&kt_off LALT>, <&kt_on LGUI>, <&kp TAB>;
+            bindings =
+                <&macro_press &kp LGUI>,
+                <&macro_tap &kp TAB>,
+                <&macro_pause_for_release>,
+                <&macro_release &kp LGUI>;
         };
 
-        mac_app_prev: mac_app_prev {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            display-name = "macOS app previous";
-            wait-ms = <5>;
-            tap-ms = <5>;
-            bindings = <&kt_off LCTRL>, <&kt_off LALT>, <&kt_on LGUI>, <&kp LS(TAB)>;
-        };
 
         tab_next: tab_next {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            display-name = "Tab next";
-            wait-ms = <5>;
+            display-name = "Tab switch next (hold Ctrl)";
+            wait-ms = <0>;
             tap-ms = <5>;
-            bindings = <&kt_off LALT>, <&kt_off LGUI>, <&kt_on LCTRL>, <&kp TAB>;
+            bindings =
+                <&macro_press &kp LCTRL>,
+                <&macro_tap &kp TAB>,
+                <&macro_pause_for_release>,
+                <&macro_release &kp LCTRL>;
         };
 
-        tab_prev: tab_prev {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            display-name = "Tab previous";
-            wait-ms = <5>;
-            tap-ms = <5>;
-            bindings = <&kt_off LALT>, <&kt_off LGUI>, <&kt_on LCTRL>, <&kp LS(TAB)>;
-        };
 
         grave: grave {
             compatible = "zmk,behavior-macro";
@@ -488,14 +405,15 @@
             bindings = <&sks LALT>;
         };
 
-        // Restore the original left-hand Windows/Super combo:
-        // D + F + left-middle thumb (Space) -> sticky GUI / Win / Command.
-        // Positions 12 and 13 are D/F on the base layer; 31 is Space/SIGNS.
+        // Left-hand GUI / Win / Command combo. This is deliberately NOT sticky:
+        // tapping the D+F+Space chord gives a normal GUI key press/release immediately,
+        // while keeping the chord held lets it act as a normal held GUI modifier.
+        // This avoids the old 500 ms launcher/start-menu delay.
         combo_lgui {
             timeout-ms = <80>;
             key-positions = <12 13 31>;
             layers = <DEFAULT NUMMY SIGNS EXTRA NAV BLUE POLISH LINUX_MODE MAC_MODE LINUX_EXTRA LINUX_NAV MAC_EXTRA MAC_NAV>;
-            bindings = <&sks LGUI>;
+            bindings = <&kp LGUI>;
         };
 
         // Left middle + left inner thumbs (31 + 32) -> sticky Shift.
@@ -572,7 +490,7 @@
 &pht DE_AT DE_Q  &kp DE_W  &kp DE_E  &kp DE_R  &kp DE_T             &kp DE_Z  &pht DE_UE DE_U  &kp DE_I  &pht DE_OE DE_O  &kp DE_P
 &pht DE_AE DE_A  &pht DE_SS DE_S  &kp DE_D  &kp DE_F  &kp DE_G     &kp DE_H  &kp DE_J  &kp DE_K  &kp DE_L  &kp BSPC
 &kp DE_Y  &kp DE_X  &kp DE_C  &kp DE_V  &kp DE_B                    &kp DE_N  &kp DE_M  &kp COMMA  &kp DOT  &kp DE_MINS
-                 &extra_lt 0 RET  &lt SIGNS SPACE  &sks LCTRL          &shft LSHFT LSHFT  &lt NUMMY ESC  &lt NAV TAB
+                 &lt EXTRA RET  &lt SIGNS SPACE  &sks LCTRL          &shft LSHFT LSHFT  &lt NUMMY ESC  &lt NAV TAB
             >;
         };
 
@@ -582,7 +500,7 @@
 &kp DE_EXLM  &kp DE_DQUO  &kp N0  &mt DE_EURO DLLR  &kp DE_PERC    &mt DE_SECT DE_AMPR  &kp DE_SLSH  &kp DE_PLUS  &kp DE_ASTR  &kp DE_HASH
 &kp N1  &kp N2  &kp N3  &kp N4  &kp N5                               &kp N6  &kp N7  &kp N8  &kp N9  &kp BSPC
 &kp DE_TILD  &kp DE_QUES  &kp DE_QUOT  &kp DE_EQL  &circ            &kp DE_PIPE  &kp DE_BSLS  &kp COMMA  &kp DOT  &kp DE_MINS
-                 &extra_lt 0 RET  &lt SIGNS SPACE  &sks LCTRL          &shft LSHFT LSHFT  &lt NUMMY SPACE  &lt NAV TAB
+                 &lt EXTRA RET  &lt SIGNS SPACE  &sks LCTRL          &shft LSHFT LSHFT  &lt NUMMY SPACE  &lt NAV TAB
             >;
         };
 
@@ -592,7 +510,7 @@
 &kp DE_EXLM  &kp DE_DQUO  &kp DE_DEG  &mt DE_EURO DLLR  &kp DE_PERC  &mt DE_SECT DE_AMPR  &kp DE_SLSH  &kp DE_PLUS  &kp DE_ASTR  &kp DE_HASH
 &grave  &kp DE_LCBR  &kp DE_LBRC  &kp DE_LPRN  &kp DE_LABK           &kp DE_RABK  &kp DE_RPRN  &kp DE_RBRC  &kp DE_RCBR  &kp BSPC
 &kp DE_TILD  &kp DE_QUES  &kp DE_QUOT  &kp DE_EQL  &circ             &kp DE_PIPE  &kp DE_BSLS  &kp COMMA  &kp DOT  &kp DE_MINS
-                 &extra_lt 0 RET  &lt SIGNS SPACE  &sks LCTRL           &shft LSHFT LSHFT  &lt NUMMY SPACE  &lt NAV TAB
+                 &lt EXTRA RET  &lt SIGNS SPACE  &sks LCTRL           &shft LSHFT LSHFT  &lt NUMMY SPACE  &lt NAV TAB
             >;
         };
 
@@ -607,10 +525,10 @@
             // G = undo; Shift+G = redo; C/X/V = copy/cut/paste
             // B = screenshot; L = lock; P = print; + / - positions = zoom.
             bindings = <
-&none  &win_close_reopen  &win_app_switch  &tab_switch  &kp LC(DE_T)        &none  &none  &kp LC(DE_PLUS)  &none  &kp LC(DE_P)
+&none  &win_close_reopen  &win_app_next  &tab_next  &kp LC(DE_T)        &none  &none  &kp LC(DE_PLUS)  &none  &kp LC(DE_P)
 &kp LC(DE_A)  &kp LC(DE_S)  &none  &kp LC(DE_F)  &win_undo_redo        &none  &none  &none  &kp LG(DE_L)  &kp BSPC
 &none  &kp LC(DE_X)  &kp LC(DE_C)  &kp LC(DE_V)  &kp LG(LS(DE_S))      &none  &none  &none  &none  &kp LC(DE_MINS)
-                 &extra_lt 0 RET  &lt SIGNS SPACE  &sks LCTRL              &shft LSHFT LSHFT  &lt NUMMY SPACE  &lt NAV TAB
+                 &lt EXTRA RET  &lt SIGNS SPACE  &sks LCTRL              &shft LSHFT LSHFT  &lt NUMMY SPACE  &lt NAV TAB
             >;
         };
 
@@ -620,7 +538,7 @@
 &sl BLUE  &kp C_VOL_DN  &kp C_MUTE  &kp C_VOL_UP  &kp PG_UP          &mt F11 F1  &mt F12 F2  &hm LSHFT F3  &kp F4  &kp F5
 &kp LC(DE_A)  &kp LC(DE_X)  &kp LC(DE_C)  &kp LC(DE_V)  &kp LC(DE_Z)  &kp LEFT  &kp DOWN  &kp UP  &kp RIGHT  &kp DEL
 &kp LC(DE_V)  &kp C_PREV  &kp C_PP  &kp C_NEXT  &kp PSCRN             &kp F6  &kp F7  &kp F8  &kp F9  &kp F10
-                 &extra_lt 0 RET  &lt SIGNS SPACE  &sks LCTRL           &shft LSHFT LSHFT  &lt NUMMY SPACE  &lt NAV TAB
+                 &lt EXTRA RET  &lt SIGNS SPACE  &sks LCTRL           &shft LSHFT LSHFT  &lt NUMMY SPACE  &lt NAV TAB
             >;
         };
 
@@ -632,7 +550,7 @@
 &kp DE_EXLM  &kp C_VOL_DN  &kp LC(DE_Z)  &kp C_VOL_UP  &kp PG_UP     &mt F11 F1  &mt F12 F2  &hm LSHFT F3  &kp F4  &kp F5
 &bt0_win  &bt1_linux  &bt2_mac  &bt3_win  &bt4_linux                       &kp LEFT  &kp DOWN  &kp UP  &kp RIGHT  &kp DEL
 &bt BT_CLR  &os_win  &os_linux  &os_mac  &usb_linux                &out OUT_BLE  &out OUT_TOG  &studio_unlock  &kp F9  &kp F10
-                 &extra_lt 0 RET  &lt SIGNS SPACE  &sks LCTRL           &shft LSHFT LSHFT  &lt NUMMY SPACE  &lt NAV TAB
+                 &lt EXTRA RET  &lt SIGNS SPACE  &sks LCTRL           &shft LSHFT LSHFT  &lt NUMMY SPACE  &lt NAV TAB
             >;
         };
 
@@ -652,7 +570,7 @@
 &kp DE_Q  &kp DE_W  &uc 0x0119 0x0118  &kp DE_R  &kp DE_T       &uc 0x017C 0x017B  &kp DE_U  &kp DE_I  &uc 0x00F3 0x00D3  &kp DE_P
 &uc 0x0105 0x0104  &uc 0x015B 0x015A  &kp DE_D  &kp DE_F  &kp DE_G       &kp DE_H  &kp DE_J  &kp DE_K  &uc 0x0142 0x0141  &kp BSPC
 &kp DE_Y  &uc 0x017A 0x0179  &uc 0x0107 0x0106  &kp DE_V  &kp DE_B       &uc 0x0144 0x0143  &kp DE_M  &kp COMMA  &kp DOT  &kp DE_MINS
-                 &extra_lt 0 RET  &lt SIGNS SPACE  &sks LCTRL          &pl_shft LSHFT LSHFT  &lt NUMMY ESC  &lt NAV TAB
+                 &lt EXTRA RET  &lt SIGNS SPACE  &sks LCTRL          &pl_shft LSHFT LSHFT  &lt NUMMY ESC  &lt NAV TAB
             >;
         };
 
@@ -679,7 +597,7 @@
         linux_extra_layer {
             display-name = "Linux Extra overlay";
             bindings = <
-&trans &trans &linux_app_switch &trans &trans   &trans &trans &trans &trans &trans
+&trans &trans &linux_app_next &trans &trans   &trans &trans &trans &trans &trans
 &trans &trans &trans &trans &linux_undo_redo  &trans &trans &trans &trans &trans
 &trans &trans &trans &trans &kp PSCRN          &trans &trans &trans &trans &trans
              &trans &trans &trans              &trans &trans &trans
@@ -699,7 +617,7 @@
         mac_extra_layer {
             display-name = "macOS Extra semantic overlay";
             bindings = <
-&trans  &mac_close_reopen  &mac_app_switch  &trans  &kp LG(DE_T)   &trans &trans &kp LG(DE_PLUS) &trans &kp LG(DE_P)
+&trans  &mac_close_reopen  &mac_app_next  &trans  &kp LG(DE_T)   &trans &trans &kp LG(DE_PLUS) &trans &kp LG(DE_P)
 &kp LG(DE_A)  &kp LG(DE_S)  &trans  &kp LG(DE_F)  &mac_undo_redo  &trans &trans &trans &kp LC(LG(DE_Q)) &trans
 &trans  &kp LG(DE_X)  &kp LG(DE_C)  &kp LG(DE_V)  &kp LG(LS(N3))   &trans &trans &trans &trans &kp LG(DE_MINS)
              &trans &trans &trans   &trans &trans &trans
