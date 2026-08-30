@@ -5,21 +5,21 @@
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/outputs.h>
 
-#define DEFAULT   0
-#define NUMMY     1
-#define SIGNS     2
-#define EXTRA     3
-#define NAV       4
-#define BLUE      5
-#define GAME      6
-#define POLISH    7
-#define MAC_MODE  8
-#define MAC_EXTRA 9
-#define MAC_NAV   10
-#define MAC_BLUE  11
+#define DEFAULT      0
+#define NUMMY        1
+#define SIGNS        2
+#define EXTRA        3
+#define NAV          4
+#define BLUE         5
+#define GAME         6
+#define POLISH       7
+#define LINUX_MODE   8
+#define MAC_MODE     9
+#define LINUX_EXTRA 10
+#define LINUX_NAV   11
+#define MAC_EXTRA   12
+#define MAC_NAV     13
 
-// Deliberately aggressive: short enough that accidental sticky modifiers do
-// not linger, but long enough to roll/chain Ctrl -> Shift -> Alt/GUI -> key.
 #define STICKY_TIMEOUT_MS 500
 
 &mt {
@@ -123,7 +123,7 @@
             display-name = "BT 0 - Windows";
             wait-ms = <0>;
             tap-ms = <0>;
-            bindings = <&bt BT_SEL 0>, <&out OUT_BLE>, <&tog_off MAC_MODE>, <&uc UC_SET_WIN_COMPOSE>;
+            bindings = <&bt BT_SEL 0>, <&out OUT_BLE>, <&tog_off LINUX_MODE>, <&tog_off MAC_MODE>, <&uc UC_SET_WIN_COMPOSE>;
         };
 
         bt1_linux: bt1_linux {
@@ -132,7 +132,7 @@
             display-name = "BT 1 - Linux";
             wait-ms = <0>;
             tap-ms = <0>;
-            bindings = <&bt BT_SEL 1>, <&out OUT_BLE>, <&tog_off MAC_MODE>, <&uc UC_SET_LINUX>;
+            bindings = <&bt BT_SEL 1>, <&out OUT_BLE>, <&tog_on LINUX_MODE>, <&tog_off MAC_MODE>, <&uc UC_SET_LINUX>;
         };
 
         bt2_mac: bt2_mac {
@@ -141,7 +141,7 @@
             display-name = "BT 2 - macOS";
             wait-ms = <0>;
             tap-ms = <0>;
-            bindings = <&bt BT_SEL 2>, <&out OUT_BLE>, <&tog_on MAC_MODE>, <&uc UC_SET_MACOS>;
+            bindings = <&bt BT_SEL 2>, <&out OUT_BLE>, <&tog_off LINUX_MODE>, <&tog_on MAC_MODE>, <&uc UC_SET_MACOS>;
         };
 
         bt3_win: bt3_win {
@@ -150,7 +150,7 @@
             display-name = "BT 3 - Windows";
             wait-ms = <0>;
             tap-ms = <0>;
-            bindings = <&bt BT_SEL 3>, <&out OUT_BLE>, <&tog_off MAC_MODE>, <&uc UC_SET_WIN_COMPOSE>;
+            bindings = <&bt BT_SEL 3>, <&out OUT_BLE>, <&tog_off LINUX_MODE>, <&tog_off MAC_MODE>, <&uc UC_SET_WIN_COMPOSE>;
         };
 
         bt4_linux: bt4_linux {
@@ -159,7 +159,7 @@
             display-name = "BT 4 - Linux";
             wait-ms = <0>;
             tap-ms = <0>;
-            bindings = <&bt BT_SEL 4>, <&out OUT_BLE>, <&tog_off MAC_MODE>, <&uc UC_SET_LINUX>;
+            bindings = <&bt BT_SEL 4>, <&out OUT_BLE>, <&tog_on LINUX_MODE>, <&tog_off MAC_MODE>, <&uc UC_SET_LINUX>;
         };
 
         os_win: os_win {
@@ -168,7 +168,7 @@
             display-name = "Windows mode";
             wait-ms = <0>;
             tap-ms = <0>;
-            bindings = <&tog_off MAC_MODE>, <&uc UC_SET_WIN_COMPOSE>;
+            bindings = <&tog_off LINUX_MODE>, <&tog_off MAC_MODE>, <&uc UC_SET_WIN_COMPOSE>;
         };
 
         os_linux: os_linux {
@@ -177,7 +177,7 @@
             display-name = "Linux mode";
             wait-ms = <0>;
             tap-ms = <0>;
-            bindings = <&tog_off MAC_MODE>, <&uc UC_SET_LINUX>;
+            bindings = <&tog_on LINUX_MODE>, <&tog_off MAC_MODE>, <&uc UC_SET_LINUX>;
         };
 
         os_mac: os_mac {
@@ -186,7 +186,7 @@
             display-name = "macOS mode";
             wait-ms = <0>;
             tap-ms = <0>;
-            bindings = <&tog_on MAC_MODE>, <&uc UC_SET_MACOS>;
+            bindings = <&tog_off LINUX_MODE>, <&tog_on MAC_MODE>, <&uc UC_SET_MACOS>;
         };
     };
 
@@ -196,66 +196,79 @@
         combo_rgui {
             timeout-ms = <80>;
             key-positions = <16 17 34>;
-            layers = <DEFAULT NUMMY SIGNS EXTRA NAV BLUE POLISH MAC_MODE MAC_EXTRA MAC_NAV MAC_BLUE>;
+            layers = <DEFAULT NUMMY SIGNS EXTRA NAV BLUE POLISH LINUX_MODE MAC_MODE LINUX_EXTRA LINUX_NAV MAC_EXTRA MAC_NAV>;
             bindings = <&asw>;
         };
 
         combo_esc {
             timeout-ms = <80>;
             key-positions = <11 12 13 31>;
-            layers = <DEFAULT NUMMY SIGNS EXTRA NAV BLUE POLISH MAC_MODE MAC_EXTRA MAC_NAV MAC_BLUE>;
+            layers = <DEFAULT NUMMY SIGNS EXTRA NAV BLUE POLISH LINUX_MODE MAC_MODE LINUX_EXTRA LINUX_NAV MAC_EXTRA MAC_NAV>;
             bindings = <&kp ESC>;
         };
 
         combo_del {
             timeout-ms = <80>;
             key-positions = <1 2 3>;
-            layers = <DEFAULT NUMMY SIGNS EXTRA NAV BLUE POLISH MAC_MODE MAC_EXTRA MAC_NAV MAC_BLUE>;
+            layers = <DEFAULT NUMMY SIGNS EXTRA NAV BLUE POLISH LINUX_MODE MAC_MODE LINUX_EXTRA LINUX_NAV MAC_EXTRA MAC_NAV>;
             bindings = <&kp DEL>;
         };
 
         combo_bspc {
             timeout-ms = <80>;
             key-positions = <21 22 23>;
-            layers = <DEFAULT NUMMY SIGNS EXTRA NAV BLUE POLISH MAC_MODE MAC_EXTRA MAC_NAV MAC_BLUE>;
+            layers = <DEFAULT NUMMY SIGNS EXTRA NAV BLUE POLISH LINUX_MODE MAC_MODE LINUX_EXTRA LINUX_NAV MAC_EXTRA MAC_NAV>;
             bindings = <&kp BSPC>;
         };
 
         fishy {
             timeout-ms = <80>;
             key-positions = <17 18 34>;
-            layers = <DEFAULT NUMMY SIGNS EXTRA NAV BLUE POLISH MAC_MODE MAC_EXTRA MAC_NAV MAC_BLUE>;
+            layers = <DEFAULT NUMMY SIGNS EXTRA NAV BLUE POLISH LINUX_MODE MAC_MODE LINUX_EXTRA LINUX_NAV MAC_EXTRA MAC_NAV>;
             bindings = <&kp LA(M)>;
         };
 
-        // User-requested thumb modifier combos:
-        // outer thumbs (30 + 35) -> Alt / Option
+        // Left-hand-only modifier combos.
+        // Left outer + left middle thumbs (30 + 31) -> sticky Alt / Option.
+        // This fully overlaps the 30+31+32 game combo; ZMK supports fully
+        // overlapping combos, and both use the same timeout.
         combo_alt {
-            timeout-ms = <60>;
-            key-positions = <30 35>;
-            layers = <DEFAULT NUMMY SIGNS EXTRA NAV BLUE POLISH MAC_MODE MAC_EXTRA MAC_NAV MAC_BLUE>;
+            timeout-ms = <80>;
+            key-positions = <30 31>;
+            layers = <DEFAULT NUMMY SIGNS EXTRA NAV BLUE POLISH LINUX_MODE MAC_MODE LINUX_EXTRA LINUX_NAV MAC_EXTRA MAC_NAV>;
             bindings = <&sks LALT>;
         };
 
-        // middle thumbs (31 + 34) -> Win / Command
-        combo_gui {
-            timeout-ms = <60>;
-            key-positions = <31 34>;
-            layers = <DEFAULT NUMMY SIGNS EXTRA NAV BLUE POLISH MAC_MODE MAC_EXTRA MAC_NAV MAC_BLUE>;
+        // Restore the original left-hand Windows/Super combo:
+        // D + F + left-middle thumb (Space) -> sticky GUI / Win / Command.
+        // Positions 12 and 13 are D/F on the base layer; 31 is Space/SIGNS.
+        combo_lgui {
+            timeout-ms = <80>;
+            key-positions = <12 13 31>;
+            layers = <DEFAULT NUMMY SIGNS EXTRA NAV BLUE POLISH LINUX_MODE MAC_MODE LINUX_EXTRA LINUX_NAV MAC_EXTRA MAC_NAV>;
             bindings = <&sks LGUI>;
+        };
+
+        // Right middle + right outer thumbs (34 + 35) -> sticky Shift.
+        // This fully overlaps the 33+34+35 one-shot Polish combo.
+        combo_shift {
+            timeout-ms = <80>;
+            key-positions = <34 35>;
+            layers = <DEFAULT NUMMY SIGNS EXTRA NAV BLUE POLISH LINUX_MODE MAC_MODE LINUX_EXTRA LINUX_NAV MAC_EXTRA MAC_NAV>;
+            bindings = <&sks LSHFT>;
         };
 
         tmux {
             timeout-ms = <80>;
             key-positions = <11 12 31>;
-            layers = <DEFAULT NUMMY SIGNS EXTRA NAV BLUE POLISH MAC_MODE MAC_EXTRA MAC_NAV MAC_BLUE>;
+            layers = <DEFAULT NUMMY SIGNS EXTRA NAV BLUE POLISH LINUX_MODE MAC_MODE LINUX_EXTRA LINUX_NAV MAC_EXTRA MAC_NAV>;
             bindings = <&kp LA(J)>;
         };
 
         game_on {
             timeout-ms = <80>;
             key-positions = <30 31 32>;
-            layers = <DEFAULT MAC_MODE>;
+            layers = <DEFAULT LINUX_MODE MAC_MODE>;
             bindings = <&tog_on GAME>;
         };
 
@@ -270,13 +283,23 @@
         polish_one_shot {
             timeout-ms = <80>;
             key-positions = <33 34 35>;
-            layers = <DEFAULT MAC_MODE>;
+            layers = <DEFAULT LINUX_MODE MAC_MODE>;
             bindings = <&sl POLISH>;
         };
     };
 
     conditional_layers {
         compatible = "zmk,conditional-layers";
+
+        linux_extra {
+            if-layers = <LINUX_MODE EXTRA>;
+            then-layer = <LINUX_EXTRA>;
+        };
+
+        linux_nav {
+            if-layers = <LINUX_MODE NAV>;
+            then-layer = <LINUX_NAV>;
+        };
 
         mac_extra {
             if-layers = <MAC_MODE EXTRA>;
@@ -286,11 +309,6 @@
         mac_nav {
             if-layers = <MAC_MODE NAV>;
             then-layer = <MAC_NAV>;
-        };
-
-        mac_blue {
-            if-layers = <MAC_MODE BLUE>;
-            then-layer = <MAC_BLUE>;
         };
     };
 
@@ -330,8 +348,8 @@
         extra_layer {
             display-name = "Extra";
             bindings = <
-&kp F5  &kp C_VOL_DN  &kp LC(DE_Z)  &kp C_VOL_UP  &kp PG_UP          &mt F11 F1  &mt F12 F2  &hm LSHFT F3  &kp F4  &kp F5
-&kp LC(DE_C)  &kp LC(DE_V)  &kp LC(DE_X)  &kp LC(DE_A)  &kp PG_DN    &kp LEFT  &kp DOWN  &kp UP  &kp RIGHT  &kp BSPC
+&kp F5  &kp C_VOL_DN  &kp C_MUTE  &kp C_VOL_UP  &kp PG_UP          &mt F11 F1  &mt F12 F2  &hm LSHFT F3  &kp F4  &kp F5
+&kp LC(DE_A)  &kp LC(DE_X)  &kp LC(INS)  &kp LS(INS)  &kp LC(DE_Z)  &kp LEFT  &kp DOWN  &kp UP  &kp RIGHT  &kp BSPC
 &kp LS(INS)  &kp C_PREV  &kp C_PP  &kp C_NEXT  &kp PSCRN             &kp F6  &kp F7  &kp F8  &kp F9  &kp F10
                  &lt EXTRA RET  &lt SIGNS SPACE  &sks LCTRL           &sks LSHFT  &lt NUMMY SPACE  &lt NAV TAB
             >;
@@ -340,8 +358,8 @@
         nav_layer {
             display-name = "Navigation";
             bindings = <
-&sl BLUE  &kp C_VOL_DN  &kp LC(DE_Z)  &kp C_VOL_UP  &kp PG_UP          &mt F11 F1  &mt F12 F2  &hm LSHFT F3  &kp F4  &kp F5
-&kp LC(DE_C)  &kp LC(DE_V)  &kp LC(DE_X)  &kp LC(DE_A)  &kp PG_DN    &kp LEFT  &kp DOWN  &kp UP  &kp RIGHT  &kp DEL
+&sl BLUE  &kp C_VOL_DN  &kp C_MUTE  &kp C_VOL_UP  &kp PG_UP          &mt F11 F1  &mt F12 F2  &hm LSHFT F3  &kp F4  &kp F5
+&kp LC(DE_A)  &kp LC(DE_X)  &kp LC(INS)  &kp LS(INS)  &kp LC(DE_Z)  &kp LEFT  &kp DOWN  &kp UP  &kp RIGHT  &kp DEL
 &kp LS(INS)  &kp C_PREV  &kp C_PP  &kp C_NEXT  &kp PSCRN             &kp F6  &kp F7  &kp F8  &kp F9  &kp F10
                  &lt EXTRA RET  &lt SIGNS SPACE  &sks LCTRL           &sks LSHFT  &lt NUMMY SPACE  &lt NAV TAB
             >;
@@ -377,7 +395,16 @@
             >;
         };
 
-        // State-only layer.  Keep transparent; use the two OS buttons on BLUE.
+        linux_mode_layer {
+            display-name = "Linux mode (state)";
+            bindings = <
+&trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans
+&trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans
+&trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans
+             &trans &trans &trans   &trans &trans &trans
+            >;
+        };
+
         mac_mode_layer {
             display-name = "macOS mode (state)";
             bindings = <
@@ -388,34 +415,41 @@
             >;
         };
 
-        // macOS semantic overlay for EXTRA: Undo + Copy/Paste/Cut/Select All.
+        linux_extra_layer {
+            display-name = "Linux Extra overlay";
+            bindings = <
+&trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans
+&kp LC(DE_A) &kp K_CUT &kp K_COPY &kp K_PASTE &kp K_UNDO   &trans &trans &trans &trans &trans
+&trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans
+             &trans &trans &trans   &trans &trans &trans
+            >;
+        };
+
+        linux_nav_layer {
+            display-name = "Linux Nav overlay";
+            bindings = <
+&trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans
+&kp LC(DE_A) &kp K_CUT &kp K_COPY &kp K_PASTE &kp K_UNDO   &trans &trans &trans &trans &trans
+&trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans
+             &trans &trans &trans   &trans &trans &trans
+            >;
+        };
+
         mac_extra_layer {
             display-name = "macOS Extra overlay";
             bindings = <
-&trans &trans &kp LG(DE_Z) &trans &trans   &trans &trans &trans &trans &trans
-&kp LG(DE_C) &kp LG(DE_V) &kp LG(DE_X) &kp LG(DE_A) &trans   &trans &trans &trans &trans &trans
+&trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans
+&kp LG(DE_A) &kp LG(DE_X) &kp LG(DE_C) &kp LG(DE_V) &kp LG(DE_Z)   &trans &trans &trans &trans &trans
 &trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans
              &trans &trans &trans   &trans &trans &trans
             >;
         };
 
-        // macOS semantic overlay for NAV: Undo + Copy/Paste/Cut/Select All.
         mac_nav_layer {
             display-name = "macOS Nav overlay";
             bindings = <
-&trans &trans &kp LG(DE_Z) &trans &trans   &trans &trans &trans &trans &trans
-&kp LG(DE_C) &kp LG(DE_V) &kp LG(DE_X) &kp LG(DE_A) &trans   &trans &trans &trans &trans &trans
 &trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans
-             &trans &trans &trans   &trans &trans &trans
-            >;
-        };
-
-        // BLUE only needs the OS-specific Undo override.
-        mac_blue_layer {
-            display-name = "macOS Settings overlay";
-            bindings = <
-&trans &trans &kp LG(DE_Z) &trans &trans   &trans &trans &trans &trans &trans
-&trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans
+&kp LG(DE_A) &kp LG(DE_X) &kp LG(DE_C) &kp LG(DE_V) &kp LG(DE_Z)   &trans &trans &trans &trans &trans
 &trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans
              &trans &trans &trans   &trans &trans &trans
             >;

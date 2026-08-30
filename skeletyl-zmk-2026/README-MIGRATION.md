@@ -27,16 +27,26 @@ Physical thumb positions are:
     left:   30 outer | 31 middle | 32 inner
     right:  33 inner | 34 middle | 35 outer
 
-The requested modifier setup is:
+Current modifier setup:
 
 - Ctrl: left-inner thumb (32), sticky
-- Shift: right-inner thumb (33), sticky
-- Alt / macOS Option: outer-thumb combo 30+35, sticky
-- GUI / Windows / macOS Command: middle-thumb combo 31+34, sticky
+- Shift: right-inner thumb (33), sticky (original dedicated thumb access)
+- Alt / macOS Option: left outer + left middle thumbs (30+31), sticky
+- Shift alternate combo: right middle + right outer thumbs (34+35), sticky
+- GUI / Windows / macOS Command: D + F + left-middle thumb/Space (12+13+31), sticky
 
-All four use the same 500 ms sticky timeout.  Modifier presses are ignored as
-sticky-release triggers, so they can be rolled/chained.  `quick-release` makes
+The earlier cross-hand thumb combos (30+35 for Alt and 31+34 for GUI) were removed.
+The original D+F+Space GUI combo was restored, but now uses the same sticky
+modifier behavior as the other modifier combos.
+
+All sticky modifiers use the same 500 ms timeout. Modifier presses are ignored
+as sticky-release triggers, so they can be rolled/chained. `quick-release` makes
 the chain release as soon as the first non-modifier key is pressed.
+
+The 30+31 Alt combo intentionally overlaps the 30+31+32 Game combo, and the
+34+35 Shift combo intentionally overlaps the 33+34+35 Polish one-shot combo.
+ZMK supports fully overlapping combos; these overlapping combos all use an 80 ms
+timeout.
 
 If 500 ms feels too short/long, change `STICKY_TIMEOUT_MS` near the top of
 `config/skeletyl.keymap`.
@@ -177,3 +187,9 @@ The OS selector also selects the matching Unicode input method:
 - macOS: Unicode Hex Input mode (`UC_SET_MACOS`). Add/enable the `Unicode Hex Input` input source in macOS.
 
 The regular outer-thumb Alt combo remains `LALT` (Alt / Option). No physical `RALT` key is required for Polish Unicode input; the Unicode module can generate any required Right-Alt sequence internally.
+
+## Build compatibility note (2026-08-30)
+
+For the current ZMK `main` checkout used by GitHub Actions, custom deterministic
+layer-toggle behaviors use `compatible = "zmk,behavior-toggle-layer"`.
+The generated config uses that spelling for `tog_on` and `tog_off`.
