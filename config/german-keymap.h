@@ -72,13 +72,5 @@
 #define DE_UNDS     LS(DE_MINS)       // _
 #define DE_BSLS     RA(DE_SS)         // (backslash)
 
-// some polish special letters
-#define PL_A  U0105
-#define PL_L  U0142
-#define PL_ZD U017C
-#define PL_ZA U017A
-#define PL_S  U015B
-#define PL_C  U0107
-#define PL_N  U0144
-#define PL_E  U0119
-#define PL_O  U00F3
+// Polish special letters are emitted by zmk-unicode in skeletyl.keymap.
+

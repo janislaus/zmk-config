@@ -160,3 +160,20 @@ in ZMK Studio.
 The physical layout coordinates in `skeletyl-layouts.dtsi` are schematic, not a
 millimeter-accurate Skeletyl drawing.  The key ordering is exact; the schematic
 coordinates affect only how Studio draws the keyboard.
+
+
+## Polish layer compatibility note
+
+The legacy config defined Polish characters as bare `Uxxxx` values (for example `U0105` and `U0119`). Current ZMK does not expose arbitrary Unicode code points as keycodes, so those tokens fail during devicetree parsing. They have been migrated to Polish Programmer-style Right-Alt/AltGr combinations (`RA(A)`, `RA(E)`, etc.). This keeps the firmware core-only and compile-safe, but requires a host keyboard layout that interprets those AltGr combinations as Polish characters. If host-layout-independent Unicode output is required later, use a dedicated module such as `urob/zmk-unicode` and make its host method OS-aware.
+
+
+## Polish Unicode input
+
+Polish special characters now use the `urob/zmk-unicode` module and therefore do not depend on the host keyboard layout. The three right thumb keys activate the Polish layer for exactly one key. On that one-shot layer, A/C/E/L/N/O/S/X/Z emit ą/ć/ę/ł/ń/ó/ś/ź/ż; holding Shift emits the uppercase variants.
+
+The OS selector also selects the matching Unicode input method:
+- Windows: WinCompose mode (`UC_SET_WIN_COMPOSE`). Install WinCompose on Windows.
+- Linux: Linux/IBus Unicode mode (`UC_SET_LINUX`). On Ubuntu/GNOME this normally works with the standard Ctrl+Shift+U Unicode input path.
+- macOS: Unicode Hex Input mode (`UC_SET_MACOS`). Add/enable the `Unicode Hex Input` input source in macOS.
+
+The regular outer-thumb Alt combo remains `LALT` (Alt / Option). No physical `RALT` key is required for Polish Unicode input; the Unicode module can generate any required Right-Alt sequence internally.
