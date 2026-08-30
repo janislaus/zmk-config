@@ -130,6 +130,30 @@
             mods = <(MOD_LSFT|MOD_RSFT)>;
         };
 
+        win_undo_redo: win_undo_redo {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            display-name = "Undo / Redo (Windows)";
+            bindings = <&kp LC(DE_Z)>, <&kp LC(DE_Y)>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+
+        linux_undo_redo: linux_undo_redo {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            display-name = "Undo / Redo (Linux)";
+            bindings = <&kp LC(DE_Z)>, <&kp LC(LS(DE_Z))>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+
+        mac_undo_redo: mac_undo_redo {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            display-name = "Undo / Redo (macOS)";
+            bindings = <&kp LG(DE_Z)>, <&kp LG(LS(DE_Z))>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+
         // EXTRA-layer Polish long-press behaviors.
         // Tap keeps the existing EXTRA action; hold emits the Polish Unicode letter.
         // The first (dummy) parameter is consumed by the fixed Unicode macro;
@@ -414,17 +438,19 @@
 
         extra_layer {
             display-name = "Extra / Semantic";
-            // Left-hand semantic controls:
+            // Semantic shortcuts. Same physical action across OS modes.
             // W = close tab; Shift+W = reopen closed tab
             // E = app switch; Shift+E = reverse app switch
             // R = tab switch; Shift+R = reverse tab switch
-            // T = new tab
-            // A/S/D/F/G = select all/cut/copy/paste/undo
-            // Long-hold on Polish letter positions still emits the Polish character.
+            // T = new tab; S = save; F = find; P = print
+            // Y/X/V = copy/cut/paste (QWERTZ-friendly standard cluster)
+            // G = undo; Shift+G = redo; L = lock; B = screenshot
+            // Zoom +/- use the same physical positions as + and - on SIGNS.
+            // Long-hold on Polish letter positions emits the Polish character.
             bindings = <
-&kp F1  &win_close_reopen  &pl_e_app_win_ht 0 0  &tab_switch  &kp LC(DE_T)          &pl_z_ht 0 F1  &mt F12 F2  &hm LSHFT F3  &pl_o_ht 0 F4  &kp F5
-&pl_a_ht 0 LC(DE_A)  &pl_s_ht 0 LC(DE_X)  &kp LC(INS)  &kp LS(INS)  &kp LC(DE_Z)           &kp LEFT  &kp DOWN  &kp UP  &pl_l_ht 0 RIGHT  &kp BSPC
-&kp F6  &pl_x_ht 0 C_PREV  &pl_c_ht 0 C_PP  &kp C_NEXT  &kp PSCRN                  &pl_n_ht 0 F6  &kp F7  &kp F8  &kp F9  &kp F10
+&kp F1  &win_close_reopen  &pl_e_app_win_ht 0 0  &tab_switch  &kp LC(DE_T)          &pl_z_ht 0 F1  &mt F12 F2  &kp LC(DE_PLUS)  &pl_o_ht 0 F4  &kp LC(DE_P)
+&pl_a_ht 0 LC(DE_A)  &pl_s_ht 0 LC(DE_S)  &trans  &kp LC(DE_F)  &win_undo_redo   &kp LEFT  &kp DOWN  &kp UP  &pl_l_ht 0 LG(DE_L)  &kp BSPC
+&kp LC(DE_C)  &pl_x_ht 0 LC(DE_X)  &pl_c_ht 0 C_PP  &kp LC(DE_V)  &kp PSCRN       &pl_n_ht 0 F6  &kp F7  &kp F8  &kp F9  &kp LC(DE_MINS)
                  &lt EXTRA RET  &lt SIGNS SPACE  &sks LCTRL           &sks LSHFT  &lt NUMMY SPACE  &lt NAV TAB
             >;
         };
@@ -493,8 +519,8 @@
             display-name = "Linux Extra overlay";
             bindings = <
 &trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans
-&pl_a_ht 0 LC(DE_A) &pl_s_ht 0 K_CUT &kp K_COPY &kp K_PASTE &kp K_UNDO   &trans &trans &trans &trans &trans
-&trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans
+&trans &trans &trans &trans &linux_undo_redo   &trans &trans &trans &trans &trans
+&kp K_COPY &pl_x_ht 0 K_CUT &trans &kp K_PASTE &trans   &trans &trans &trans &trans &trans
              &trans &trans &trans   &trans &trans &trans
             >;
         };
@@ -512,9 +538,9 @@
         mac_extra_layer {
             display-name = "macOS Extra semantic overlay";
             bindings = <
-&trans  &mac_close_reopen  &pl_e_app_mac_ht 0 0  &trans  &kp LG(DE_T)   &trans &trans &trans &trans &trans
-&pl_a_ht 0 LG(DE_A)  &pl_s_ht 0 LG(DE_X)  &kp LG(DE_C)  &kp LG(DE_V)  &kp LG(DE_Z)   &trans &trans &trans &trans &trans
-&trans  &trans  &trans &trans &trans   &trans &trans &trans &trans &trans
+&trans  &mac_close_reopen  &pl_e_app_mac_ht 0 0  &trans  &kp LG(DE_T)   &trans &trans &kp LG(DE_PLUS) &trans &kp LG(DE_P)
+&pl_a_ht 0 LG(DE_A)  &pl_s_ht 0 LG(DE_S)  &trans  &kp LG(DE_F)  &mac_undo_redo   &trans &trans &trans &pl_l_ht 0 LC(LG(DE_Q)) &trans
+&kp LG(DE_C)  &pl_x_ht 0 LG(DE_X)  &trans  &kp LG(DE_V)  &kp LG(LS(N3))   &trans &trans &trans &trans &kp LG(DE_MINS)
              &trans &trans &trans   &trans &trans &trans
             >;
         };

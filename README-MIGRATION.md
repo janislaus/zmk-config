@@ -225,3 +225,24 @@ Hold the left outer thumb (`EXTRA`) and use the left-hand keys:
 | X | Close tab/window | Ctrl+W | Cmd+W |
 
 Polish long-hold behavior remains active on the corresponding EXTRA positions (including E, A, S and X; Ż remains on the physical Z position on the right half).
+
+## EXTRA semantic shortcuts (current)
+
+The EXTRA layer is intentionally OS-semantic: use the same physical key and the active Windows/Linux/macOS mode emits the appropriate shortcut.
+
+- W: close tab; Shift+W: reopen tab
+- E: app switch; Shift+E: reverse app switch
+- R: tab switch; Shift+R: reverse tab switch
+- T: new tab
+- S: save
+- F: find
+- P: print
+- Y: copy
+- X: cut
+- V: paste
+- G: undo; Shift+G: redo
+- L: lock workstation
+- B: screenshot (Print Screen on Windows/Linux, Cmd+Shift+3 on macOS)
+- Zoom in/out occupy the same physical positions that produce + and - on the SIGNS layer.
+
+Polish long-presses on EXTRA remain active for A/C/E/L/N/O/S/X/Z.
