@@ -144,8 +144,8 @@
         // modifier via normal &kp semantics.
         //
         // Usage examples:
-        //   &swh LALT  LA(TAB)  -> tap: Alt+Tab, hold: Alt (Windows/Linux)
-        //   &swh LGUI  LG(TAB)  -> tap: Cmd+Tab, hold: Cmd (macOS)
+        //   &swh LALT  LA(TAB)  -> tap: Alt+Tab, hold: Alt (Windows)
+        //   &swh LGUI  LG(TAB)  -> tap: Super/Cmd+Tab, hold: Super/Cmd (Linux/macOS)
         //   &swh LCTRL LC(TAB)  -> tap: Ctrl+Tab, hold: Ctrl
         swh: switcher_hold_tap {
             compatible = "zmk,behavior-hold-tap";
@@ -478,9 +478,10 @@
             // and no duplicate HJKL navigation. Unused positions intentionally swallow input.
             // W = close tab; Shift+W = reopen closed tab
             // E tap = one app switch immediately; E hold = hold the OS app-switch modifier.
-            // While E is held, tap the right outer thumb (Tab) to cycle; Shift+Tab reverses.
-            // R tap = one Ctrl+Tab immediately; R hold = hold Ctrl. While R is held,
-            // tap the right outer thumb (Tab) to cycle; Shift+Tab reverses.
+            // IMPORTANT: on EXTRA the right outer thumb is a plain &kp TAB (not &lt NAV TAB),
+            // so pressing it while E/R is held immediately resolves the hold and sends Tab.
+            // While E is held, tap the right outer thumb repeatedly to cycle; Shift+Tab reverses.
+            // R tap = one Ctrl+Tab immediately; R hold = hold Ctrl; the same plain Tab thumb cycles.
             // T = new tab; A = select all; S = save; F = find
             // G = undo; Shift+G = redo; C/X/V = copy/cut/paste
             // B = screenshot; L = lock; P = print; + / - positions = zoom.
@@ -488,7 +489,7 @@
 &none  &win_close_reopen  &swh LALT LA(TAB)  &swh LCTRL LC(TAB)  &kp LC(DE_T)        &none  &none  &kp LC(DE_PLUS)  &none  &kp LC(DE_P)
 &kp LC(DE_A)  &kp LC(DE_S)  &none  &kp LC(DE_F)  &win_undo_redo        &none  &none  &none  &kp LG(DE_L)  &kp BSPC
 &none  &kp LC(DE_X)  &kp LC(DE_C)  &kp LC(DE_V)  &kp LG(LS(DE_S))      &none  &none  &none  &none  &kp LC(DE_MINS)
-                 &lt EXTRA RET  &lt SIGNS SPACE  &sks LCTRL              &shft LSHFT LSHFT  &lt NUMMY SPACE  &lt NAV TAB
+                 &lt EXTRA RET  &lt SIGNS SPACE  &sks LCTRL              &shft LSHFT LSHFT  &lt NUMMY SPACE  &kp TAB
             >;
         };
 
@@ -557,7 +558,7 @@
         linux_extra_layer {
             display-name = "Linux Extra overlay";
             bindings = <
-&trans &trans &swh LALT LA(TAB) &trans &trans   &trans &trans &trans &trans &trans
+&trans &trans &swh LGUI LG(TAB) &trans &trans   &trans &trans &trans &trans &trans
 &trans &trans &trans &trans &linux_undo_redo  &trans &trans &trans &trans &trans
 &trans &trans &trans &trans &kp PSCRN          &trans &trans &trans &trans &trans
              &trans &trans &trans              &trans &trans &trans
