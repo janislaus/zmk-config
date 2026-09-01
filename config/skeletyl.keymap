@@ -154,6 +154,12 @@
             flavor = "hold-preferred";
             tapping-term-ms = <180>;
             quick-tap-ms = <0>;
+            // The hold modifier is asserted immediately. Because the tap action
+            // contains that same modifier (Alt/Super/Ctrl + Tab), linger keeps the
+            // modifier continuous across the tap decision instead of releasing and
+            // pressing it again.
+            hold-while-undecided;
+            hold-while-undecided-linger;
             bindings = <&kp>, <&kp>;
         };
 
@@ -238,45 +244,45 @@
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             display-name = "BT 0 - Windows";
-            wait-ms = <0>;
-            tap-ms = <0>;
-            bindings = <&bt BT_SEL 0>, <&out OUT_BLE>, <&tog_off LINUX_MODE>, <&tog_off MAC_MODE>, <&uc UC_SET_WIN_COMPOSE>;
+            wait-ms = <50>;
+            tap-ms = <10>;
+            bindings = <&bt BT_SEL 0>, <&out OUT_BLE>, <&os_win>;
         };
 
         bt1_linux: bt1_linux {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             display-name = "BT 1 - Linux";
-            wait-ms = <0>;
-            tap-ms = <0>;
-            bindings = <&bt BT_SEL 1>, <&out OUT_BLE>, <&tog_on LINUX_MODE>, <&tog_off MAC_MODE>, <&uc UC_SET_LINUX>;
+            wait-ms = <50>;
+            tap-ms = <10>;
+            bindings = <&bt BT_SEL 1>, <&out OUT_BLE>, <&os_linux>;
         };
 
         bt2_mac: bt2_mac {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             display-name = "BT 2 - macOS";
-            wait-ms = <0>;
-            tap-ms = <0>;
-            bindings = <&bt BT_SEL 2>, <&out OUT_BLE>, <&tog_off LINUX_MODE>, <&tog_on MAC_MODE>, <&uc UC_SET_MACOS>;
+            wait-ms = <50>;
+            tap-ms = <10>;
+            bindings = <&bt BT_SEL 2>, <&out OUT_BLE>, <&os_mac>;
         };
 
         bt3_win: bt3_win {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             display-name = "BT 3 - Windows";
-            wait-ms = <0>;
-            tap-ms = <0>;
-            bindings = <&bt BT_SEL 3>, <&out OUT_BLE>, <&tog_off LINUX_MODE>, <&tog_off MAC_MODE>, <&uc UC_SET_WIN_COMPOSE>;
+            wait-ms = <50>;
+            tap-ms = <10>;
+            bindings = <&bt BT_SEL 3>, <&out OUT_BLE>, <&os_win>;
         };
 
         bt4_linux: bt4_linux {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             display-name = "BT 4 - Linux";
-            wait-ms = <0>;
-            tap-ms = <0>;
-            bindings = <&bt BT_SEL 4>, <&out OUT_BLE>, <&tog_on LINUX_MODE>, <&tog_off MAC_MODE>, <&uc UC_SET_LINUX>;
+            wait-ms = <50>;
+            tap-ms = <10>;
+            bindings = <&bt BT_SEL 4>, <&out OUT_BLE>, <&os_linux>;
         };
 
         os_win: os_win {
@@ -297,13 +303,31 @@
             bindings = <&tog_on LINUX_MODE>, <&tog_off MAC_MODE>, <&uc UC_SET_LINUX>;
         };
 
+        usb_win: usb_win {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            display-name = "USB - Windows";
+            wait-ms = <30>;
+            tap-ms = <10>;
+            bindings = <&out OUT_USB>, <&os_win>;
+        };
+
         usb_linux: usb_linux {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             display-name = "USB - Linux";
-            wait-ms = <0>;
-            tap-ms = <0>;
-            bindings = <&out OUT_USB>, <&tog_on LINUX_MODE>, <&tog_off MAC_MODE>, <&uc UC_SET_LINUX>;
+            wait-ms = <30>;
+            tap-ms = <10>;
+            bindings = <&out OUT_USB>, <&os_linux>;
+        };
+
+        usb_mac: usb_mac {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            display-name = "USB - macOS";
+            wait-ms = <30>;
+            tap-ms = <10>;
+            bindings = <&out OUT_USB>, <&os_mac>;
         };
 
         os_mac: os_mac {
@@ -483,12 +507,12 @@
             // While E is held, tap the right outer thumb repeatedly to cycle; Shift+Tab reverses.
             // R tap = one Ctrl+Tab immediately; R hold = hold Ctrl; the same plain Tab thumb cycles.
             // T = new tab; A = select all; S = save; F = find
-            // G = undo; Shift+G = redo; C/X/V = copy/cut/paste
+            // G = undo; Shift+G = redo; Windows uses X=Shift+Del, C=Ctrl+Ins, V=Shift+Ins
             // B = screenshot; L = lock; P = print; + / - positions = zoom.
             bindings = <
 &none  &win_close_reopen  &swh LALT LA(TAB)  &swh LCTRL LC(TAB)  &kp LC(DE_T)        &none  &none  &kp LC(DE_PLUS)  &none  &kp LC(DE_P)
 &kp LC(DE_A)  &kp LC(DE_S)  &none  &kp LC(DE_F)  &win_undo_redo        &none  &none  &none  &kp LG(DE_L)  &kp BSPC
-&none  &kp LC(DE_X)  &kp LC(DE_C)  &kp LC(DE_V)  &kp LG(LS(DE_S))      &none  &none  &none  &none  &kp LC(DE_MINS)
+&none  &kp LS(DEL)  &kp LC(INS)  &kp LS(INS)  &kp LG(LS(DE_S))      &none  &none  &none  &none  &kp LC(DE_MINS)
                  &lt EXTRA RET  &lt SIGNS SPACE  &sks LCTRL              &shft LSHFT LSHFT  &lt NUMMY SPACE  &kp TAB
             >;
         };
@@ -497,20 +521,22 @@
             display-name = "Navigation";
             bindings = <
 &sl BLUE  &kp C_VOL_DN  &kp C_MUTE  &kp C_VOL_UP  &kp PG_UP          &mt F11 F1  &mt F12 F2  &hm LSHFT F3  &kp F4  &kp F5
-&kp LC(DE_A)  &kp LC(DE_X)  &kp LC(DE_C)  &kp LC(DE_V)  &kp LC(DE_Z)  &kp LEFT  &kp DOWN  &kp UP  &kp RIGHT  &kp DEL
-&kp LC(DE_V)  &kp C_PREV  &kp C_PP  &kp C_NEXT  &kp PSCRN             &kp F6  &kp F7  &kp F8  &kp F9  &kp F10
+&kp LC(DE_A)  &kp LS(DEL)  &kp LC(INS)  &kp LS(INS)  &kp LC(DE_Z)  &kp LEFT  &kp DOWN  &kp UP  &kp RIGHT  &kp DEL
+&kp LS(INS)  &kp C_PREV  &kp C_PP  &kp C_NEXT  &kp PSCRN             &kp F6  &kp F7  &kp F8  &kp F9  &kp F10
                  &lt EXTRA RET  &lt SIGNS SPACE  &sks LCTRL           &shft LSHFT LSHFT  &lt NUMMY SPACE  &lt NAV TAB
             >;
         };
 
         blue_layer {
             display-name = "Hosts / Settings";
-            // The USB key is intentionally USB+Linux, so returning to the Ubuntu cable
-            // also restores Linux shortcuts and Linux Unicode mode in one action.
+            // Host layout mnemonic:
+            //   row 2, A/S/D = Bluetooth Windows/Linux/macOS
+            //   row 3, Y/X/C = USB       Windows/Linux/macOS
+            // Additional BT profiles remain on F/G; recovery/settings occupy the rest.
             bindings = <
 &kp DE_EXLM  &kp C_VOL_DN  &kp LC(DE_Z)  &kp C_VOL_UP  &kp PG_UP     &mt F11 F1  &mt F12 F2  &hm LSHFT F3  &kp F4  &kp F5
-&bt0_win  &bt1_linux  &bt2_mac  &bt3_win  &bt4_linux                       &kp LEFT  &kp DOWN  &kp UP  &kp RIGHT  &kp DEL
-&bt BT_CLR  &os_win  &os_linux  &os_mac  &usb_linux                &out OUT_BLE  &out OUT_TOG  &studio_unlock  &kp F9  &kp F10
+&bt0_win  &bt1_linux  &bt2_mac  &bt3_win  &bt4_linux                 &kp LEFT  &kp DOWN  &kp UP  &kp RIGHT  &kp DEL
+&usb_win  &usb_linux  &usb_mac  &bt BT_CLR  &bt BT_CLR_ALL           &out OUT_BLE  &studio_unlock  &os_win  &os_linux  &os_mac
                  &lt EXTRA RET  &lt SIGNS SPACE  &sks LCTRL           &shft LSHFT LSHFT  &lt NUMMY SPACE  &lt NAV TAB
             >;
         };
@@ -560,7 +586,7 @@
             bindings = <
 &trans &trans &swh LGUI LG(TAB) &trans &trans   &trans &trans &trans &trans &trans
 &trans &trans &trans &trans &linux_undo_redo  &trans &trans &trans &trans &trans
-&trans &trans &trans &trans &kp PSCRN          &trans &trans &trans &trans &trans
+&trans &kp LC(DE_X) &kp LC(DE_C) &kp LC(DE_V) &kp PSCRN          &trans &trans &trans &trans &trans
              &trans &trans &trans              &trans &trans &trans
             >;
         };
@@ -569,8 +595,8 @@
             display-name = "Linux Nav overlay";
             bindings = <
 &trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans
-&trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans
-&trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans
+&trans &kp LC(DE_X) &kp LC(DE_C) &kp LC(DE_V) &trans   &trans &trans &trans &trans &trans
+&kp LC(DE_V) &trans &trans &trans &trans   &trans &trans &trans &trans &trans
              &trans &trans &trans   &trans &trans &trans
             >;
         };
