@@ -284,9 +284,11 @@
 
         // Short H/L moves by word; holding the same key moves to the matching
         // line boundary. The nested mod-morphs above preserve Shift selection.
+        // ZMK hold-taps always expose two binding cells; these fixed-action
+        // instances are therefore invoked with two ignored zero parameters.
         win_semantic_h: win_semantic_h {
             compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <0>;
+            #binding-cells = <2>;
             display-name = "Word back / line start";
             flavor = "tap-preferred";
             tapping-term-ms = <180>;
@@ -296,7 +298,7 @@
 
         win_semantic_l: win_semantic_l {
             compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <0>;
+            #binding-cells = <2>;
             display-name = "Word forward / line end";
             flavor = "tap-preferred";
             tapping-term-ms = <180>;
@@ -306,7 +308,7 @@
 
         mac_semantic_h: mac_semantic_h {
             compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <0>;
+            #binding-cells = <2>;
             display-name = "Word back / line start (macOS)";
             flavor = "tap-preferred";
             tapping-term-ms = <180>;
@@ -316,7 +318,7 @@
 
         mac_semantic_l: mac_semantic_l {
             compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <0>;
+            #binding-cells = <2>;
             display-name = "Word forward / line end (macOS)";
             flavor = "tap-preferred";
             tapping-term-ms = <180>;
@@ -326,7 +328,7 @@
 
         win_delete_back: win_delete_back {
             compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <0>;
+            #binding-cells = <2>;
             display-name = "Delete word back / delete to line start";
             flavor = "tap-preferred";
             tapping-term-ms = <250>;
@@ -336,7 +338,7 @@
 
         win_delete_forward: win_delete_forward {
             compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <0>;
+            #binding-cells = <2>;
             display-name = "Delete word forward / delete to line end";
             flavor = "tap-preferred";
             tapping-term-ms = <250>;
@@ -346,7 +348,7 @@
 
         mac_delete_back: mac_delete_back {
             compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <0>;
+            #binding-cells = <2>;
             display-name = "Delete word back / delete to line start (macOS)";
             flavor = "tap-preferred";
             tapping-term-ms = <250>;
@@ -356,7 +358,7 @@
 
         mac_delete_forward: mac_delete_forward {
             compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <0>;
+            #binding-cells = <2>;
             display-name = "Delete word forward / delete to line end (macOS)";
             flavor = "tap-preferred";
             tapping-term-ms = <250>;
@@ -784,7 +786,7 @@
             // Hold NUM + tap/hold Backspace = delete next word/to line end. Z = lock.
             bindings = <
 &none  &win_close_reopen  &swh LALT LA(TAB)  &swh LCTRL LC(TAB)  &kp LC(DE_T)        &kp LG(DE_L)  &none  &kp LC(DE_PLUS)  &none  &kp LC(DE_P)
-&kp LC(DE_A)  &kp LC(DE_S)  &none  &kp LC(DE_F)  &win_undo_redo        &win_semantic_h  &kp LA(RIGHT)  &kp LA(LEFT)  &win_semantic_l  &win_delete_back
+&kp LC(DE_A)  &kp LC(DE_S)  &none  &kp LC(DE_F)  &win_undo_redo        &win_semantic_h 0 0  &kp LA(RIGHT)  &kp LA(LEFT)  &win_semantic_l 0 0  &win_delete_back 0 0
 &none  &kp LS(DEL)  &kp LC(INS)  &kp LS(INS)  &kp LG(LS(DE_S))      &none  &none  &none  &none  &kp LC(DE_MINS)
                  &lt EXTRA RET  &lt SIGNS SPACE  &sks LCTRL              &shft LSHFT LSHFT  &mo NUMMY  &kp TAB
             >;
@@ -870,7 +872,7 @@
             display-name = "macOS Extra semantic overlay";
             bindings = <
 &trans  &mac_close_reopen  &swh LGUI LG(TAB)  &trans  &kp LG(DE_T)   &kp LC(LG(DE_Q)) &trans &kp LG(DE_PLUS) &trans &kp LG(DE_P)
-&kp LG(DE_A)  &kp LG(DE_S)  &none  &kp LG(DE_F)  &mac_undo_redo  &mac_semantic_h &kp LG(LA(N6)) &kp LG(LA(N5)) &mac_semantic_l &mac_delete_back
+&kp LG(DE_A)  &kp LG(DE_S)  &none  &kp LG(DE_F)  &mac_undo_redo  &mac_semantic_h 0 0 &kp LG(LA(N6)) &kp LG(LA(N5)) &mac_semantic_l 0 0 &mac_delete_back 0 0
 &trans  &kp LG(DE_X)  &kp LG(DE_C)  &kp LG(DE_V)  &kp LG(LS(N3))   &trans &trans &trans &trans &kp LG(DE_MINS)
              &trans &trans &trans   &trans &trans &trans
             >;
@@ -912,7 +914,7 @@
             display-name = "EXTRA + NUM forward-delete overlay";
             bindings = <
 &trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans
-&trans &trans &trans &trans &trans   &trans &trans &trans &trans &win_delete_forward
+&trans &trans &trans &trans &trans   &trans &trans &trans &trans &win_delete_forward 0 0
 &trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans
              &trans &trans &trans   &trans &trans &trans
             >;
@@ -922,7 +924,7 @@
             display-name = "macOS EXTRA + NUM forward-delete overlay";
             bindings = <
 &trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans
-&trans &trans &trans &trans &trans   &trans &trans &trans &trans &mac_delete_forward
+&trans &trans &trans &trans &trans   &trans &trans &trans &trans &mac_delete_forward 0 0
 &trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans
              &trans &trans &trans   &trans &trans &trans
             >;
