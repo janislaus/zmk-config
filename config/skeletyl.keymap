@@ -6,6 +6,12 @@
 #include <dt-bindings/zmk/outputs.h>
 #include <dt-bindings/zmk/modifiers.h>
 
+// Hardware-specific settings action. Boards with RGB can override this before
+// including this keymap; the Skeletyl keeps its existing BLUE+Q exclamation.
+#ifndef SETTINGS_PRIMARY
+#define SETTINGS_PRIMARY &kp DE_EXLM
+#endif
+
 #define DEFAULT       0
 // OS state layers deliberately sit below every functional layer. This lets
 // macOS override Base symbols without leaking those overrides into NUMMY, etc.
@@ -818,7 +824,7 @@
             //   row 3, Y/X/C = USB       Windows/Linux/macOS
             // Additional BT profiles remain on F/G; recovery/settings occupy the rest.
             bindings = <
-&kp DE_EXLM  &kp C_VOL_DN  &kp LC(DE_Z)  &kp C_VOL_UP  &kp PG_UP     &mt F11 F1  &mt F12 F2  &hm LSHFT F3  &kp F4  &kp F5
+SETTINGS_PRIMARY  &kp C_VOL_DN  &kp LC(DE_Z)  &kp C_VOL_UP  &kp PG_UP     &mt F11 F1  &mt F12 F2  &hm LSHFT F3  &kp F4  &kp F5
 &bt0_win  &bt1_linux  &bt2_mac  &bt3_win  &bt4_linux                 &kp LEFT  &kp DOWN  &kp UP  &kp RIGHT  &kp DEL
 &usb_win  &usb_linux  &usb_mac  &bt BT_CLR  &bt BT_CLR_ALL           &out OUT_BLE  &studio_unlock  &os_win  &os_linux  &os_mac
                  &lt EXTRA RET  &lt SIGNS SPACE  &sks LCTRL           &shft LSHFT LSHFT  &lt NUMMY SPACE  &lt NAV TAB

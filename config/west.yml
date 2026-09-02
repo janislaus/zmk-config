@@ -4,6 +4,8 @@ manifest:
       url-base: https://github.com/zmkfirmware
     - name: urob
       url-base: https://github.com/urob
+    - name: keebart
+      url-base: https://github.com/Keebart
 
   projects:
     - name: zmk
@@ -14,6 +16,13 @@ manifest:
     - name: zmk-unicode
       remote: urob
       revision: main
+
+    # Keebart's maintained board, battery, RGB, and Sharp MIP display support.
+    # Pinning the exact revision keeps future builds reproducible.
+    - name: keebart-zmk-config
+      remote: keebart
+      repo-path: zmk-config
+      revision: 1354d3f1c62515a257128b700b85f0eb64f66af4
 
   self:
     path: config
