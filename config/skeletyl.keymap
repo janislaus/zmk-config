@@ -170,6 +170,20 @@
             bindings = <&kp>, <&kp>;
         };
 
+        // EXTRA right outer thumb: tapping remains Tab for app/tab switchers,
+        // while pressing immediately exposes the forward-delete overlay so a
+        // following Backspace is handled as Delete. Holding selects the layer.
+        fwd: forward_delete_tab {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            display-name = "Forward delete layer / Tab";
+            flavor = "tap-preferred";
+            tapping-term-ms = <180>;
+            quick-tap-ms = <0>;
+            hold-while-undecided;
+            bindings = <&mo>, <&kp>;
+        };
+
 
         // Semantic shortcuts with Shift-aware alternate actions. App/tab switching uses
         // only the hold-tap above and normal &kp events; there is no latched modifier
@@ -769,21 +783,21 @@
             // and no duplicate HJKL navigation. Unused positions intentionally swallow input.
             // W = close tab; Shift+W = reopen closed tab
             // E tap = one app switch immediately; E hold = hold the OS app-switch modifier.
-            // IMPORTANT: on EXTRA the right outer thumb is a plain &kp TAB (not &lt NAV TAB),
-            // so pressing it while E/R is held immediately resolves the hold and sends Tab.
-            // While E is held, tap the right outer thumb repeatedly to cycle; Shift+Tab reverses.
-            // R tap = one Ctrl+Tab immediately; R hold = hold Ctrl; the same plain Tab thumb cycles.
+            // On EXTRA the right outer NAV thumb is Tab when tapped and immediately
+            // exposes the forward-delete overlay while pressed. It therefore still
+            // cycles while E/R is held; Shift+Tab reverses.
+            // R tap = one Ctrl+Tab immediately; R hold = hold Ctrl; the same Tab thumb cycles.
             // T = new tab; A = select all; S = save; F = find
             // G = undo; Shift+G = redo; Windows uses X=Shift+Del, C=Ctrl+Ins, V=Shift+Ins.
             // Tap H/L = word back/forward; hold H/L = line start/end; Shift selects.
             // K/J = history back/forward, matching terminal/Vim history direction.
             // Tap Backspace = delete previous word; hold = delete to line start.
-            // Hold NUM + tap/hold Backspace = delete next word/to line end. Z = lock.
+            // Hold NAV + tap/hold Backspace = delete next word/to line end. Z = lock.
             bindings = <
 &none  &win_close_reopen  &swh LALT LA(TAB)  &swh LCTRL LC(TAB)  &kp LC(DE_T)        &kp LG(DE_L)  &none  &kp LC(DE_PLUS)  &none  &kp LC(DE_P)
 &kp LC(DE_A)  &kp LC(DE_S)  &none  &kp LC(DE_F)  &win_undo_redo        &win_semantic_h 0 0  &kp LA(RIGHT)  &kp LA(LEFT)  &win_semantic_l 0 0  &win_delete_back 0 0
 &none  &kp LS(DEL)  &kp LC(INS)  &kp LS(INS)  &kp LG(LS(DE_S))      &none  &none  &none  &none  &kp LC(DE_MINS)
-                 &lt EXTRA RET  &lt SIGNS SPACE  &sks LCTRL              &shft LSHFT LSHFT  &mo EXTRA_NUM  &kp TAB
+                 &lt EXTRA RET  &lt SIGNS SPACE  &sks LCTRL              &shft LSHFT LSHFT  &lt NUMMY SPACE  &fwd EXTRA_NUM TAB
             >;
         };
 
