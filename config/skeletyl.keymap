@@ -387,17 +387,6 @@
             bindings = <&kp DE_CIRC>, <&kp SPACE>;
         };
 
-        mac_circ: mac_circ {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            display-name = "Circumflex (macOS German)";
-            // ^ is a dead key on the German macOS layout. Give macOS enough
-            // time to register it before Space commits the literal character.
-            wait-ms = <30>;
-            tap-ms = <30>;
-            bindings = <&kp DE_CIRC>, <&kp SPACE>;
-        };
-
         mac_tilde: mac_tilde {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
@@ -899,19 +888,20 @@
             bindings = <
 &trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans
 &trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans
-&mac_tilde &trans &trans &trans &mac_circ   &kp LA(N7) &kp LS(LA(N7)) &trans &trans &trans
+&mac_tilde &trans &trans &trans &kp DE_LABK   &kp LA(N7) &kp LS(LA(N7)) &trans &trans &trans
              &trans &trans &trans   &trans &trans &trans
             >;
         };
 
         mac_signs_layer {
             display-name = "macOS Symbols overlay";
-            // German macOS uses Option+5/6/7/8/9 for []|{} and
-            // Shift+Option+7 for backslash.
+            // This Mac reports the ISO ^/° and </> positions swapped relative
+            // to Windows/Linux: GRAVE produces < and NON_US_BACKSLASH produces ^.
+            // Option+5/6/7/8/9 provides []|{}; Shift+Option+7 is backslash.
             bindings = <
-&trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans
-&trans &kp LA(N8) &kp LA(N5) &trans &trans   &trans &trans &kp LA(N6) &kp LA(N9) &trans
-&mac_tilde &trans &trans &trans &mac_circ   &kp LA(N7) &kp LS(LA(N7)) &trans &trans &trans
+&trans &trans &kp LS(DE_LABK) &trans &trans   &trans &trans &trans &trans &trans
+&trans &kp LA(N8) &kp LA(N5) &trans &kp DE_CIRC   &kp LS(DE_CIRC) &trans &kp LA(N6) &kp LA(N9) &trans
+&mac_tilde &trans &trans &trans &kp DE_LABK   &kp LA(N7) &kp LS(LA(N7)) &trans &trans &trans
              &trans &trans &trans   &trans &trans &trans
             >;
         };
