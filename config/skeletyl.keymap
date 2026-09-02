@@ -387,6 +387,17 @@
             bindings = <&kp DE_CIRC>, <&kp SPACE>;
         };
 
+        mac_circ: mac_circ {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            display-name = "Circumflex (macOS German)";
+            // ^ is a dead key on the German macOS layout. Give macOS enough
+            // time to register it before Space commits the literal character.
+            wait-ms = <30>;
+            tap-ms = <30>;
+            bindings = <&kp DE_CIRC>, <&kp SPACE>;
+        };
+
         mac_tilde: mac_tilde {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
@@ -702,13 +713,8 @@
             then-layer = <MAC_SIGNS>;
         };
 
-        extra_num {
-            if-layers = <EXTRA NUMMY>;
-            then-layer = <EXTRA_NUM>;
-        };
-
         mac_extra_num {
-            if-layers = <MAC_MODE EXTRA NUMMY>;
+            if-layers = <MAC_MODE EXTRA_NUM>;
             then-layer = <MAC_EXTRA_NUM>;
         };
     };
@@ -788,7 +794,7 @@
 &none  &win_close_reopen  &swh LALT LA(TAB)  &swh LCTRL LC(TAB)  &kp LC(DE_T)        &kp LG(DE_L)  &none  &kp LC(DE_PLUS)  &none  &kp LC(DE_P)
 &kp LC(DE_A)  &kp LC(DE_S)  &none  &kp LC(DE_F)  &win_undo_redo        &win_semantic_h 0 0  &kp LA(RIGHT)  &kp LA(LEFT)  &win_semantic_l 0 0  &win_delete_back 0 0
 &none  &kp LS(DEL)  &kp LC(INS)  &kp LS(INS)  &kp LG(LS(DE_S))      &none  &none  &none  &none  &kp LC(DE_MINS)
-                 &lt EXTRA RET  &lt SIGNS SPACE  &sks LCTRL              &shft LSHFT LSHFT  &mo NUMMY  &kp TAB
+                 &lt EXTRA RET  &lt SIGNS SPACE  &sks LCTRL              &shft LSHFT LSHFT  &mo EXTRA_NUM  &kp TAB
             >;
         };
 
@@ -872,7 +878,7 @@
             display-name = "macOS Extra semantic overlay";
             bindings = <
 &trans  &mac_close_reopen  &swh LGUI LG(TAB)  &trans  &kp LG(DE_T)   &kp LC(LG(DE_Q)) &trans &kp LG(DE_PLUS) &trans &kp LG(DE_P)
-&kp LG(DE_A)  &kp LG(DE_S)  &none  &kp LG(DE_F)  &mac_undo_redo  &mac_semantic_h 0 0 &kp LG(LA(N6)) &kp LG(LA(N5)) &mac_semantic_l 0 0 &mac_delete_back 0 0
+&kp LG(DE_A)  &kp LG(DE_S)  &none  &kp LG(DE_F)  &mac_undo_redo  &mac_semantic_h 0 0 &kp LG(RIGHT) &kp LG(LEFT) &mac_semantic_l 0 0 &mac_delete_back 0 0
 &trans  &kp LG(DE_X)  &kp LG(DE_C)  &kp LG(DE_V)  &kp LG(LS(N3))   &trans &trans &trans &trans &kp LG(DE_MINS)
              &trans &trans &trans   &trans &trans &trans
             >;
@@ -893,7 +899,7 @@
             bindings = <
 &trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans
 &trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans
-&mac_tilde &trans &trans &trans &trans   &kp LA(N7) &kp LS(LA(N7)) &trans &trans &trans
+&mac_tilde &trans &trans &trans &mac_circ   &kp LA(N7) &kp LS(LA(N7)) &trans &trans &trans
              &trans &trans &trans   &trans &trans &trans
             >;
         };
@@ -905,7 +911,7 @@
             bindings = <
 &trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans
 &trans &kp LA(N8) &kp LA(N5) &trans &trans   &trans &trans &kp LA(N6) &kp LA(N9) &trans
-&mac_tilde &trans &trans &trans &trans   &kp LA(N7) &kp LS(LA(N7)) &trans &trans &trans
+&mac_tilde &trans &trans &trans &mac_circ   &kp LA(N7) &kp LS(LA(N7)) &trans &trans &trans
              &trans &trans &trans   &trans &trans &trans
             >;
         };
