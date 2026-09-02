@@ -10,12 +10,12 @@ manifest:
   projects:
     - name: zmk
       remote: zmkfirmware
-      revision: main
+      revision: v0.3
       import: app/west.yml
 
     - name: zmk-unicode
       remote: urob
-      revision: main
+      revision: v0.3
 
     # Keebart's maintained board, battery, RGB, and Sharp MIP display support.
     # Pinning the exact revision keeps future builds reproducible.

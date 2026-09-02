@@ -1,22 +1,20 @@
-# Current ZMK main / Zephyr 4.1 build matrix.
+# Stable ZMK 0.3 build matrix, matching Keebart's maintained board package.
 #
 # IMPORTANT: your old config used `board: nice_nano`, which means nice!nano V1.
-# On current ZMK this maps to `nice_nano@1//zmk`.
-# If your controllers are actually nice!nano V2, replace every
-# `nice_nano@1//zmk` below with `nice_nano//zmk`.
+# ZMK 0.3 names V2 separately as `nice_nano_v2`.
 ---
 include:
-  - board: nice_nano@1//zmk
+  - board: nice_nano
     shield: skeletyl_left
     snippet: studio-rpc-usb-uart
     cmake-args: -DCONFIG_ZMK_STUDIO=y
     artifact-name: skeletyl-left
 
-  - board: nice_nano@1//zmk
+  - board: nice_nano
     shield: skeletyl_right
     artifact-name: skeletyl-right
 
-  - board: nice_nano@1//zmk
+  - board: nice_nano
     shield: settings_reset
     artifact-name: settings-reset
 
