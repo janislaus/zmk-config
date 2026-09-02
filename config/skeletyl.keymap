@@ -25,6 +25,8 @@
 #define MAC_NAV      14
 #define MAC_NUMMY    15
 #define MAC_SIGNS    16
+#define EXTRA_NUM    17
+#define MAC_EXTRA_NUM 18
 
 #define STICKY_TIMEOUT_MS 500
 
@@ -280,70 +282,86 @@
             mods = <(MOD_LSFT|MOD_RSFT)>;
         };
 
-        // Sticky Alt + H/L becomes browser/Finder history. The Alt/Option used
-        // as the semantic selector is masked by mod-morph.
-        win_history_back: win_history_back {
-            compatible = "zmk,behavior-mod-morph";
+        // Short H/L moves by word; holding the same key moves to the matching
+        // line boundary. The nested mod-morphs above preserve Shift selection.
+        win_semantic_h: win_semantic_h {
+            compatible = "zmk,behavior-hold-tap";
             #binding-cells = <0>;
-            display-name = "Word back / history back";
-            bindings = <&win_word_back>, <&kp LA(LEFT)>;
-            mods = <(MOD_LALT|MOD_RALT)>;
+            display-name = "Word back / line start";
+            flavor = "tap-preferred";
+            tapping-term-ms = <180>;
+            quick-tap-ms = <0>;
+            bindings = <&win_line_start>, <&win_word_back>;
         };
 
-        win_history_forward: win_history_forward {
-            compatible = "zmk,behavior-mod-morph";
+        win_semantic_l: win_semantic_l {
+            compatible = "zmk,behavior-hold-tap";
             #binding-cells = <0>;
-            display-name = "Word forward / history forward";
-            bindings = <&win_word_forward>, <&kp LA(RIGHT)>;
-            mods = <(MOD_LALT|MOD_RALT)>;
+            display-name = "Word forward / line end";
+            flavor = "tap-preferred";
+            tapping-term-ms = <180>;
+            quick-tap-ms = <0>;
+            bindings = <&win_line_end>, <&win_word_forward>;
         };
 
-        mac_history_back: mac_history_back {
-            compatible = "zmk,behavior-mod-morph";
+        mac_semantic_h: mac_semantic_h {
+            compatible = "zmk,behavior-hold-tap";
             #binding-cells = <0>;
-            display-name = "Word back / history back (macOS)";
-            bindings = <&mac_word_back>, <&kp LG(LA(N5))>;
-            mods = <(MOD_LALT|MOD_RALT)>;
+            display-name = "Word back / line start (macOS)";
+            flavor = "tap-preferred";
+            tapping-term-ms = <180>;
+            quick-tap-ms = <0>;
+            bindings = <&mac_line_start>, <&mac_word_back>;
         };
 
-        mac_history_forward: mac_history_forward {
-            compatible = "zmk,behavior-mod-morph";
+        mac_semantic_l: mac_semantic_l {
+            compatible = "zmk,behavior-hold-tap";
             #binding-cells = <0>;
-            display-name = "Word forward / history forward (macOS)";
-            bindings = <&mac_word_forward>, <&kp LG(LA(N6))>;
-            mods = <(MOD_LALT|MOD_RALT)>;
+            display-name = "Word forward / line end (macOS)";
+            flavor = "tap-preferred";
+            tapping-term-ms = <180>;
+            quick-tap-ms = <0>;
+            bindings = <&mac_line_end>, <&mac_word_forward>;
         };
 
         win_delete_back: win_delete_back {
-            compatible = "zmk,behavior-mod-morph";
+            compatible = "zmk,behavior-hold-tap";
             #binding-cells = <0>;
             display-name = "Delete word back / delete to line start";
-            bindings = <&kp LC(BSPC)>, <&win_delete_line_back>;
-            mods = <(MOD_LSFT|MOD_RSFT)>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <250>;
+            quick-tap-ms = <0>;
+            bindings = <&win_delete_line_back>, <&win_delete_word_back>;
         };
 
         win_delete_forward: win_delete_forward {
-            compatible = "zmk,behavior-mod-morph";
+            compatible = "zmk,behavior-hold-tap";
             #binding-cells = <0>;
             display-name = "Delete word forward / delete to line end";
-            bindings = <&kp LC(DEL)>, <&win_delete_line_forward>;
-            mods = <(MOD_LSFT|MOD_RSFT)>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <250>;
+            quick-tap-ms = <0>;
+            bindings = <&win_delete_line_forward>, <&win_delete_word_forward>;
         };
 
         mac_delete_back: mac_delete_back {
-            compatible = "zmk,behavior-mod-morph";
+            compatible = "zmk,behavior-hold-tap";
             #binding-cells = <0>;
             display-name = "Delete word back / delete to line start (macOS)";
-            bindings = <&kp LA(BSPC)>, <&mac_delete_line_back>;
-            mods = <(MOD_LSFT|MOD_RSFT)>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <250>;
+            quick-tap-ms = <0>;
+            bindings = <&mac_delete_line_back>, <&mac_delete_word_back>;
         };
 
         mac_delete_forward: mac_delete_forward {
-            compatible = "zmk,behavior-mod-morph";
+            compatible = "zmk,behavior-hold-tap";
             #binding-cells = <0>;
             display-name = "Delete word forward / delete to line end (macOS)";
-            bindings = <&kp LA(DEL)>, <&mac_delete_line_forward>;
-            mods = <(MOD_LSFT|MOD_RSFT)>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <250>;
+            quick-tap-ms = <0>;
+            bindings = <&mac_delete_line_forward>, <&mac_delete_word_forward>;
         };
     };
 
@@ -374,6 +392,42 @@
             wait-ms = <10>;
             tap-ms = <10>;
             bindings = <&kp LA(DE_N)>, <&kp SPACE>;
+        };
+
+        win_delete_word_back: win_delete_word_back {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            display-name = "Delete previous word";
+            wait-ms = <0>;
+            tap-ms = <10>;
+            bindings = <&kp LC(BSPC)>;
+        };
+
+        win_delete_word_forward: win_delete_word_forward {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            display-name = "Delete next word";
+            wait-ms = <0>;
+            tap-ms = <10>;
+            bindings = <&kp LC(DEL)>;
+        };
+
+        mac_delete_word_back: mac_delete_word_back {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            display-name = "Delete previous word (macOS)";
+            wait-ms = <0>;
+            tap-ms = <10>;
+            bindings = <&kp LA(BSPC)>;
+        };
+
+        mac_delete_word_forward: mac_delete_word_forward {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            display-name = "Delete next word (macOS)";
+            wait-ms = <0>;
+            tap-ms = <10>;
+            bindings = <&kp LA(DEL)>;
         };
 
         win_delete_line_back: win_delete_line_back {
@@ -520,35 +574,35 @@
         combo_app_launcher {
             timeout-ms = <80>;
             key-positions = <16 17 34>;
-            layers = <DEFAULT NUMMY SIGNS EXTRA NAV BLUE POLISH LINUX_MODE MAC_MODE LINUX_EXTRA LINUX_NAV MAC_EXTRA MAC_NAV>;
+            layers = <DEFAULT NUMMY SIGNS EXTRA NAV BLUE POLISH LINUX_MODE MAC_MODE LINUX_EXTRA LINUX_NAV MAC_EXTRA MAC_NAV MAC_NUMMY MAC_SIGNS EXTRA_NUM MAC_EXTRA_NUM>;
             bindings = <&sl APP>;
         };
 
         combo_esc {
             timeout-ms = <80>;
             key-positions = <11 12 13 31>;
-            layers = <DEFAULT NUMMY SIGNS EXTRA NAV BLUE POLISH LINUX_MODE MAC_MODE LINUX_EXTRA LINUX_NAV MAC_EXTRA MAC_NAV>;
+            layers = <DEFAULT NUMMY SIGNS EXTRA NAV BLUE POLISH LINUX_MODE MAC_MODE LINUX_EXTRA LINUX_NAV MAC_EXTRA MAC_NAV MAC_NUMMY MAC_SIGNS EXTRA_NUM MAC_EXTRA_NUM>;
             bindings = <&kp ESC>;
         };
 
         combo_del {
             timeout-ms = <80>;
             key-positions = <1 2 3>;
-            layers = <DEFAULT NUMMY SIGNS EXTRA NAV BLUE POLISH LINUX_MODE MAC_MODE LINUX_EXTRA LINUX_NAV MAC_EXTRA MAC_NAV>;
+            layers = <DEFAULT NUMMY SIGNS EXTRA NAV BLUE POLISH LINUX_MODE MAC_MODE LINUX_EXTRA LINUX_NAV MAC_EXTRA MAC_NAV MAC_NUMMY MAC_SIGNS EXTRA_NUM MAC_EXTRA_NUM>;
             bindings = <&kp DEL>;
         };
 
         combo_bspc {
             timeout-ms = <80>;
             key-positions = <21 22 23>;
-            layers = <DEFAULT NUMMY SIGNS EXTRA NAV BLUE POLISH LINUX_MODE MAC_MODE LINUX_EXTRA LINUX_NAV MAC_EXTRA MAC_NAV>;
+            layers = <DEFAULT NUMMY SIGNS EXTRA NAV BLUE POLISH LINUX_MODE MAC_MODE LINUX_EXTRA LINUX_NAV MAC_EXTRA MAC_NAV MAC_NUMMY MAC_SIGNS EXTRA_NUM MAC_EXTRA_NUM>;
             bindings = <&kp BSPC>;
         };
 
         fishy {
             timeout-ms = <80>;
             key-positions = <17 18 34>;
-            layers = <DEFAULT NUMMY SIGNS EXTRA NAV BLUE POLISH LINUX_MODE MAC_MODE LINUX_EXTRA LINUX_NAV MAC_EXTRA MAC_NAV>;
+            layers = <DEFAULT NUMMY SIGNS EXTRA NAV BLUE POLISH LINUX_MODE MAC_MODE LINUX_EXTRA LINUX_NAV MAC_EXTRA MAC_NAV MAC_NUMMY MAC_SIGNS EXTRA_NUM MAC_EXTRA_NUM>;
             bindings = <&kp LA(M)>;
         };
 
@@ -559,7 +613,7 @@
         combo_alt {
             timeout-ms = <80>;
             key-positions = <30 31>;
-            layers = <DEFAULT NUMMY SIGNS EXTRA NAV BLUE POLISH LINUX_MODE MAC_MODE LINUX_EXTRA LINUX_NAV MAC_EXTRA MAC_NAV>;
+            layers = <DEFAULT NUMMY SIGNS EXTRA NAV BLUE POLISH LINUX_MODE MAC_MODE LINUX_EXTRA LINUX_NAV MAC_EXTRA MAC_NAV MAC_NUMMY MAC_SIGNS EXTRA_NUM MAC_EXTRA_NUM>;
             bindings = <&sks LALT>;
         };
 
@@ -568,7 +622,7 @@
         combo_lgui {
             timeout-ms = <80>;
             key-positions = <12 13 31>;
-            layers = <DEFAULT NUMMY SIGNS EXTRA NAV BLUE POLISH LINUX_MODE MAC_MODE LINUX_EXTRA LINUX_NAV MAC_EXTRA MAC_NAV>;
+            layers = <DEFAULT NUMMY SIGNS EXTRA NAV BLUE POLISH LINUX_MODE MAC_MODE LINUX_EXTRA LINUX_NAV MAC_EXTRA MAC_NAV MAC_NUMMY MAC_SIGNS EXTRA_NUM MAC_EXTRA_NUM>;
             bindings = <&sks LGUI>;
         };
 
@@ -577,14 +631,14 @@
         combo_shift {
             timeout-ms = <80>;
             key-positions = <31 32>;
-            layers = <DEFAULT NUMMY SIGNS EXTRA NAV BLUE POLISH LINUX_MODE MAC_MODE LINUX_EXTRA LINUX_NAV MAC_EXTRA MAC_NAV>;
+            layers = <DEFAULT NUMMY SIGNS EXTRA NAV BLUE POLISH LINUX_MODE MAC_MODE LINUX_EXTRA LINUX_NAV MAC_EXTRA MAC_NAV MAC_NUMMY MAC_SIGNS EXTRA_NUM MAC_EXTRA_NUM>;
             bindings = <&sks LSHFT>;
         };
 
         tmux {
             timeout-ms = <80>;
             key-positions = <11 12 31>;
-            layers = <DEFAULT NUMMY SIGNS EXTRA NAV BLUE POLISH LINUX_MODE MAC_MODE LINUX_EXTRA LINUX_NAV MAC_EXTRA MAC_NAV>;
+            layers = <DEFAULT NUMMY SIGNS EXTRA NAV BLUE POLISH LINUX_MODE MAC_MODE LINUX_EXTRA LINUX_NAV MAC_EXTRA MAC_NAV MAC_NUMMY MAC_SIGNS EXTRA_NUM MAC_EXTRA_NUM>;
             bindings = <&kp LA(J)>;
         };
 
@@ -593,7 +647,7 @@
         combo_polish {
             timeout-ms = <80>;
             key-positions = <34 35>;
-            layers = <DEFAULT NUMMY SIGNS EXTRA NAV BLUE LINUX_MODE MAC_MODE LINUX_EXTRA LINUX_NAV MAC_EXTRA MAC_NAV>;
+            layers = <DEFAULT NUMMY SIGNS EXTRA NAV BLUE LINUX_MODE MAC_MODE LINUX_EXTRA LINUX_NAV MAC_EXTRA MAC_NAV MAC_NUMMY MAC_SIGNS EXTRA_NUM MAC_EXTRA_NUM>;
             bindings = <&pls POLISH>;
         };
 
@@ -644,6 +698,16 @@
         mac_signs {
             if-layers = <MAC_MODE SIGNS>;
             then-layer = <MAC_SIGNS>;
+        };
+
+        extra_num {
+            if-layers = <EXTRA NUMMY>;
+            then-layer = <EXTRA_NUM>;
+        };
+
+        mac_extra_num {
+            if-layers = <MAC_MODE EXTRA NUMMY>;
+            then-layer = <MAC_EXTRA_NUM>;
         };
     };
 
@@ -714,14 +778,15 @@
             // R tap = one Ctrl+Tab immediately; R hold = hold Ctrl; the same plain Tab thumb cycles.
             // T = new tab; A = select all; S = save; F = find
             // G = undo; Shift+G = redo; Windows uses X=Shift+Del, C=Ctrl+Ins, V=Shift+Ins.
-            // H/L = word back/forward; J/K = line start/end; Shift selects.
-            // Sticky Alt + H/L = history back/forward. D/Backspace delete by word;
-            // Shift+D/Backspace delete to line end/start. Z = lock.
+            // Tap H/L = word back/forward; hold H/L = line start/end; Shift selects.
+            // K/J = history back/forward, matching terminal/Vim history direction.
+            // Tap Backspace = delete previous word; hold = delete to line start.
+            // Hold NUM + tap/hold Backspace = delete next word/to line end. Z = lock.
             bindings = <
 &none  &win_close_reopen  &swh LALT LA(TAB)  &swh LCTRL LC(TAB)  &kp LC(DE_T)        &kp LG(DE_L)  &none  &kp LC(DE_PLUS)  &none  &kp LC(DE_P)
-&kp LC(DE_A)  &kp LC(DE_S)  &win_delete_forward  &kp LC(DE_F)  &win_undo_redo        &win_history_back  &win_line_start  &win_line_end  &win_history_forward  &win_delete_back
+&kp LC(DE_A)  &kp LC(DE_S)  &none  &kp LC(DE_F)  &win_undo_redo        &win_semantic_h  &kp LA(RIGHT)  &kp LA(LEFT)  &win_semantic_l  &win_delete_back
 &none  &kp LS(DEL)  &kp LC(INS)  &kp LS(INS)  &kp LG(LS(DE_S))      &none  &none  &none  &none  &kp LC(DE_MINS)
-                 &lt EXTRA RET  &lt SIGNS SPACE  &sks LCTRL              &shft LSHFT LSHFT  &lt NUMMY SPACE  &kp TAB
+                 &lt EXTRA RET  &lt SIGNS SPACE  &sks LCTRL              &shft LSHFT LSHFT  &mo NUMMY  &kp TAB
             >;
         };
 
@@ -805,7 +870,7 @@
             display-name = "macOS Extra semantic overlay";
             bindings = <
 &trans  &mac_close_reopen  &swh LGUI LG(TAB)  &trans  &kp LG(DE_T)   &kp LC(LG(DE_Q)) &trans &kp LG(DE_PLUS) &trans &kp LG(DE_P)
-&kp LG(DE_A)  &kp LG(DE_S)  &mac_delete_forward  &kp LG(DE_F)  &mac_undo_redo  &mac_history_back &mac_line_start &mac_line_end &mac_history_forward &mac_delete_back
+&kp LG(DE_A)  &kp LG(DE_S)  &none  &kp LG(DE_F)  &mac_undo_redo  &mac_semantic_h &kp LG(LA(N6)) &kp LG(LA(N5)) &mac_semantic_l &mac_delete_back
 &trans  &kp LG(DE_X)  &kp LG(DE_C)  &kp LG(DE_V)  &kp LG(LS(N3))   &trans &trans &trans &trans &kp LG(DE_MINS)
              &trans &trans &trans   &trans &trans &trans
             >;
@@ -839,6 +904,26 @@
 &trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans
 &trans &kp LA(N8) &kp LA(N5) &trans &trans   &trans &trans &kp LA(N6) &kp LA(N9) &trans
 &mac_tilde &trans &trans &trans &trans   &kp LA(N7) &kp LS(LA(N7)) &trans &trans &trans
+             &trans &trans &trans   &trans &trans &trans
+            >;
+        };
+
+        extra_num_layer {
+            display-name = "EXTRA + NUM forward-delete overlay";
+            bindings = <
+&trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans
+&trans &trans &trans &trans &trans   &trans &trans &trans &trans &win_delete_forward
+&trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans
+             &trans &trans &trans   &trans &trans &trans
+            >;
+        };
+
+        mac_extra_num_layer {
+            display-name = "macOS EXTRA + NUM forward-delete overlay";
+            bindings = <
+&trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans
+&trans &trans &trans &trans &trans   &trans &trans &trans &trans &mac_delete_forward
+&trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans
              &trans &trans &trans   &trans &trans &trans
             >;
         };
